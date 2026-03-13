@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MORPH / TAEHAN LEE</title>
     <style>
-        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -13,27 +12,24 @@
         }
 
         body {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #ffffff; /* 순백색 배경 */
+            color: #000000; /* 진한 검은색 글자 */
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
         }
 
-        /* Top Bar: iPhone Liquid Glass Effect */
+        /* 리퀴드 글래스 헤더 */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 80px;
-            /* 리퀴드 글래스 핵심: 낮은 투명도와 강한 블러 */
-            background: rgba(255, 255, 255, 0.35); 
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            /* 유리 질감을 내는 미세한 외곽선 */
+            background: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
             display: flex;
             align-items: center;
@@ -45,12 +41,88 @@
             font-weight: 500;
             font-size: 18px;
             letter-spacing: 0.5em;
-            color: rgba(0, 0, 0, 0.9);
+            color: #000000 !important; /* 무조건 검게 보이도록 */
         }
 
-        /* Navigation: Sequence & Archive */
+        /* 메뉴 (Sequence / Archive) */
         nav {
-            margin-top: 140px; /* 헤더 공간 확보 */
+            margin-top: 140px;
             padding: 0 40px;
             display: flex;
-            gap: 4
+            gap: 40px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #888;
+            font-size: 11px;
+            font-family: "SF Mono", monospace;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #000;
+        }
+
+        /* 메인 아카이브 리스트 */
+        main {
+            padding: 40px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 25px 0;
+            border-bottom: 0.5px solid #f0f0f0;
+            font-size: 13px;
+            color: #000;
+        }
+
+        /* 하단 푸터 (이름 & 인스타) */
+        footer {
+            padding: 100px 40px 60px 40px;
+            font-family: "SF Mono", monospace;
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+        }
+
+        footer a {
+            color: #000;
+            text-decoration: none;
+            border-bottom: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">MORPH</div>
+    </header>
+
+    <nav>
+        <a href="#">SEQUENCE 1.0</a>
+        <a href="#">ARCHIVE</a>
+    </nav>
+
+    <main>
+        <div class="item">
+            <span>PROJECT. 001 / BOUNDARY RECONSTRUCTION</span>
+            <span>2026</span>
+        </div>
+        <div class="item">
+            <span>PROJECT. 002 / TECHNICAL MUTATION</span>
+            <span>2025</span>
+        </div>
+    </main>
+
+    <footer>
+        <div>DESIGN BY TAEHAN LEE</div>
+        <div>
+            <a href="https://www.instagram.com/morph_l.a.b/" target="_blank">INSTAGRAM @MORPH_L.A.B</a>
+        </div>
+    </footer>
+
+</body>
+</html>
