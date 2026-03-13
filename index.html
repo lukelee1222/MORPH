@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MORPH / TAEHAN LEE</title>
     <style>
+        /* 1. 기본 셋팅: PAF 특유의 차갑고 정제된 화이트 */
         * {
             margin: 0;
             padding: 0;
@@ -17,27 +18,28 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-transform: uppercase;
             -webkit-font-smoothing: antialiased;
-            padding: 20px; /* 전체 여백 */
+            padding: 30px;
+            letter-spacing: 0.02em;
         }
 
-        /* 1. 중앙 리퀴드 글래스 (태한 님 최애 디자인) */
+        /* 2. 중앙 리퀴드 글래스 로고 (태한 님 최애 스타일) */
         header {
             position: fixed;
-            top: 30px;
+            top: 40px;
             left: 50%;
             transform: translateX(-50%);
-            width: 300px;
-            height: 70px;
+            width: 320px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 9999;
             border-radius: 100px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(25px) saturate(180%);
             -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
         }
 
         .logo {
@@ -47,54 +49,97 @@
             color: #000;
         }
 
-        /* 2. PAF 스타일 왼쪽 상단 리스트 (이름들) */
-        .info-section {
+        /* 3. 왼쪽 상단: 인포 섹션 (PAF 스타일) */
+        .info {
             font-size: 11px;
-            line-height: 1.4;
-            letter-spacing: 0.02em;
-            margin-top: 100px; /* 헤더 피하기 */
-            margin-bottom: 30px;
+            line-height: 1.5;
+            margin-top: 100px;
+            margin-bottom: 25px;
             font-weight: 400;
         }
 
-        /* 3. 태한 님이 말한 'Shop' 위치의 메뉴 (Sequence / Archive) */
+        /* 4. SHOP 위치의 메뉴: Sequence & Archive */
         nav {
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
-        .menu-item {
-            display: block; /* 한 줄에 하나씩 */
+        nav a {
+            display: block;
             font-size: 11px;
             text-decoration: none;
             color: #000;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            transition: opacity 0.3s;
         }
 
-        .menu-item::after {
-            content: " →"; /* PAF 특유의 화살표 */
+        nav a::after {
+            content: " →";
         }
 
-        .menu-item:hover {
-            color: #888;
+        nav a:hover {
+            opacity: 0.4;
         }
 
-        /* 4. 메인 아카이브 리스트 */
+        /* 5. 메인 리스트 및 이미지 공간 */
         main {
-            border-top: 0.5px solid #eee;
+            border-top: 1px solid #f0f0f0;
             padding-top: 20px;
         }
 
-        .project-row {
+        .list-item {
             font-size: 11px;
+            margin-bottom: 5px;
             color: #000;
-            margin-bottom: 4px;
-            cursor: pointer;
         }
 
+        /* 푸터: 인스타그램 */
         footer {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
+            bottom: 30px;
+            left: 30px;
             font-size: 10px;
-            color: #ccc;
         }
+
+        footer a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">MORPH</div>
+    </header>
+
+    <div class="info">
+        TAEHAN LEE<br>
+        MORPH L.A.B<br>
+        2026 ARCHIVE<br>
+        SEOUL, KR
+    </div>
+
+    <nav>
+        <a href="#">SEQUENCE 1.0</a>
+        <a href="#">ARCHIVE</a>
+    </nav>
+
+    <main>
+        <div class="list-item">001 PRE-MUTATION (GASTRONOMY)</div>
+        <div class="list-item">002 STRUCTURAL ANALYSIS</div>
+        <div class="list-item">003 BOUNDARY RECONSTRUCTION</div>
+        
+        <div style="height: 1000px;"></div>
+    </main>
+
+    <footer>
+        <a href="https://www.instagram.com/morph_l.a.b/" target="_blank">INSTAGRAM @MORPH_L.A.B</a>
+    </footer>
+
+</body>
+</html>
