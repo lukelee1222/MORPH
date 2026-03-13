@@ -18,52 +18,54 @@
             text-transform: uppercase;
             letter-spacing: 0.15em;
             -webkit-font-smoothing: antialiased;
-            min-height: 250vh; /* 스크롤을 충분히 만들어 효과 확인 */
+            /* 스크롤이 가능해야 유리 효과를 확인할 수 있습니다 */
+            min-height: 200vh; 
         }
 
-        /* --- 초투명 리퀴드 글래스 헤더 --- */
+        /* --- 물방울 Liquid Glass 헤더 --- */
         header {
             position: fixed;
-            top: 20px; /* 화면 상단에서 살짝 띄워 물방울 느낌 강조 */
-            left: 5%;
+            top: 25px; 
+            left: 50%;
+            transform: translateX(-50%); /* 정확히 중앙 정렬 */
             width: 90%;
+            max-width: 1200px;
             height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            border-radius: 20px; /* 모서리를 둥글게 해서 더 물방울처럼 */
+            border-radius: 100px; /* 더 둥글게 해서 물방울 느낌 극대화 */
 
-            /* 극도로 낮은 투명도 (0.1) */
-            background: rgba(255, 255, 255, 0.1); 
+            /* 투명도와 블러 최적화 */
+            background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
             
-            /* 블러 수치를 조절해 맑은 느낌 유지 */
-            backdrop-filter: blur(15px) saturate(150%);
-            -webkit-backdrop-filter: blur(15px) saturate(150%);
-            
-            /* 유리 가장자리의 하이라이트 (이게 물방울 질감을 만듭니다) */
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+            /* 유리 질감을 만드는 핵심: 맺혀있는 듯한 테두리와 그림자 */
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03), 
+                        inset 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
         .logo {
             font-weight: 500;
-            font-size: 16px;
-            letter-spacing: 0.6em;
-            color: rgba(0, 0, 0, 0.8);
+            font-size: 15px;
+            letter-spacing: 0.7em;
+            color: rgba(0, 0, 0, 0.9);
         }
 
-        /* --- 콘텐츠 레이아웃 --- */
+        /* --- 배너 & 컨텐츠 --- */
         nav {
-            margin-top: 160px;
+            margin-top: 180px;
             padding: 0 50px;
             display: flex;
-            gap: 50px;
+            gap: 40px;
         }
 
         nav a {
             text-decoration: none;
-            color: #999;
+            color: #bbbbbb;
             font-size: 10px;
             font-family: "SF Mono", monospace;
             transition: 0.3s;
@@ -73,15 +75,22 @@
 
         main {
             padding: 50px;
+            text-align: center;
         }
 
-        /* 배경 테스트용 박스 (이 위를 지나갈 때 투명도가 보입니다) */
-        .visual-element {
+        /* 불필요한 검정 박스 대신 실제 사진이 들어갈 자리 가이드 */
+        .image-placeholder {
             width: 100%;
-            height: 400px;
-            margin-top: 30px;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-            border-radius: 5px;
+            max-width: 1000px;
+            height: 600px;
+            margin: 40px auto;
+            background: #f9f9f9; /* 아주 연한 회색으로 변경 */
+            border: 0.5px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ddd;
+            font-size: 11px;
         }
 
         footer {
@@ -90,6 +99,7 @@
             font-size: 10px;
             display: flex;
             justify-content: space-between;
+            color: #999;
         }
 
         footer a {
@@ -111,8 +121,8 @@
     </nav>
 
     <main>
-        <div class="visual-element"></div>
-        <div class="visual-element" style="background: #000; height: 200px;"></div> <div class="visual-element"></div>
+        <div class="image-placeholder">PROJECT_IMAGE_01_HERE</div>
+        <div class="image-placeholder">PROJECT_IMAGE_02_HERE</div>
     </main>
 
     <footer>
