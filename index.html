@@ -17,116 +17,84 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-transform: uppercase;
             -webkit-font-smoothing: antialiased;
-            min-height: 200vh;
+            padding: 20px; /* 전체 여백 */
         }
 
-        /* 1. 거대한 메인 타이틀 (PAF 스타일) */
-        .main-title {
-            font-size: 8vw; /* 화면 너비에 따라 커지는 압도적 크기 */
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            padding: 40px 20px 10px 20px;
-            line-height: 0.9;
-        }
-
-        /* 2. Shop 버튼 위치의 메뉴 (Sequence / Archive) */
-        nav {
-            padding: 0 25px;
-            margin-bottom: 100px;
-        }
-
-        .menu-link {
-            font-size: 14px;
-            text-decoration: none;
-            color: #000;
-            margin-right: 20px;
-            display: inline-block;
-            transition: opacity 0.3s;
-        }
-
-        .menu-link::after {
-            content: " →"; /* PAF 특유의 화살표 표시 */
-        }
-
-        .menu-link:hover {
-            opacity: 0.5;
-        }
-
-        /* 3. 태한 님이 대만족하신 리퀴드 글래스 로고 (중앙 고정) */
+        /* 1. 중앙 리퀴드 글래스 (태한 님 최애 디자인) */
         header {
             position: fixed;
             top: 30px;
             left: 50%;
             transform: translateX(-50%);
-            width: 320px;
-            height: 80px;
+            width: 300px;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
             border-radius: 100px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
         }
 
         .logo {
             font-weight: 500;
-            font-size: 18px;
+            font-size: 16px;
             letter-spacing: 0.6em;
-            color: rgba(0, 0, 0, 0.9);
-        }
-
-        /* 4. 작업물 리스트 (PAF 리스트 스타일) */
-        main {
-            padding: 0 25px;
-        }
-
-        .archive-item {
-            font-size: 12px;
-            line-height: 1.6;
-            margin-bottom: 2px;
             color: #000;
+        }
+
+        /* 2. PAF 스타일 왼쪽 상단 리스트 (이름들) */
+        .info-section {
+            font-size: 11px;
+            line-height: 1.4;
+            letter-spacing: 0.02em;
+            margin-top: 100px; /* 헤더 피하기 */
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        /* 3. 태한 님이 말한 'Shop' 위치의 메뉴 (Sequence / Archive) */
+        nav {
+            margin-bottom: 60px;
+        }
+
+        .menu-item {
+            display: block; /* 한 줄에 하나씩 */
+            font-size: 11px;
+            text-decoration: none;
+            color: #000;
+            margin-bottom: 4px;
+        }
+
+        .menu-item::after {
+            content: " →"; /* PAF 특유의 화살표 */
+        }
+
+        .menu-item:hover {
+            color: #888;
+        }
+
+        /* 4. 메인 아카이브 리스트 */
+        main {
+            border-top: 0.5px solid #eee;
+            padding-top: 20px;
+        }
+
+        .project-row {
+            font-size: 11px;
+            color: #000;
+            margin-bottom: 4px;
             cursor: pointer;
         }
 
-        .archive-item:hover {
-            font-weight: bold;
-        }
-
         footer {
-            padding: 100px 25px 40px 25px;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
             font-size: 10px;
-            color: #aaa;
+            color: #ccc;
         }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="logo">MORPH</div>
-    </header>
-
-    <h1 class="main-title">POST ARCHIVE<br>FACTION (MORPH)</h1>
-
-    <nav>
-        <a href="#" class="menu-link">SEQUENCE 1.0</a>
-        <a href="#" class="menu-link">ARCHIVE</a>
-    </nav>
-
-    <main>
-        <div class="archive-item">TAEHAN LEE</div>
-        <div class="archive-item">STRUCTURAL MUTATION</div>
-        <div class="archive-item">GASTRONOMY ARCHIVE</div>
-        <div class="archive-item">BOUNDARY RECONSTRUCTION</div>
-        <div class="archive-item">TECHNICAL FABRIC STUDY</div>
-        </main>
-
-    <footer>
-        <a href="https://www.instagram.com/morph_l.a.b/" target="_blank" style="color:#000; text-decoration:none; border-bottom:1px solid #000;">INSTAGRAM @MORPH_L.A.B</a>
-    </footer>
-
-</body>
-</html>
