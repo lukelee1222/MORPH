@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOALAM / ARCHIVE</title>
-    <style>
+    <.visual-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* 12컬럼 그리드 사용 */
+  gap: 10px;
+}
+.box-large { grid-column: span 8; } /* 큰 이미지 */
+.box-small { grid-column: span 4; margin-top: 50px; } /* 작은 이미지는 살짝 아래로 */>
         /* PAF Aesthetic: Technical, Minimal, Monochromatic */
         body {
             background-color: #0a0a0a; /* Deep matte black */
