@@ -23,7 +23,7 @@
             min-height: 200vh;
         }
 
-        /* --- 1. Liquid Glass Header (Ultra-clear Water Drop Effect) --- */
+        /* --- 1. Liquid Glass Header (Glossy Magnifying Water Drop Effect) --- */
         header {
             position: fixed;
             top: 25px; 
@@ -36,19 +36,24 @@
             z-index: 100; 
             border-radius: 50px; 
             
-            /* TRUE TRANSPARENCY: Almost invisible background, very low blur for clarity */
-            background: rgba(255, 255, 255, 0.01); 
-            backdrop-filter: blur(6px); /* Drastically reduced from 24px to 6px */
-            -webkit-backdrop-filter: blur(6px);
+            /* GLOSSY SHEEN: Diagonal gradient to simulate light hitting a curved water surface */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.05) 100%);
             
-            /* Water reflection edges: subtle dark outline to define shape on white background */
-            border: 1px solid rgba(0, 0, 0, 0.04); 
+            /* MAGNIFYING LENS EFFECT: Brightness and contrast make the background behind it "pop" */
+            backdrop-filter: blur(10px) brightness(1.15) contrast(1.1);
+            -webkit-backdrop-filter: blur(10px) brightness(1.15) contrast(1.1);
             
-            /* 3D Water Volume: Bright highlight on top, subtle refraction on bottom */
+            /* EDGE REFLECTION: Strong white gleam on top/left, subtle dark edge on bottom/right */
+            border-top: 1.5px solid rgba(255, 255, 255, 0.9);
+            border-left: 1.5px solid rgba(255, 255, 255, 0.6);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            
+            /* 3D VOLUME: Deep inner glow for the top convex curve, soft shadow for the bottom */
             box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.03), /* Gentle drop shadow */
-                inset 0 2px 4px rgba(255, 255, 255, 0.9), /* Bright top light reflection */
-                inset 0 -2px 4px rgba(0, 0, 0, 0.02); /* Inner depth */
+                0 15px 35px rgba(0, 0, 0, 0.06), 
+                inset 0 15px 20px rgba(255, 255, 255, 0.6), 
+                inset 0 -5px 15px rgba(0, 0, 0, 0.03);
         }
 
         /* Menu Trigger (PC version) */
