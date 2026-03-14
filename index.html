@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MORPH / TAEHAN LEE</title>
     <style>
         * {
@@ -20,11 +20,10 @@
             padding: 40px;
             letter-spacing: 0.05em;
             overflow-x: hidden;
-            /* 스크롤 테스트를 위해 여유 있는 높이 유지 */
-            min-height: 200vh; 
+            min-height: 200vh; /* Scroll to see the glass effect */
         }
 
-        /* --- 1. Liquid Glass Header (Apple iOS Style) --- */
+        /* --- 1. Liquid Glass Header (Unified for PC & Mobile) --- */
         header {
             position: fixed;
             top: 25px; 
@@ -37,23 +36,20 @@
             z-index: 100; 
             border-radius: 50px; 
             
-            /* APPLE FROSTED GLASS EFFECT */
-            /* 약간의 하얀 틴트를 주어 유리의 질감을 살림 */
-            background: rgba(255, 255, 255, 0.15); 
+            /* APPLE LIQUID GLASS EFFECT */
+            background: rgba(255, 255, 255, 0.12); 
             
-            /* 블러(15px)로 글자를 흐릿하게 만들고, saturate(180%)로 뒤에 비치는 색감을 선명하게 유지 */
-            backdrop-filter: blur(15px) saturate(180%);
-            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            /* High-performance blur for both PC and Mobile (Safari/Chrome) */
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             
-            /* 유리창의 얇은 경계선 */
+            /* Subtle glass borders */
             border: 1px solid rgba(255, 255, 255, 0.4);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* 아래쪽은 살짝 옅게 */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             
-            /* 아주 부드러운 기본 그림자 */
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
         }
 
-        /* Menu Trigger (PC version) */
         .menu-trigger {
             position: absolute;
             left: 50px; 
@@ -69,7 +65,6 @@
             opacity: 0.5;
         }
 
-        /* All-Black Burger Icon */
         .burger-icon {
             display: flex;
             flex-direction: column;
@@ -88,7 +83,6 @@
             font-weight: 500;
         }
 
-        /* Logo (PC version) */
         .logo {
             font-weight: 500;
             font-size: 22px;
@@ -124,16 +118,9 @@
             color: #000;
             margin-bottom: 30px;
             font-weight: 400;
-            transition: opacity 0.3s;
         }
         
-        .menu-item::after { 
-            content: " →"; 
-        }
-        
-        .menu-item:hover { 
-            opacity: 0.4; 
-        }
+        .menu-item::after { content: " →"; }
 
         .close-btn {
             position: absolute;
@@ -144,7 +131,7 @@
             color: #999;
         }
 
-        /* --- 3. Content Background --- */
+        /* --- 3. Content --- */
         .info {
             font-size: 14px;
             line-height: 1.6;
@@ -166,41 +153,29 @@
             color: #888;
             text-decoration: none;
             border-bottom: 1px solid #eee;
-            padding-bottom: 2px;
-            transition: color 0.3s;
         }
 
-        footer a:hover {
-            color: #000;
-            border-bottom-color: #000;
-        }
-
-        /* --- 4. MOBILE SPECIFIC FIXES --- */
+        /* --- 4. MOBILE FIX --- */
         @media (max-width: 768px) {
             header {
+                height: 70px; /* Slimmer for mobile but keeps effect */
+                top: 15px;
+                left: 15px;
+                right: 15px;
                 justify-content: space-between; 
-                padding: 0 25px; 
+                padding: 0 25px;
+                border-radius: 35px; /* Adjust radius for mobile size */
             }
 
             .menu-trigger {
                 position: relative; 
                 left: 0; 
-                gap: 10px;
                 padding: 5px;
             }
 
-            .burger-icon span {
-                width: 22px; 
-            }
-
-            .menu-text {
-                font-size: 12px;
-            }
-
             .logo {
-                font-size: 18px; 
-                letter-spacing: 0.4em; 
-                margin-right: 0; 
+                font-size: 16px;
+                letter-spacing: 0.3em;
             }
         }
     </style>
