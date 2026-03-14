@@ -32,7 +32,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10001; /* 메뉴판(10000)보다 높게 설정 */
+            z-index: 99999; /* 무조건 맨 위에 오도록 수치 극대화 */
             border-radius: 25px;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(25px) saturate(180%);
@@ -41,6 +41,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
         }
 
+        /* 메뉴 트리거 (삼색 아이콘 + MENU) */
         .menu-trigger {
             position: absolute;
             left: 40px;
@@ -48,6 +49,7 @@
             align-items: center;
             cursor: pointer;
             gap: 15px;
+            padding: 10px; /* 클릭 영역 확보 */
         }
 
         .burger-icon {
@@ -70,24 +72,30 @@
             letter-spacing: 0.6em;
         }
 
-        /* --- 2. 릭 오웬스 스타일 슬라이딩 메뉴판 --- */
+        /* --- 2. 슬라이딩 메뉴판 (라이트 그레이) --- */
         #sideMenu {
             position: fixed;
             top: 0;
-            left: -320px; /* 처음엔 완전히 숨김 */
-            width: 320px; /* 메뉴판 너비 */
-            height: 100%;
-            background-color: #f2f2f2; /* 요청하신 라이트 그레이 */
-            z-index: 10000;
-            padding: 160px 40px 40px 40px;
-            transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* 부드러운 슬라이딩 */
+            left: 0;
+            width: 250px; /* 태한님이 말씀하신 약 3cm 정도의 슬림한 폭 */
+            height: 100vh;
+            background-color: #e8e8e8; /* 확실한 라이트 그레이 */
+            z-index: 10000; /* 헤더보다 아래에서 나타남 */
+            padding: 150px 40px 40px 40px;
+            
+            /* 핵심: 화면 왼쪽 밖으로 100% 밀어둠 */
+            transform: translateX(-100%); 
+            /* 부드럽고 쫀득한 슬라이딩 애니메이션 */
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
             display: flex;
             flex-direction: column;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.05);
         }
 
-        /* 메뉴 열기 상태: 왼쪽 끝을 0에 맞춤 */
+        /* JS가 'active' 클래스를 붙이면 원래 자리(0)로 슥 밀려옴 */
         #sideMenu.active {
-            left: 0;
+            transform: translateX(0);
         }
 
         .menu-item {
@@ -96,20 +104,21 @@
             text-decoration: none;
             color: #000;
             margin-bottom: 25px;
-            font-weight: 400;
+            font-weight: 500;
             transition: opacity 0.3s;
         }
+        .menu-item::after { content: " →"; }
         .menu-item:hover { opacity: 0.4; }
 
         .close-btn {
             margin-top: auto;
             font-size: 11px;
-            color: #999;
+            color: #888;
             cursor: pointer;
-            padding-bottom: 20px;
+            padding: 10px 0;
         }
 
-        /* --- 3. 배경 레이아웃 --- */
+        /* --- 3. 배경 컨텐츠 --- */
         .info {
             font-size: 14px;
             line-height: 1.6;
@@ -123,13 +132,13 @@
             transform: translateX(-50%);
             font-size: 13px;
         }
-        footer a { color: #ccc; text-decoration: none; }
+        footer a { color: #ccc; text-decoration: none; border-bottom: 1px solid #eee; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="menu-trigger" onclick="openMenu()">
+        <div class="menu-trigger" id="menuBtn">
             <div class="burger-icon">
                 <span class="line-red"></span>
                 <span class="line-blue"></span>
@@ -143,7 +152,7 @@
     <div id="sideMenu">
         <a href="#" class="menu-item">SEQUENCE 1.0</a>
         <a href="#" class="menu-item">ARCHIVE</a>
-        <div class="close-btn" onclick="closeMenu()">✕ CLOSE</div>
+        <div class="close-btn" id="closeBtn">✕ CLOSE</div>
     </div>
 
     <div class="info">
@@ -156,12 +165,21 @@
     </footer>
 
     <script>
-        function openMenu() {
-            document.getElementById('sideMenu').classList.add('active');
-        }
-        function closeMenu() {
-            document.getElementById('sideMenu').classList.remove('active');
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menuBtn');
+            const closeBtn = document.getElementById('closeBtn');
+            const sideMenu = document.getElementById('sideMenu');
+
+            // 메뉴 버튼을 누르면 'active' 클래스 추가 (열림)
+            menuBtn.addEventListener('click', () => {
+                sideMenu.classList.add('active');
+            });
+
+            // 닫기 버튼을 누르면 'active' 클래스 제거 (닫힘)
+            closeBtn.addEventListener('click', () => {
+                sideMenu.classList.remove('active');
+            });
+        });
     </script>
 
 </body>
