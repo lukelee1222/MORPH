@@ -23,7 +23,7 @@
             min-height: 200vh;
         }
 
-        /* --- 1. Liquid Glass Header (More transparent, like a water drop) --- */
+        /* --- 1. Liquid Glass Header (Water Drop Effect) --- */
         header {
             position: fixed;
             top: 25px; 
@@ -34,19 +34,22 @@
             align-items: center;
             justify-content: center;
             z-index: 100; 
-            border-radius: 25px;
-            /* Made the background more transparent and adjusted blur for a water-like effect */
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px) saturate(160%);
-            -webkit-backdrop-filter: blur(12px) saturate(160%);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            border-radius: 40px; /* Made the pill shape slightly rounder like a water drop */
+            
+            /* Extremely transparent background, strong blur, and delicate borders */
+            background: rgba(255, 255, 255, 0.05); /* Almost completely transparent */
+            backdrop-filter: blur(15px) saturate(120%); /* Strong blur, mild saturation */
+            -webkit-backdrop-filter: blur(15px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.6); /* Clear white edge */
+            box-shadow: 
+                0 4px 30px rgba(0, 0, 0, 0.05), /* Outer soft shadow */
+                inset 0 0 10px rgba(255, 255, 255, 0.3); /* Inner glow for 3D effect */
         }
 
         /* Menu Trigger (PC version) */
         .menu-trigger {
             position: absolute;
-            left: 40px;
+            left: 50px; /* Pulled further left to give PC more space */
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -165,25 +168,36 @@
             border-bottom-color: #000;
         }
 
-        /* --- 4. MOBILE SPECIFIC FIXES (Prevents overlapping) --- */
-        /* These rules ONLY apply when the screen width is 768px or smaller */
+        /* --- 4. MOBILE SPECIFIC FIXES --- */
+        /* PC is untouched. This activates ONLY on screens smaller than 768px (Phones) */
         @media (max-width: 768px) {
             header {
-                height: 70px; /* Slightly slimmer header for mobile */
+                /* Change flex layout to push items to the edges instead of centering */
+                justify-content: space-between; 
+                padding: 0 25px; /* Add padding to keep items off the very edge */
             }
+
             .menu-trigger {
-                left: 15px; /* Bring it closer to the edge */
-                gap: 8px; /* Less space between icon and text */
+                /* Remove absolute positioning to flow naturally in flexbox */
+                position: relative; 
+                left: 0; 
+                gap: 10px;
+                padding: 5px;
             }
+
             .burger-icon span {
-                width: 20px; /* Slightly smaller burger icon */
+                width: 22px; /* Slightly shrink icon */
             }
+
             .menu-text {
-                font-size: 11px; /* Smaller text so it doesn't hit the logo */
+                font-size: 12px;
             }
+
             .logo {
-                font-size: 16px; /* Scaled down logo for mobile */
-                letter-spacing: 0.3em; /* Tighter letter spacing to save space */
+                font-size: 18px; /* Slightly shrink logo */
+                letter-spacing: 0.4em; 
+                /* Remove absolute positioning if it existed, though it's naturally centered */
+                margin-right: 0; 
             }
         }
     </style>
