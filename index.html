@@ -108,3 +108,89 @@
             color: #000;
             margin-bottom: 25px;
             font-weight: 500;
+        }
+        
+        .menu-item::after { 
+            content: " →"; 
+        }
+
+        .close-btn {
+            margin-top: auto;
+            font-size: 11px;
+            color: #888;
+            cursor: pointer;
+            padding: 10px 0;
+        }
+
+        /* --- 3. Content & Background --- */
+        .info {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 150px;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            z-index: 1;
+        }
+        
+        footer a { 
+            color: #ccc; 
+            text-decoration: none; 
+            border-bottom: 1px solid #eee; 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="menu-trigger" id="menuBtn">
+            <div class="burger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div style="font-size:14px; font-weight:500;">MENU</div>
+        </div>
+        <div class="logo">MORPH</div>
+    </header>
+
+    <div id="sideMenu">
+        <a href="#" class="menu-item">SEQUENCE 1.0</a>
+        <a href="#" class="menu-item">ARCHIVE</a>
+        <div class="close-btn" id="closeBtn">✕ CLOSE</div>
+    </div>
+
+    <div class="info">
+        TAEHAN LEE<br>
+        NEW YORK, US
+    </div>
+
+    <footer>
+        <a href="https://www.instagram.com/morph_l.a.b/" target="_blank">INSTAGRAM @MORPH_L.A.B</a>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menuBtn');
+            const closeBtn = document.getElementById('closeBtn');
+            const sideMenu = document.getElementById('sideMenu');
+
+            menuBtn.addEventListener('click', () => {
+                sideMenu.classList.add('active');
+            });
+
+            closeBtn.addEventListener('click', () => {
+                sideMenu.classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
