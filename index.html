@@ -31,7 +31,7 @@
             height: 90px;
             display: flex;
             align-items: center;
-            justify-content: center; /* 로고는 여전히 중앙 */
+            justify-content: center;
             z-index: 9999;
             border-radius: 25px;
             background: rgba(255, 255, 255, 0.15);
@@ -41,17 +41,37 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
         }
 
-        /* 헤더 왼쪽 끝 MENU 버튼 */
+        /* 메뉴 트리거 커스텀 (삼색 아이콘 + MENU) */
         .menu-trigger {
             position: absolute;
             left: 40px;
-            font-size: 14px;
-            font-weight: 500;
+            display: flex;
+            align-items: center;
             cursor: pointer;
-            letter-spacing: 0.2em;
+            gap: 15px;
             transition: opacity 0.3s;
         }
         .menu-trigger:hover { opacity: 0.5; }
+
+        .burger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .burger-icon span {
+            display: block;
+            width: 25px;
+            height: 2px;
+        }
+        .line-red { background-color: #ff0000; }
+        .line-blue { background-color: #0000ff; }
+        .line-black { background-color: #000000; }
+
+        .menu-text {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+        }
 
         .logo {
             font-weight: 500;
@@ -64,53 +84,46 @@
         .side-menu {
             position: fixed;
             top: 0;
-            left: -320px; /* 처음엔 숨겨둠 */
-            width: 300px; /* 메뉴 폭 */
+            left: -100%; /* 완전히 숨김 */
+            width: 350px; 
             height: 100%;
-            background-color: #f5f5f5; /* 라이트 그레이 */
+            background-color: #f2f2f2; /* 라이트 그레이 */
             z-index: 10000;
-            padding: 140px 40px;
-            transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* 부드러운 슬라이딩 */
-            box-shadow: 10px 0 30px rgba(0,0,0,0.02);
+            padding: 140px 50px;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 15px 0 40px rgba(0,0,0,0.03);
         }
 
-        /* 메뉴 활성화 시 */
         .side-menu.active {
-            left: 0; /* 3cm(약 110px) 이상 충분히 나오도록 설정 */
+            transform: translateX(100%); /* 왼쪽에서 나타남 */
         }
 
         .side-menu a {
             display: block;
-            font-size: 16px;
+            font-size: 18px;
             text-decoration: none;
             color: #000;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             transition: opacity 0.3s;
         }
         .side-menu a::after { content: " →"; }
         .side-menu a:hover { opacity: 0.4; }
 
-        /* 메뉴 닫기 버튼 */
         .close-btn {
             position: absolute;
-            top: 50px;
+            top: 55px;
             right: 40px;
-            font-size: 12px;
+            font-size: 13px;
             cursor: pointer;
             color: #999;
         }
 
-        /* --- 3. 배경 컨텐츠 --- */
+        /* --- 3. 기본 컨텐츠 --- */
         .info {
             font-size: 14px;
             line-height: 1.6;
-            margin-top: 140px;
+            margin-top: 150px;
             margin-bottom: 35px;
-        }
-
-        main {
-            border-top: 0.5px solid #f0f0f0;
-            padding-top: 30px;
         }
 
         footer {
@@ -119,6 +132,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: 13px;
+            width: 100%;
             text-align: center;
         }
 
@@ -132,7 +146,14 @@
 <body>
 
     <header>
-        <div class="menu-trigger" onclick="toggleMenu()">MENU</div>
+        <div class="menu-trigger" onclick="toggleMenu()">
+            <div class="burger-icon">
+                <span class="line-red"></span>
+                <span class="line-blue"></span>
+                <span class="line-black"></span>
+            </div>
+            <div class="menu-text">MENU</div>
+        </div>
         <div class="logo">MORPH</div>
     </header>
 
@@ -146,9 +167,6 @@
         TAEHAN LEE<br>
         NEW YORK, US
     </div>
-
-    <main>
-        </main>
 
     <footer>
         <a href="https://www.instagram.com/morph_l.a.b/" target="_blank">INSTAGRAM @MORPH_L.A.B</a>
