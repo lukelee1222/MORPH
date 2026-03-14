@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MORPH / TAEHAN LEE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEQUENCE 1.0 / MORPH</title>
     <style>
         * {
             margin: 0;
@@ -17,118 +17,76 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-transform: uppercase;
             -webkit-font-smoothing: antialiased;
-            padding: 40px;
-            letter-spacing: 0.05em;
-            overflow-x: hidden;
-            min-height: 200vh;
-        }
-
-        /* --- 1. Liquid Glass Header --- */
-        header {
-            position: fixed;
-            top: 25px; 
-            left: 25px;
-            right: 25px;
-            height: 90px;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 100; 
-            border-radius: 50px; 
-            background: rgba(255, 255, 255, 0.12); 
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            overflow: hidden; /* 스크롤 없앰 */
         }
 
-        .menu-trigger {
+        /* 메인으로 돌아가는 뒤로가기 버튼 */
+        .back-btn {
             position: absolute;
-            left: 50px; 
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            gap: 15px;
-            padding: 10px;
+            top: 40px;
+            left: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            color: #000;
+            letter-spacing: 0.05em;
+            z-index: 50;
             transition: opacity 0.3s;
         }
-
-        .menu-trigger:hover {
+        .back-btn:hover {
             opacity: 0.5;
         }
 
-        .burger-icon {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        
-        .burger-icon span {
-            display: block;
-            width: 25px;
-            height: 2px;
-            background-color: #000000; 
-        }
-
-        .menu-text {
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .logo {
-            font-weight: 500;
-            font-size: 22px;
-            letter-spacing: 0.6em;
-            color: #000000;
-        }
-
-        /* --- 2. Sliding Side Menu --- */
-        #sideMenu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 320px; 
-            height: 100vh;
-            background-color: #f2f2f2; 
-            z-index: 9999; 
-            padding: 150px 50px 50px 50px;
-            transform: translateX(-100%); 
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
-            box-shadow: 15px 0 40px rgba(0,0,0,0.03);
-        }
-
-        #sideMenu.active {
-            transform: translateX(0);
-        }
-
-        .menu-item {
-            display: block;
-            font-size: 16px;
-            text-decoration: none;
-            color: #000;
-            margin-bottom: 30px;
-            font-weight: 400;
-            transition: opacity 0.3s;
-        }
-        
-        .menu-item::after { content: " →"; }
-        .menu-item:hover { opacity: 0.4; }
-
-        .close-btn {
+        /* 유리의 블러 효과를 극대화하기 위해 배경에 까는 아주 연한 로고 */
+        .bg-text {
             position: absolute;
-            top: 55px;
-            right: 40px;
-            font-size: 13px;
-            cursor: pointer;
-            color: #999;
+            font-size: 20vw;
+            font-weight: 700;
+            color: #f7f7f7; /* 아주 연한 회색 */
+            letter-spacing: 0.1em;
+            z-index: 1;
+            user-select: none;
         }
 
-        /* --- 3. Content --- */
-        .info {
+        /* 가운데 작게 들어가는 리퀴드 글래스 (Work in progress) */
+        .glass-pill {
+            position: relative;
+            z-index: 10;
+            padding: 25px 50px;
+            border-radius: 50px;
+            
+            /* Apple Liquid Glass Effect */
+            background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            
+            /* 유리 가장자리 빛 반사 및 그림자 */
+            border-top: 1px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.5);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+
             font-size: 14px;
-            line-height: 1.6;
-            margin-top: 150px;
-            font-weight: 400
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">← BACK</a>
+
+    <div class="bg-text">MORPH</div>
+
+    <div class="glass-pill">
+        WORK IN PROGRESS
+    </div>
+
+</body>
+</html>
