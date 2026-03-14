@@ -17,25 +17,23 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-transform: uppercase;
             -webkit-font-smoothing: antialiased;
-            padding: 30px;
-            letter-spacing: 0.02em;
-            min-height: 200vh; /* 효과 확인을 위한 높이 */
+            padding: 40px; /* 여백을 조금 더 넓혔습니다 */
+            letter-spacing: 0.05em; /* 자간을 살짝 넓혀 가독성 확보 */
+            min-height: 200vh;
         }
 
-        /* 1. 상단 전체를 덮는 리퀴드 글래스 헤더 */
+        /* 1. 상단 전체 리퀴드 글래스 헤더 (로고 크기 상향) */
         header {
             position: fixed;
-            top: 20px; /* 살짝 띄워서 물방울 질감 강조 */
-            left: 20px;
-            right: 20px; /* 양옆으로 길게 확장 */
-            height: 80px;
+            top: 25px; 
+            left: 25px;
+            right: 25px;
+            height: 90px; /* 높이를 조금 더 키웠습니다 */
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            border-radius: 20px; /* 기존 곡률 유지 */
-            
-            /* 리퀴드 질감 최적화 */
+            border-radius: 25px;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(25px) saturate(180%);
             -webkit-backdrop-filter: blur(25px) saturate(180%);
@@ -45,31 +43,31 @@
 
         .logo {
             font-weight: 500;
-            font-size: 16px;
+            font-size: 22px; /* 16px -> 22px 상향 */
             letter-spacing: 0.6em;
             color: #000;
         }
 
-        /* 2. 인포 섹션 (수정: NEW YORK, US) */
+        /* 2. 인포 섹션 (폰트 크기 상향) */
         .info {
-            font-size: 11px;
-            line-height: 1.5;
-            margin-top: 120px; /* 헤더가 커진 만큼 여백 확보 */
-            margin-bottom: 25px;
+            font-size: 14px; /* 11px -> 14px 상향 */
+            line-height: 1.6;
+            margin-top: 140px; 
+            margin-bottom: 35px;
             font-weight: 400;
         }
 
-        /* 3. 메뉴 (Sequence / Archive) */
+        /* 3. 메뉴 (Sequence / Archive 폰트 크기 상향) */
         nav {
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
         nav a {
             display: block;
-            font-size: 11px;
+            font-size: 14px; /* 11px -> 14px 상향 */
             text-decoration: none;
             color: #000;
-            margin-bottom: 6px;
+            margin-bottom: 10px; /* 간격도 넓혔습니다 */
             transition: opacity 0.3s;
         }
 
@@ -81,25 +79,25 @@
             opacity: 0.4;
         }
 
-        /* 4. 작업물 리스트 (요청에 따라 비워둠) */
+        /* 4. 작업물 리스트 영역 */
         main {
             border-top: 0.5px solid #f0f0f0;
-            padding-top: 20px;
+            padding-top: 30px;
         }
 
-        /* 5. 푸터 (수정: 하단 중앙 정렬) */
+        /* 5. 푸터 (인스타그램 폰트 크기 상향) */
         footer {
             position: fixed;
             bottom: 40px;
             left: 50%;
-            transform: translateX(-50%); /* 정확히 가운데 정렬 */
-            font-size: 10px;
+            transform: translateX(-50%);
+            font-size: 13px; /* 10px -> 13px 상향 */
             width: 100%;
             text-align: center;
         }
 
         footer a {
-            color: #ccc;
+            color: #888; /* 살짝 연하게 변경해 세련미 추가 */
             text-decoration: none;
             transition: color 0.3s;
             border-bottom: 1px solid #eee;
