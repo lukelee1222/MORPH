@@ -23,7 +23,7 @@
             min-height: 200vh;
         }
 
-        /* --- 1. Liquid Glass Header (Water Drop Effect) --- */
+        /* --- 1. Liquid Glass Header (Photorealistic Water Drop Effect) --- */
         header {
             position: fixed;
             top: 25px; 
@@ -34,22 +34,28 @@
             align-items: center;
             justify-content: center;
             z-index: 100; 
-            border-radius: 40px; /* Made the pill shape slightly rounder like a water drop */
+            border-radius: 50px; /* Perfect pill shape for water drop */
             
-            /* Extremely transparent background, strong blur, and delicate borders */
-            background: rgba(255, 255, 255, 0.05); /* Almost completely transparent */
-            backdrop-filter: blur(15px) saturate(120%); /* Strong blur, mild saturation */
-            -webkit-backdrop-filter: blur(15px) saturate(120%);
-            border: 1px solid rgba(255, 255, 255, 0.6); /* Clear white edge */
+            /* Extremely clear background, letting the blur do the work */
+            background: rgba(255, 255, 255, 0.02); 
+            backdrop-filter: blur(24px) saturate(120%);
+            -webkit-backdrop-filter: blur(24px) saturate(120%);
+            
+            /* Water drop light reflection: bright top/left edge, very subtle right/bottom edge */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.5);
+            
+            /* Inner glow for glass volume, outer shadow for depth */
             box-shadow: 
-                0 4px 30px rgba(0, 0, 0, 0.05), /* Outer soft shadow */
-                inset 0 0 10px rgba(255, 255, 255, 0.3); /* Inner glow for 3D effect */
+                0 8px 32px 0 rgba(0, 0, 0, 0.05),
+                inset 0 3px 6px rgba(255, 255, 255, 0.4);
         }
 
         /* Menu Trigger (PC version) */
         .menu-trigger {
             position: absolute;
-            left: 50px; /* Pulled further left to give PC more space */
+            left: 50px; 
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -169,16 +175,13 @@
         }
 
         /* --- 4. MOBILE SPECIFIC FIXES --- */
-        /* PC is untouched. This activates ONLY on screens smaller than 768px (Phones) */
         @media (max-width: 768px) {
             header {
-                /* Change flex layout to push items to the edges instead of centering */
                 justify-content: space-between; 
-                padding: 0 25px; /* Add padding to keep items off the very edge */
+                padding: 0 25px; 
             }
 
             .menu-trigger {
-                /* Remove absolute positioning to flow naturally in flexbox */
                 position: relative; 
                 left: 0; 
                 gap: 10px;
@@ -186,7 +189,7 @@
             }
 
             .burger-icon span {
-                width: 22px; /* Slightly shrink icon */
+                width: 22px; 
             }
 
             .menu-text {
@@ -194,9 +197,8 @@
             }
 
             .logo {
-                font-size: 18px; /* Slightly shrink logo */
+                font-size: 18px; 
                 letter-spacing: 0.4em; 
-                /* Remove absolute positioning if it existed, though it's naturally centered */
                 margin-right: 0; 
             }
         }
