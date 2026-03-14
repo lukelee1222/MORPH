@@ -19,7 +19,7 @@
             -webkit-font-smoothing: antialiased;
             padding: 40px;
             letter-spacing: 0.05em;
-            overflow-x: hidden; /* 메뉴 슬라이드 시 가로 스크롤 방지 */
+            overflow-x: hidden;
         }
 
         /* --- 1. 상단 리퀴드 글래스 헤더 --- */
@@ -32,7 +32,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10001; /* 메뉴판보다 위에 있어야 버튼이 눌립니다 */
+            z-index: 10001; /* 메뉴판(10000)보다 높게 설정 */
             border-radius: 25px;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(25px) saturate(180%);
@@ -48,7 +48,6 @@
             align-items: center;
             cursor: pointer;
             gap: 15px;
-            transition: opacity 0.3s;
         }
 
         .burger-icon {
@@ -65,64 +64,56 @@
         .line-blue { background-color: #0000ff; }
         .line-black { background-color: #000000; }
 
-        .menu-text {
-            font-size: 14px;
-            font-weight: 500;
-        }
-
         .logo {
             font-weight: 500;
             font-size: 22px;
             letter-spacing: 0.6em;
         }
 
-        /* --- 2. 슬라이딩 메뉴판 (라이트 그레이) --- */
+        /* --- 2. 릭 오웬스 스타일 슬라이딩 메뉴판 --- */
         #sideMenu {
             position: fixed;
             top: 0;
-            left: -350px; /* 처음엔 왼쪽 밖으로 숨김 */
-            width: 350px; 
+            left: -320px; /* 처음엔 완전히 숨김 */
+            width: 320px; /* 메뉴판 너비 */
             height: 100%;
-            background-color: #f2f2f2; /* 라이트 그레이 */
+            background-color: #f2f2f2; /* 요청하신 라이트 그레이 */
             z-index: 10000;
-            padding: 160px 50px; /* 헤더 아래에서 시작하도록 상단 여백 */
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 160px 40px 40px 40px;
+            transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* 부드러운 슬라이딩 */
             display: flex;
             flex-direction: column;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.02);
         }
 
-        /* 메뉴 열렸을 때 (오른쪽으로 약 350px 이동) */
+        /* 메뉴 열기 상태: 왼쪽 끝을 0에 맞춤 */
         #sideMenu.active {
-            transform: translateX(350px);
+            left: 0;
         }
 
         .menu-item {
             display: block;
-            font-size: 16px;
+            font-size: 14px;
             text-decoration: none;
             color: #000;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            font-weight: 400;
             transition: opacity 0.3s;
         }
-        .menu-item::after { content: " →"; }
         .menu-item:hover { opacity: 0.4; }
 
-        /* 메뉴 닫기 버튼 */
-        .close-area {
+        .close-btn {
+            margin-top: auto;
             font-size: 11px;
             color: #999;
             cursor: pointer;
-            margin-top: auto; /* 맨 아래로 보냄 */
-            padding-bottom: 50px;
+            padding-bottom: 20px;
         }
 
-        /* --- 3. 기본 컨텐츠 --- */
+        /* --- 3. 배경 레이아웃 --- */
         .info {
             font-size: 14px;
             line-height: 1.6;
             margin-top: 150px;
-            margin-bottom: 35px;
         }
 
         footer {
@@ -131,26 +122,20 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: 13px;
-            text-align: center;
         }
-
-        footer a {
-            color: #ccc;
-            text-decoration: none;
-            border-bottom: 1px solid #eee;
-        }
+        footer a { color: #ccc; text-decoration: none; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="menu-trigger" onclick="toggleMenu()">
+        <div class="menu-trigger" onclick="openMenu()">
             <div class="burger-icon">
                 <span class="line-red"></span>
                 <span class="line-blue"></span>
                 <span class="line-black"></span>
             </div>
-            <div class="menu-text">MENU</div>
+            <div style="font-size:14px; font-weight:500;">MENU</div>
         </div>
         <div class="logo">MORPH</div>
     </header>
@@ -158,7 +143,7 @@
     <div id="sideMenu">
         <a href="#" class="menu-item">SEQUENCE 1.0</a>
         <a href="#" class="menu-item">ARCHIVE</a>
-        <div class="close-area" onclick="toggleMenu()">CLOSE MENU —</div>
+        <div class="close-btn" onclick="closeMenu()">✕ CLOSE</div>
     </div>
 
     <div class="info">
@@ -171,9 +156,11 @@
     </footer>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById('sideMenu');
-            menu.classList.toggle('active');
+        function openMenu() {
+            document.getElementById('sideMenu').classList.add('active');
+        }
+        function closeMenu() {
+            document.getElementById('sideMenu').classList.remove('active');
         }
     </script>
 
