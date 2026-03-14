@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MORPH / WORK IN PROGRESS</title>
+    <title>MORPH / TAEHAN LEE</title>
     <style>
         * {
             margin: 0;
@@ -17,11 +17,13 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-transform: uppercase;
             -webkit-font-smoothing: antialiased;
+            padding: 40px;
+            letter-spacing: 0.05em;
             overflow-x: hidden;
-            min-height: 100vh;
+            min-height: 200vh; /* Scroll to see the glass effect */
         }
 
-        /* --- 1. 메인과 100% 똑같은 헤더 --- */
+        /* --- 1. Liquid Glass Header (Unified for PC & Mobile) --- */
         header {
             position: fixed;
             top: 25px; 
@@ -33,11 +35,18 @@
             justify-content: center;
             z-index: 100; 
             border-radius: 50px; 
+            
+            /* APPLE LIQUID GLASS EFFECT */
             background: rgba(255, 255, 255, 0.12); 
+            
+            /* High-performance blur for both PC and Mobile (Safari/Chrome) */
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
+            
+            /* Subtle glass borders */
             border: 1px solid rgba(255, 255, 255, 0.4);
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
         }
 
@@ -49,6 +58,11 @@
             cursor: pointer;
             gap: 15px;
             padding: 10px;
+            transition: opacity 0.3s;
+        }
+
+        .menu-trigger:hover {
+            opacity: 0.5;
         }
 
         .burger-icon {
@@ -69,16 +83,14 @@
             font-weight: 500;
         }
 
-        /* 로고 클릭 시 다시 메인으로 돌아감 */
         .logo {
             font-weight: 500;
             font-size: 22px;
             letter-spacing: 0.6em;
             color: #000000;
-            text-decoration: none;
         }
 
-        /* --- 2. 메인과 100% 똑같은 사이드 메뉴 --- */
+        /* --- 2. Sliding Side Menu --- */
         #sideMenu {
             position: fixed;
             top: 0;
@@ -119,7 +131,14 @@
             color: #999;
         }
 
-        /* --- 3. 메인과 똑같은 푸터 --- */
+        /* --- 3. Content --- */
+        .info {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 150px;
+            font-weight: 400;
+        }
+
         footer {
             position: fixed;
             bottom: 40px;
@@ -128,7 +147,6 @@
             font-size: 13px;
             width: 100%;
             text-align: center;
-            z-index: 10;
         }
 
         footer a {
@@ -137,45 +155,28 @@
             border-bottom: 1px solid #eee;
         }
 
-        /* --- 4. 정중앙 WORK IN PROGRESS 알약 --- */
-        .center-wrapper {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10; 
-        }
-
-        .glass-pill {
-            padding: 15px 35px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            color: #000000;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(0, 0, 0, 0.08); 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-        }
-
-        /* 모바일 최적화 */
+        /* --- 4. MOBILE FIX --- */
         @media (max-width: 768px) {
             header {
-                height: 70px;
+                height: 70px; /* Slimmer for mobile but keeps effect */
                 top: 15px;
                 left: 15px;
                 right: 15px;
                 justify-content: space-between; 
                 padding: 0 25px;
-                border-radius: 35px;
+                border-radius: 35px; /* Adjust radius for mobile size */
             }
-            .menu-trigger { position: relative; left: 0; padding: 5px; gap: 10px; }
-            .burger-icon span { width: 22px; }
-            .menu-text { font-size: 12px; }
-            .logo { font-size: 18px; letter-spacing: 0.4em; margin-right: 0;}
+
+            .menu-trigger {
+                position: relative; 
+                left: 0; 
+                padding: 5px;
+            }
+
+            .logo {
+                font-size: 16px;
+                letter-spacing: 0.3em;
+            }
         }
     </style>
 </head>
@@ -190,19 +191,18 @@
             </div>
             <div class="menu-text">MENU</div>
         </div>
-        <a href="index.html" class="logo">MORPH</a>
+        <div class="logo">MORPH</div>
     </header>
 
     <div id="sideMenu">
         <div class="close-btn" id="closeBtn">CLOSE</div>
-        <a href="sequence.html?v=2" class="menu-item">SEQUENCE 1.0</a>
-        <a href="archive.html?v=2" class="menu-item">ARCHIVE</a>
+        <a href="#" class="menu-item">SEQUENCE 1.0</a>
+        <a href="#" class="menu-item">ARCHIVE</a>
     </div>
 
-    <div class="center-wrapper">
-        <div class="glass-pill">
-            WORK IN PROGRESS
-        </div>
+    <div class="info">
+        TAEHAN LEE<br>
+        NEW YORK, US
     </div>
 
     <footer>
@@ -210,12 +210,18 @@
     </footer>
 
     <script>
-        document.getElementById('menuBtn').addEventListener('click', () => {
-            document.getElementById('sideMenu').classList.add('active');
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menuBtn');
+            const closeBtn = document.getElementById('closeBtn');
+            const sideMenu = document.getElementById('sideMenu');
 
-        document.getElementById('closeBtn').addEventListener('click', () => {
-            document.getElementById('sideMenu').classList.remove('active');
+            menuBtn.addEventListener('click', () => {
+                sideMenu.classList.add('active');
+            });
+
+            closeBtn.addEventListener('click', () => {
+                sideMenu.classList.remove('active');
+            });
         });
     </script>
 
