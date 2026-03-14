@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SEQUENCE 1.0 / MORPH</title>
+    <title>MORPH / WORK IN PROGRESS</title>
     <style>
         * {
             margin: 0;
@@ -17,19 +17,11 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-transform: uppercase;
             -webkit-font-smoothing: antialiased;
-            padding: 40px;
-            letter-spacing: 0.05em;
             overflow-x: hidden;
-            /* 페이지 진입 시 자연스럽게 나타나는 페이드인 효과 */
-            animation: fadeIn 0.6s ease-out;
+            min-height: 100vh;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* --- 1. 메인과 똑같은 리퀴드 글래스 헤더 --- */
+        /* --- 1. 메인과 100% 똑같은 헤더 --- */
         header {
             position: fixed;
             top: 25px; 
@@ -57,11 +49,6 @@
             cursor: pointer;
             gap: 15px;
             padding: 10px;
-            transition: opacity 0.3s;
-        }
-
-        .menu-trigger:hover {
-            opacity: 0.5;
         }
 
         .burger-icon {
@@ -74,4 +61,163 @@
             display: block;
             width: 25px;
             height: 2px;
-            background-color: #000000;
+            background-color: #000000; 
+        }
+
+        .menu-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* 로고 클릭 시 다시 메인으로 돌아감 */
+        .logo {
+            font-weight: 500;
+            font-size: 22px;
+            letter-spacing: 0.6em;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        /* --- 2. 메인과 100% 똑같은 사이드 메뉴 --- */
+        #sideMenu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px; 
+            height: 100vh;
+            background-color: #f2f2f2; 
+            z-index: 9999; 
+            padding: 150px 50px 50px 50px;
+            transform: translateX(-100%); 
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 15px 0 40px rgba(0,0,0,0.03);
+        }
+
+        #sideMenu.active {
+            transform: translateX(0);
+        }
+
+        .menu-item {
+            display: block;
+            font-size: 16px;
+            text-decoration: none;
+            color: #000;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .menu-item::after { content: " →"; }
+
+        .close-btn {
+            position: absolute;
+            top: 55px;
+            right: 40px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        /* --- 3. 메인과 똑같은 푸터 --- */
+        footer {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+        }
+
+        footer a {
+            color: #888;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* --- 4. 정중앙 WORK IN PROGRESS 알약 --- */
+        .center-wrapper {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10; 
+        }
+
+        .glass-pill {
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: #000000;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 0, 0, 0.08); 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            header {
+                height: 70px;
+                top: 15px;
+                left: 15px;
+                right: 15px;
+                justify-content: space-between; 
+                padding: 0 25px;
+                border-radius: 35px;
+            }
+            .menu-trigger { position: relative; left: 0; padding: 5px; gap: 10px; }
+            .burger-icon span { width: 22px; }
+            .menu-text { font-size: 12px; }
+            .logo { font-size: 18px; letter-spacing: 0.4em; margin-right: 0;}
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="menu-trigger" id="menuBtn">
+            <div class="burger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-text">MENU</div>
+        </div>
+        <a href="index.html" class="logo">MORPH</a>
+    </header>
+
+    <div id="sideMenu">
+        <div class="close-btn" id="closeBtn">CLOSE</div>
+        <a href="sequence.html?v=2" class="menu-item">SEQUENCE 1.0</a>
+        <a href="archive.html?v=2" class="menu-item">ARCHIVE</a>
+    </div>
+
+    <div class="center-wrapper">
+        <div class="glass-pill">
+            WORK IN PROGRESS
+        </div>
+    </div>
+
+    <footer>
+        <a href="https://www.instagram.com/morph_l.a.b/" target="_blank">INSTAGRAM @MORPH_L.A.B</a>
+    </footer>
+
+    <script>
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            document.getElementById('sideMenu').classList.add('active');
+        });
+
+        document.getElementById('closeBtn').addEventListener('click', () => {
+            document.getElementById('sideMenu').classList.remove('active');
+        });
+    </script>
+
+</body>
+</html>
