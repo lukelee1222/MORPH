@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MORPH / TAEHAN LEE</title>
     <style>
-        /* 1. 기본 셋팅: PAF 특유의 차갑고 정제된 화이트 */
         * {
             margin: 0;
             padding: 0;
@@ -20,25 +19,27 @@
             -webkit-font-smoothing: antialiased;
             padding: 30px;
             letter-spacing: 0.02em;
+            min-height: 200vh; /* 효과 확인을 위한 높이 */
         }
 
-        /* 2. 중앙 리퀴드 글래스 로고 (태한 님 최애 스타일) */
+        /* 1. 상단 전체를 덮는 리퀴드 글래스 헤더 */
         header {
             position: fixed;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 320px;
+            top: 20px; /* 살짝 띄워서 물방울 질감 강조 */
+            left: 20px;
+            right: 20px; /* 양옆으로 길게 확장 */
             height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px; /* 기존 곡률 유지 */
+            
+            /* 리퀴드 질감 최적화 */
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(25px) saturate(180%);
             -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
         }
 
@@ -49,18 +50,18 @@
             color: #000;
         }
 
-        /* 3. 왼쪽 상단: 인포 섹션 (PAF 스타일) */
+        /* 2. 인포 섹션 (수정: NEW YORK, US) */
         .info {
             font-size: 11px;
             line-height: 1.5;
-            margin-top: 100px;
+            margin-top: 120px; /* 헤더가 커진 만큼 여백 확보 */
             margin-bottom: 25px;
             font-weight: 400;
         }
 
-        /* 4. SHOP 위치의 메뉴: Sequence & Archive */
+        /* 3. 메뉴 (Sequence / Archive) */
         nav {
-            margin-bottom: 80px;
+            margin-bottom: 60px;
         }
 
         nav a {
@@ -80,34 +81,34 @@
             opacity: 0.4;
         }
 
-        /* 5. 메인 리스트 및 이미지 공간 */
+        /* 4. 작업물 리스트 (요청에 따라 비워둠) */
         main {
-            border-top: 1px solid #f0f0f0;
+            border-top: 0.5px solid #f0f0f0;
             padding-top: 20px;
         }
 
-        .list-item {
-            font-size: 11px;
-            margin-bottom: 5px;
-            color: #000;
-        }
-
-        /* 푸터: 인스타그램 */
+        /* 5. 푸터 (수정: 하단 중앙 정렬) */
         footer {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%); /* 정확히 가운데 정렬 */
             font-size: 10px;
+            width: 100%;
+            text-align: center;
         }
 
         footer a {
             color: #ccc;
             text-decoration: none;
             transition: color 0.3s;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2px;
         }
 
         footer a:hover {
             color: #000;
+            border-bottom-color: #000;
         }
     </style>
 </head>
@@ -119,9 +120,7 @@
 
     <div class="info">
         TAEHAN LEE<br>
-        MORPH L.A.B<br>
-        2026 ARCHIVE<br>
-        SEOUL, KR
+        NEW YORK, US
     </div>
 
     <nav>
@@ -130,12 +129,7 @@
     </nav>
 
     <main>
-        <div class="list-item">001 PRE-MUTATION (GASTRONOMY)</div>
-        <div class="list-item">002 STRUCTURAL ANALYSIS</div>
-        <div class="list-item">003 BOUNDARY RECONSTRUCTION</div>
-        
-        <div style="height: 1000px;"></div>
-    </main>
+        </main>
 
     <footer>
         <a href="https://www.instagram.com/morph_l.a.b/" target="_blank">INSTAGRAM @MORPH_L.A.B</a>
