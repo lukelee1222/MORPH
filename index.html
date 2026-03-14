@@ -17,21 +17,21 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-transform: uppercase;
             -webkit-font-smoothing: antialiased;
-            padding: 40px; /* 여백을 조금 더 넓혔습니다 */
-            letter-spacing: 0.05em; /* 자간을 살짝 넓혀 가독성 확보 */
+            padding: 40px;
+            letter-spacing: 0.05em;
             min-height: 200vh;
         }
 
-        /* 1. 상단 전체 리퀴드 글래스 헤더 (로고 크기 상향) */
+        /* --- 1. 상단 리퀴드 글래스 헤더 --- */
         header {
             position: fixed;
             top: 25px; 
             left: 25px;
             right: 25px;
-            height: 90px; /* 높이를 조금 더 키웠습니다 */
+            height: 90px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: center; /* 로고는 여전히 중앙 */
             z-index: 9999;
             border-radius: 25px;
             background: rgba(255, 255, 255, 0.15);
@@ -41,90 +41,111 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
         }
 
+        /* 헤더 왼쪽 끝 MENU 버튼 */
+        .menu-trigger {
+            position: absolute;
+            left: 40px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            letter-spacing: 0.2em;
+            transition: opacity 0.3s;
+        }
+        .menu-trigger:hover { opacity: 0.5; }
+
         .logo {
             font-weight: 500;
-            font-size: 22px; /* 16px -> 22px 상향 */
+            font-size: 22px;
             letter-spacing: 0.6em;
             color: #000;
         }
 
-        /* 2. 인포 섹션 (폰트 크기 상향) */
-        .info {
-            font-size: 14px; /* 11px -> 14px 상향 */
-            line-height: 1.6;
-            margin-top: 140px; 
-            margin-bottom: 35px;
-            font-weight: 400;
+        /* --- 2. 슬라이딩 메뉴판 (라이트 그레이) --- */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -320px; /* 처음엔 숨겨둠 */
+            width: 300px; /* 메뉴 폭 */
+            height: 100%;
+            background-color: #f5f5f5; /* 라이트 그레이 */
+            z-index: 10000;
+            padding: 140px 40px;
+            transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* 부드러운 슬라이딩 */
+            box-shadow: 10px 0 30px rgba(0,0,0,0.02);
         }
 
-        /* 3. 메뉴 (Sequence / Archive 폰트 크기 상향) */
-        nav {
-            margin-bottom: 80px;
+        /* 메뉴 활성화 시 */
+        .side-menu.active {
+            left: 0; /* 3cm(약 110px) 이상 충분히 나오도록 설정 */
         }
 
-        nav a {
+        .side-menu a {
             display: block;
-            font-size: 14px; /* 11px -> 14px 상향 */
+            font-size: 16px;
             text-decoration: none;
             color: #000;
-            margin-bottom: 10px; /* 간격도 넓혔습니다 */
+            margin-bottom: 25px;
             transition: opacity 0.3s;
         }
+        .side-menu a::after { content: " →"; }
+        .side-menu a:hover { opacity: 0.4; }
 
-        nav a::after {
-            content: " →";
+        /* 메뉴 닫기 버튼 */
+        .close-btn {
+            position: absolute;
+            top: 50px;
+            right: 40px;
+            font-size: 12px;
+            cursor: pointer;
+            color: #999;
         }
 
-        nav a:hover {
-            opacity: 0.4;
+        /* --- 3. 배경 컨텐츠 --- */
+        .info {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 140px;
+            margin-bottom: 35px;
         }
 
-        /* 4. 작업물 리스트 영역 */
         main {
             border-top: 0.5px solid #f0f0f0;
             padding-top: 30px;
         }
 
-        /* 5. 푸터 (인스타그램 폰트 크기 상향) */
         footer {
             position: fixed;
             bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 13px; /* 10px -> 13px 상향 */
-            width: 100%;
+            font-size: 13px;
             text-align: center;
         }
 
         footer a {
-            color: #888; /* 살짝 연하게 변경해 세련미 추가 */
+            color: #888;
             text-decoration: none;
-            transition: color 0.3s;
             border-bottom: 1px solid #eee;
-            padding-bottom: 2px;
-        }
-
-        footer a:hover {
-            color: #000;
-            border-bottom-color: #000;
         }
     </style>
 </head>
 <body>
 
     <header>
+        <div class="menu-trigger" onclick="toggleMenu()">MENU</div>
         <div class="logo">MORPH</div>
     </header>
+
+    <div id="sideMenu" class="side-menu">
+        <div class="close-btn" onclick="toggleMenu()">CLOSE</div>
+        <a href="#">SEQUENCE 1.0</a>
+        <a href="#">ARCHIVE</a>
+    </div>
 
     <div class="info">
         TAEHAN LEE<br>
         NEW YORK, US
     </div>
-
-    <nav>
-        <a href="#">SEQUENCE 1.0</a>
-        <a href="#">ARCHIVE</a>
-    </nav>
 
     <main>
         </main>
@@ -132,6 +153,13 @@
     <footer>
         <a href="https://www.instagram.com/morph_l.a.b/" target="_blank">INSTAGRAM @MORPH_L.A.B</a>
     </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('sideMenu');
+            menu.classList.toggle('active');
+        }
+    </script>
 
 </body>
 </html>
