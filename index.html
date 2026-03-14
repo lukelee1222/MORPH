@@ -20,9 +20,10 @@
             padding: 40px;
             letter-spacing: 0.05em;
             overflow-x: hidden;
+            min-height: 200vh;
         }
 
-        /* --- 1. Liquid Glass Header --- */
+        /* --- 1. Liquid Glass Header (More transparent, like a water drop) --- */
         header {
             position: fixed;
             top: 25px; 
@@ -32,17 +33,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Header z-index: 10 */
-            z-index: 10; 
+            z-index: 100; 
             border-radius: 25px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            /* Made the background more transparent and adjusted blur for a water-like effect */
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px) saturate(160%);
+            -webkit-backdrop-filter: blur(12px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
         }
 
-        /* Menu Trigger Button */
+        /* Menu Trigger (PC version) */
         .menu-trigger {
             position: absolute;
             left: 40px;
@@ -50,8 +51,8 @@
             align-items: center;
             cursor: pointer;
             gap: 15px;
-            padding: 15px; 
-            z-index: 20;
+            padding: 10px;
+            transition: opacity 0.3s;
         }
 
         .menu-trigger:hover {
@@ -69,9 +70,15 @@
             display: block;
             width: 25px;
             height: 2px;
-            background-color: #000000 !important; 
+            background-color: #000000; 
         }
 
+        .menu-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Logo (PC version) */
         .logo {
             font-weight: 500;
             font-size: 22px;
@@ -84,17 +91,16 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 300px; 
+            width: 320px; 
             height: 100vh;
             background-color: #f2f2f2; 
-            /* Menu z-index: 9999 (Covers Header) */
             z-index: 9999; 
-            padding: 150px 40px 40px 40px;
+            padding: 150px 50px 50px 50px;
             transform: translateX(-100%); 
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.05);
+            box-shadow: 15px 0 40px rgba(0,0,0,0.03);
         }
 
         #sideMenu.active {
@@ -103,32 +109,37 @@
 
         .menu-item {
             display: block;
-            font-size: 14px;
+            font-size: 16px;
             text-decoration: none;
             color: #000;
-            margin-bottom: 25px;
-            font-weight: 500;
+            margin-bottom: 30px;
+            font-weight: 400;
+            transition: opacity 0.3s;
         }
         
         .menu-item::after { 
             content: " →"; 
         }
-
-        .close-btn {
-            margin-top: auto;
-            font-size: 11px;
-            color: #888;
-            cursor: pointer;
-            padding: 10px 0;
+        
+        .menu-item:hover { 
+            opacity: 0.4; 
         }
 
-        /* --- 3. Content & Background --- */
+        .close-btn {
+            position: absolute;
+            top: 55px;
+            right: 40px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        /* --- 3. Content Background --- */
         .info {
             font-size: 14px;
             line-height: 1.6;
             margin-top: 150px;
-            position: relative;
-            z-index: 1;
+            font-weight: 400;
         }
 
         footer {
@@ -137,13 +148,43 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: 13px;
-            z-index: 1;
+            width: 100%;
+            text-align: center;
         }
-        
-        footer a { 
-            color: #ccc; 
-            text-decoration: none; 
-            border-bottom: 1px solid #eee; 
+
+        footer a {
+            color: #888;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2px;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #000;
+            border-bottom-color: #000;
+        }
+
+        /* --- 4. MOBILE SPECIFIC FIXES (Prevents overlapping) --- */
+        /* These rules ONLY apply when the screen width is 768px or smaller */
+        @media (max-width: 768px) {
+            header {
+                height: 70px; /* Slightly slimmer header for mobile */
+            }
+            .menu-trigger {
+                left: 15px; /* Bring it closer to the edge */
+                gap: 8px; /* Less space between icon and text */
+            }
+            .burger-icon span {
+                width: 20px; /* Slightly smaller burger icon */
+            }
+            .menu-text {
+                font-size: 11px; /* Smaller text so it doesn't hit the logo */
+            }
+            .logo {
+                font-size: 16px; /* Scaled down logo for mobile */
+                letter-spacing: 0.3em; /* Tighter letter spacing to save space */
+            }
         }
     </style>
 </head>
@@ -156,15 +197,15 @@
                 <span></span>
                 <span></span>
             </div>
-            <div style="font-size:14px; font-weight:500;">MENU</div>
+            <div class="menu-text">MENU</div>
         </div>
         <div class="logo">MORPH</div>
     </header>
 
     <div id="sideMenu">
+        <div class="close-btn" id="closeBtn">CLOSE</div>
         <a href="#" class="menu-item">SEQUENCE 1.0</a>
         <a href="#" class="menu-item">ARCHIVE</a>
-        <div class="close-btn" id="closeBtn">✕ CLOSE</div>
     </div>
 
     <div class="info">
