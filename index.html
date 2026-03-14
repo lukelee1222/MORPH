@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SEQUENCE 1.0 / MORPH</title>
     <style>
         * {
@@ -17,76 +17,61 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-transform: uppercase;
             -webkit-font-smoothing: antialiased;
-            height: 100vh;
+            padding: 40px;
+            letter-spacing: 0.05em;
+            overflow-x: hidden;
+            /* 페이지 진입 시 자연스럽게 나타나는 페이드인 효과 */
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* --- 1. 메인과 똑같은 리퀴드 글래스 헤더 --- */
+        header {
+            position: fixed;
+            top: 25px; 
+            left: 25px;
+            right: 25px;
+            height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden; /* 스크롤 없앰 */
+            z-index: 100; 
+            border-radius: 50px; 
+            background: rgba(255, 255, 255, 0.12); 
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
         }
 
-        /* 메인으로 돌아가는 뒤로가기 버튼 */
-        .back-btn {
+        .menu-trigger {
             position: absolute;
-            top: 40px;
-            left: 40px;
-            font-size: 13px;
-            font-weight: 500;
-            text-decoration: none;
-            color: #000;
-            letter-spacing: 0.05em;
-            z-index: 50;
+            left: 50px; 
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            gap: 15px;
+            padding: 10px;
             transition: opacity 0.3s;
         }
-        .back-btn:hover {
+
+        .menu-trigger:hover {
             opacity: 0.5;
         }
 
-        /* 유리의 블러 효과를 극대화하기 위해 배경에 까는 아주 연한 로고 */
-        .bg-text {
-            position: absolute;
-            font-size: 20vw;
-            font-weight: 700;
-            color: #f7f7f7; /* 아주 연한 회색 */
-            letter-spacing: 0.1em;
-            z-index: 1;
-            user-select: none;
+        .burger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
         }
-
-        /* 가운데 작게 들어가는 리퀴드 글래스 (Work in progress) */
-        .glass-pill {
-            position: relative;
-            z-index: 10;
-            padding: 25px 50px;
-            border-radius: 50px;
-            
-            /* Apple Liquid Glass Effect */
-            background: rgba(255, 255, 255, 0.2); 
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            
-            /* 유리 가장자리 빛 반사 및 그림자 */
-            border-top: 1px solid rgba(255, 255, 255, 0.8);
-            border-left: 1px solid rgba(255, 255, 255, 0.5);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            border-right: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            color: #000;
-        }
-    </style>
-</head>
-<body>
-
-    <a href="index.html" class="back-btn">← BACK</a>
-
-    <div class="bg-text">MORPH</div>
-
-    <div class="glass-pill">
-        WORK IN PROGRESS
-    </div>
-
-</body>
-</html>
+        
+        .burger-icon span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: #000000;
