@@ -20,13 +20,12 @@
             transition: background-color 0.6s ease;
         }
 
-        /* --- 2. 고정 헤더 (리퀴드 글래스) --- */
+        /* --- 2. 고정 헤더 --- */
         header {
             position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
             display: flex; align-items: center; justify-content: center;
             z-index: 1000; 
             border-radius: 50px; 
-            /* 배경이 라이트 그레이이므로 투명도 조절 */
             background: rgba(255, 255, 255, 0.2); 
             backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.4);
@@ -38,10 +37,10 @@
         .menu-text { font-size: 14px; font-weight: 500; }
         .logo { font-weight: 500; font-size: 22px; letter-spacing: 0.6em; color: #000000; text-decoration: none; cursor: pointer; }
 
-        /* --- 3. 사이드 메뉴 (조금 더 진한 그레이로 통일) --- */
+        /* --- 3. 사이드 메뉴 (더 진한 그레이) --- */
         #sideMenu {
             position: fixed; top: 0; left: 0; width: 320px; height: 100vh;
-            background-color: #e8e8e8; /* 메인보다 조금 더 어두운 회색 */
+            background-color: #e8e8e8; 
             z-index: 9999; padding: 150px 50px 50px 50px;
             transform: translateX(-100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex; flex-direction: column; 
@@ -56,7 +55,7 @@
         #mainContent, #archiveContent, #labContent, #spiceGallery { margin-top: 150px; transition: opacity 0.5s ease; }
         .info { font-size: 14px; line-height: 1.6; }
 
-        /* --- 5. Archive Gallery --- */
+        /* --- 5. Archive Gallery (2개) --- */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
             max-width: 1400px; margin: 0 auto 100px auto;
@@ -77,10 +76,10 @@
         .item-text { font-size: 13px; font-weight: 500; color: #000; letter-spacing: 0.1em; text-align: center; }
         .item-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* --- 6. L.A.B (포스트잇) --- */
+        /* --- 6. L.A.B (포스트잇 왼쪽 상단 배치) --- */
         #labContent { display: flex; justify-content: flex-start; align-items: flex-start; padding: 0 50px; gap: 30px; flex-wrap: wrap; }
         .post-it {
-            position: relative; width: 280px; height: 280px; background-color: #ffffff; /* 흰색 유지 */
+            position: relative; width: 280px; height: 280px; background-color: #ffffff;
             box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 40px 20px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; transform: rotate(-1deg); cursor: pointer;
@@ -99,15 +98,12 @@
         .spice-item img { width: 100%; height: auto; display: block; }
         .spice-title { font-size: 12px; margin-bottom: 15px; color: #888; }
 
-        /* --- 8. Work in Progress (Pill) --- */
+        /* --- 8. 기타 --- */
         #wipContent { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: none; align-items: center; justify-content: center; z-index: 10; }
         .glass-pill { padding: 18px 45px; border-radius: 50px; font-size: 14px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.5); }
-        
-        /* 9. 푸터 */
         footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 100%; text-align: center; z-index: 10; }
         footer a { color: #888; text-decoration: none; }
 
-        /* 모바일 대응 */
         @media (max-width: 768px) {
             header { height: 70px; top: 15px; left: 15px; right: 15px; padding: 0 20px; border-radius: 35px; justify-content: space-between; }
             .menu-trigger { position: relative; left: 0; gap: 10px; }
@@ -202,7 +198,6 @@
             sideMenu.classList.remove('active');
         }
 
-        // 배경색을 항상 라이트 그레이(#f2f2f2)로 유지하도록 수정
         function showSection(id) {
             hideAll();
             body.style.backgroundColor = "#f2f2f2"; 
@@ -216,8 +211,6 @@
 
         menuBtn.addEventListener('click', () => sideMenu.classList.add('active'));
         closeBtn.addEventListener('click', () => sideMenu.classList.remove('active'));
-        
-        // 로고 클릭 시 메인으로 이동 (배경색 유지)
         logoBtn.addEventListener('click', () => showSection('main'));
         
         document.getElementById('btnSequence').addEventListener('click', () => showSection('wip'));
