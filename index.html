@@ -95,9 +95,9 @@
         }
         .gallery-item:hover .item-text { transform: translateY(0); }
 
-        /* --- 5. L.A.B 섹션 (왼쪽 정렬 업데이트) --- */
+        /* --- 5. L.A.B 섹션 --- */
         #labContent { 
-            justify-content: flex-start; /* center에서 flex-start로 변경하여 왼쪽 정렬 */
+            justify-content: flex-start; 
             align-items: flex-start; 
             padding: 0 20px; 
             gap: 30px; 
@@ -149,16 +149,18 @@
             cursor: pointer; z-index: 10001; line-height: 1;
         }
 
-        /* --- 7. WIP 정중앙 --- */
+        /* --- 7. WIP 정중앙 업데이트 --- */
         #wipContent { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             z-index: 500; display: none; align-items: center; justify-content: center;
+            margin-top: 0; /* 중앙 배치를 위해 공통 여백 해제 */
             pointer-events: none;
         }
         .glass-pill { 
             padding: 18px 45px; border-radius: 50px; font-size: 14px; 
             background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); 
-            border: 1px solid rgba(255,255,255,0.5); display: inline-block; pointer-events: auto;
+            border: 1px solid rgba(255,255,255,0.5); display: inline-block; 
+            pointer-events: auto;
         }
         
         footer { position: fixed; bottom: 30px; left: 0; width: 100%; font-size: 11px; text-align: center; z-index: 10; }
@@ -172,9 +174,9 @@
             .menu-text { display: none; }
             #sideMenu { width: 100%; padding-top: 120px; }
             .content-section { margin-top: 140px; }
+            #wipContent { margin-top: 0; } /* 모바일에서도 중앙 유지 */
             #archiveContent { flex-direction: column; }
             .gallery-item { width: 100%; }
-            /* 모바일에서도 포스트잇 정렬 유지 */
             #labContent { justify-content: center; } 
             .post-it { width: 100%; max-width: 300px; height: 300px; }
         }
@@ -258,6 +260,7 @@
             const target = document.getElementById(id);
             if (!target) return;
 
+            // wipContent는 정중앙 배치를 위해 flex를 사용하지만 섹션 공통 margin-top의 영향을 받지 않도록 처리됨
             if (id === 'archiveContent' || id === 'labContent' || id === 'spiceGallery' || id === 'wipContent') {
                 target.style.display = 'flex';
             } else {
