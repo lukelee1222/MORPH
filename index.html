@@ -149,11 +149,11 @@
             cursor: pointer; z-index: 10001; line-height: 1;
         }
 
-        /* --- 7. WIP 정중앙 업데이트 --- */
+        /* --- 7. WIP 정중앙 --- */
         #wipContent { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
             z-index: 500; display: none; align-items: center; justify-content: center;
-            margin-top: 0; /* 중앙 배치를 위해 공통 여백 해제 */
+            margin-top: 0; 
             pointer-events: none;
         }
         .glass-pill { 
@@ -162,6 +162,19 @@
             border: 1px solid rgba(255,255,255,0.5); display: inline-block; 
             pointer-events: auto;
         }
+
+        /* --- 8. NEXT ALINEA 상세 페이지 전용 갤러리 --- */
+        #nextAlineaContent {
+            display: none; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 40px;
+            max-width: 1200px; margin: 180px auto 0;
+        }
+        .next-gallery-item {
+            width: 300px; height: 400px; background: #fff; border-radius: 20px;
+            overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            cursor: pointer; transition: transform 0.4s ease;
+        }
+        .next-gallery-item:hover { transform: translateY(-10px); }
+        .next-gallery-item img { width: 100%; height: 100%; object-fit: cover; }
         
         footer { position: fixed; bottom: 30px; left: 0; width: 100%; font-size: 11px; text-align: center; z-index: 10; }
         footer a { color: #888; text-decoration: none; }
@@ -174,7 +187,7 @@
             .menu-text { display: none; }
             #sideMenu { width: 100%; padding-top: 120px; }
             .content-section { margin-top: 140px; }
-            #wipContent { margin-top: 0; } /* 모바일에서도 중앙 유지 */
+            #wipContent { margin-top: 0; }
             #archiveContent { flex-direction: column; }
             .gallery-item { width: 100%; }
             #labContent { justify-content: center; } 
@@ -204,7 +217,7 @@
     </div>
 
     <div id="archiveContent" class="content-section">
-        <div class="gallery-item">
+        <div class="gallery-item" onclick="showSection('nextAlineaContent')">
             <img src="IMG_1673.jpg" alt="NEXT ALINEA">
             <div class="item-overlay">
                 <span class="item-text">NEXT (ALINEA GROUP)</span>
@@ -215,6 +228,12 @@
                 <span class="item-text">?</span>
             </div>
         </div>
+    </div>
+
+    <div id="nextAlineaContent" class="content-section">
+        <div class="next-gallery-item clickable-img"><img src="IMG_1673.jpg" alt="Next Experience 1"></div>
+        <div class="next-gallery-item clickable-img"><img src="PHOTO_2.jpg" alt="Next Experience 2"></div>
+        <div class="next-gallery-item clickable-img"><img src="PHOTO_3.jpg" alt="Next Experience 3"></div>
     </div>
 
     <div id="labContent" class="content-section">
@@ -260,8 +279,10 @@
             const target = document.getElementById(id);
             if (!target) return;
 
-            // wipContent는 정중앙 배치를 위해 flex를 사용하지만 섹션 공통 margin-top의 영향을 받지 않도록 처리됨
-            if (id === 'archiveContent' || id === 'labContent' || id === 'spiceGallery' || id === 'wipContent') {
+            // flex 레이아웃을 사용해야 하는 섹션들 목록
+            const flexSections = ['archiveContent', 'labContent', 'spiceGallery', 'wipContent', 'nextAlineaContent'];
+            
+            if (flexSections.includes(id)) {
                 target.style.display = 'flex';
             } else {
                 target.style.display = 'block';
@@ -271,13 +292,17 @@
             sideMenu.classList.remove('active');
         }
 
-        document.querySelectorAll('.clickable-img').forEach(item => {
-            item.addEventListener('click', function() {
-                const imgSrc = this.querySelector('img').src;
-                expandedImg.src = imgSrc;
-                lightbox.style.display = 'flex';
-                setTimeout(() => lightbox.style.opacity = '1', 10);
-            });
+        // 이미지 클릭 시 라이트박스 오픈 로직을 클래스로 통합 관리
+        document.addEventListener('click', function(e) {
+            const item = e.target.closest('.clickable-img');
+            if (item) {
+                const img = item.querySelector('img');
+                if (img) {
+                    expandedImg.src = img.src;
+                    lightbox.style.display = 'flex';
+                    setTimeout(() => lightbox.style.opacity = '1', 10);
+                }
+            }
         });
 
         document.getElementById('lightboxClose').addEventListener('click', () => {
