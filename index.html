@@ -7,7 +7,7 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background-color: #ffffff; /* 기본 배경 흰색 */
+            background-color: #ffffff;
             color: #000000;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-transform: uppercase;
@@ -15,10 +15,10 @@
             padding: 40px;
             letter-spacing: 0.05em;
             overflow-x: hidden;
-            transition: background-color 0.6s ease; /* 배경색 부드럽게 변경 */
+            transition: background-color 0.6s ease;
         }
 
-        /* --- 1. 고정 헤더 (리퀴드 글래스) --- */
+        /* --- 1. 고정 헤더 --- */
         header {
             position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
             display: flex; align-items: center; justify-content: center; z-index: 1000; 
@@ -34,7 +34,7 @@
         .menu-text { font-size: 14px; font-weight: 500; }
         .logo { font-weight: 500; font-size: 22px; letter-spacing: 0.6em; color: #000000; text-decoration: none; cursor: pointer; }
 
-        /* --- 2. 왼쪽 사이드 메뉴 (Light Grey) --- */
+        /* --- 2. 왼쪽 사이드 메뉴 --- */
         #sideMenu {
             position: fixed; top: 0; left: 0; width: 320px; height: 100vh;
             background-color: #f2f2f2; z-index: 9999; padding: 150px 50px 50px 50px;
@@ -46,16 +46,56 @@
         .menu-item::after { content: " →"; }
         .close-btn { position: absolute; top: 55px; right: 40px; font-size: 13px; cursor: pointer; color: #999; }
 
-        /* --- 3. 메인 콘텐츠 (기존 이름) --- */
-        #mainContent { margin-top: 150px; transition: opacity 0.5s ease; }
+        /* --- 3. 메인 콘텐츠 및 섹션 공통 --- */
+        #mainContent, #archiveContent { margin-top: 150px; transition: opacity 0.5s ease; }
         .info { font-size: 14px; line-height: 1.6; font-weight: 400; }
 
-        /* --- 4. Work in Progress (리퀴드 글래스 알약) --- */
+        /* --- 4. Archive Gallery 레이아웃 --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2열 배치 */
+            gap: 20px;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto 100px auto;
+        }
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            background-color: #e0e0e0; /* 이미지 없을 때 배경색 */
+            overflow: hidden;
+            cursor: pointer;
+        }
+        /* 마우스 호버 시 나타나는 흰색 불투명 오버레이 */
+        .item-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.9); /* 하얀 불투명색 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 2;
+        }
+        .gallery-item:hover .item-overlay { opacity: 1; }
+        .item-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            letter-spacing: 0.1em;
+        }
+        /* 이미지나 프로젝트 내용을 넣을 공간 */
+        .item-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- 5. Work in Progress (알약) --- */
         #wipContent {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            display: none; /* 처음엔 숨김 */
-            align-items: center; justify-content: center;
-            z-index: 10;
+            display: none; align-items: center; justify-content: center; z-index: 10;
         }
         .glass-pill {
             padding: 18px 45px; border-radius: 50px; font-size: 14px; font-weight: 500; letter-spacing: 0.1em; color: #000000;
@@ -70,7 +110,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- 5. 푸터 --- */
+        /* --- 6. 푸터 --- */
         footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 100%; text-align: center; z-index: 10; }
         footer a { color: #888; text-decoration: none; border-bottom: 1px solid #eee; }
 
@@ -79,7 +119,8 @@
             header { height: 70px; top: 15px; left: 15px; right: 15px; justify-content: space-between; padding: 0 25px; border-radius: 35px; }
             .menu-trigger { position: relative; left: 0; padding: 5px; gap: 10px; }
             .logo { font-size: 18px; letter-spacing: 0.4em; }
-            #sideMenu { width: 100%; } /* 모바일은 메뉴 꽉 차게 */
+            #sideMenu { width: 100%; }
+            .gallery-grid { grid-template-columns: 1fr; } /* 모바일은 1열 */
         }
     </style>
 </head>
@@ -106,6 +147,31 @@
         </div>
     </div>
 
+    <div id="archiveContent" style="display: none; opacity: 0;">
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="item-overlay">
+                    <span class="item-text">NEXT (Alinea Group)</span>
+                </div>
+                </div>
+            <div class="gallery-item">
+                <div class="item-overlay">
+                    <span class="item-text">NEXT (Alinea Group)</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="item-overlay">
+                    <span class="item-text">NEXT (Alinea Group)</span>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="item-overlay">
+                    <span class="item-text">NEXT (Alinea Group)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="wipContent">
         <div class="glass-pill">WORK IN PROGRESS</div>
     </div>
@@ -123,35 +189,52 @@
         
         const mainContent = document.getElementById('mainContent');
         const wipContent = document.getElementById('wipContent');
+        const archiveContent = document.getElementById('archiveContent');
         
         const btnSequence = document.getElementById('btnSequence');
         const btnArchive = document.getElementById('btnArchive');
 
-        // 1. 메뉴 열기
-        menuBtn.addEventListener('click', () => sideMenu.classList.add('active'));
-
-        // 2. 메뉴 닫기
-        closeBtn.addEventListener('click', () => sideMenu.classList.remove('active'));
-
-        // 3. 버튼 클릭 시 (SEQUENCE / ARCHIVE 공통)
-        function showWip() {
-            sideMenu.classList.remove('active'); // 메뉴 닫기
-            body.style.backgroundColor = "#f2f2f2"; // 배경을 메뉴의 회색으로 변경
-            mainContent.style.opacity = "0"; // 기존 이름 숨기기
-            
-            setTimeout(() => {
-                mainContent.style.display = "none";
-                wipContent.style.display = "flex"; // 알약 등장
-            }, 500);
+        // 모든 섹션을 숨기는 함수
+        function hideAllSections() {
+            mainContent.style.display = "none";
+            mainContent.style.opacity = "0";
+            wipContent.style.display = "none";
+            archiveContent.style.display = "none";
+            archiveContent.style.opacity = "0";
         }
 
-        btnSequence.addEventListener('click', showWip);
-        btnArchive.addEventListener('click', showWip);
+        // 1. 메뉴 열기/닫기
+        menuBtn.addEventListener('click', () => sideMenu.classList.add('active'));
+        closeBtn.addEventListener('click', () => sideMenu.classList.remove('active'));
 
-        // 4. 로고 클릭 시 다시 메인으로 복구
+        // 2. SEQUENCE 클릭 (WIP 표시)
+        btnSequence.addEventListener('click', () => {
+            sideMenu.classList.remove('active');
+            body.style.backgroundColor = "#f2f2f2";
+            hideAllSections();
+            
+            setTimeout(() => {
+                wipContent.style.display = "flex";
+            }, 300);
+        });
+
+        // 3. ARCHIVE 클릭 (갤러리 표시)
+        btnArchive.addEventListener('click', () => {
+            sideMenu.classList.remove('active');
+            body.style.backgroundColor = "#f2f2f2";
+            hideAllSections();
+            
+            setTimeout(() => {
+                archiveContent.style.display = "block";
+                setTimeout(() => archiveContent.style.opacity = "1", 50);
+            }, 300);
+        });
+
+        // 4. 로고 클릭 (메인 복구)
         logoBtn.addEventListener('click', () => {
             body.style.backgroundColor = "#ffffff";
-            wipContent.style.display = "none";
+            hideAllSections();
+            
             mainContent.style.display = "block";
             setTimeout(() => mainContent.style.opacity = "1", 10);
         });
