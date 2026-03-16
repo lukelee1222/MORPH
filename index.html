@@ -18,7 +18,7 @@
             transition: background-color 0.6s ease;
         }
 
-        /* --- 1. 고정 헤더 (PC 기본 설정 유지) --- */
+        /* --- 1. 고정 헤더 --- */
         header {
             position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
             display: flex; align-items: center; justify-content: center;
@@ -43,15 +43,14 @@
             color: #000000; text-decoration: none; cursor: pointer; 
         }
 
-        /* --- 2. 왼쪽 사이드 메뉴 (색상 통일 업데이트) --- */
+        /* --- 2. 왼쪽 사이드 메뉴 --- */
         #sideMenu {
             position: fixed; top: 0; left: 0; width: 320px; height: 100vh;
-            /* 메인 페이지에서 보였던 깨끗한 느낌의 회색으로 고정 */
             background-color: #f7f7f7; 
             z-index: 9999; padding: 150px 50px 50px 50px;
             transform: translateX(-100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex; flex-direction: column; 
-            box-shadow: 20px 0 50px rgba(0,0,0,0.05); /* 경계선을 더 깔끔하게 처리 */
+            box-shadow: 20px 0 50px rgba(0,0,0,0.05);
         }
         #sideMenu.active { transform: translateX(0); }
         .menu-item { display: block; font-size: 16px; text-decoration: none; color: #000; margin-bottom: 30px; font-weight: 400; cursor: pointer; }
@@ -62,7 +61,7 @@
         #mainContent, #archiveContent, #labContent { margin-top: 150px; transition: opacity 0.5s ease; }
         .info { font-size: 14px; line-height: 1.6; }
 
-        /* --- 4. Archive Gallery (리퀴드 글래스 호버) --- */
+        /* --- 4. Archive Gallery --- */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
             max-width: 1400px; margin: 0 auto 100px auto;
@@ -81,8 +80,9 @@
         }
         .gallery-item:hover .item-overlay { opacity: 1; }
         .item-text { font-size: 13px; font-weight: 500; color: #000; letter-spacing: 0.1em; text-align: center; }
+        .item-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* --- 5. L.A.B (포스트잇 & 검정 핀) --- */
+        /* --- 5. L.A.B (포스트잇 문구 업데이트) --- */
         #labContent { display: flex; justify-content: center; align-items: flex-start; min-height: 80vh; }
         .post-it {
             position: relative; width: 300px; height: 300px; background-color: #ffffff;
@@ -94,7 +94,12 @@
             position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
             width: 12px; height: 12px; background-color: #000; border-radius: 50%;
         }
-        .lab-text { font-size: 12px; color: #333; line-height: 1.8; }
+        /* 텍스트 스타일: 소문자(project.s) 허용을 위해 text-transform: none 적용 */
+        .lab-text { 
+            font-size: 13px; color: #000; line-height: 2; font-weight: 400; 
+            text-transform: none; /* 소문자 표기를 위해 추가 */
+        }
+        .x-mark { font-size: 11px; margin: 5px 0; color: #888; }
 
         /* --- 6. 기타 --- */
         #wipContent { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: none; align-items: center; justify-content: center; z-index: 10; }
@@ -104,19 +109,11 @@
 
         /* --- 모바일 최적화 --- */
         @media (max-width: 768px) {
-            header { 
-                height: 70px; top: 15px; left: 15px; right: 15px; 
-                padding: 0 20px; border-radius: 35px;
-                justify-content: space-between; 
-            }
+            header { height: 70px; top: 15px; left: 15px; right: 15px; padding: 0 20px; border-radius: 35px; justify-content: space-between; }
             .menu-trigger { position: relative; left: 0; gap: 10px; }
             .menu-text { display: none; }
             .logo { font-size: 16px; letter-spacing: 0.3em; }
-            
-            #sideMenu { 
-                width: 100%; /* 모바일 전체 화면 메뉴 */
-                background-color: #f7f7f7; /* 색상 동일 적용 */
-            }
+            #sideMenu { width: 100%; background-color: #f7f7f7; }
             .gallery-grid { grid-template-columns: 1fr; }
             #mainContent, #archiveContent, #labContent { margin-top: 120px; }
         }
@@ -147,9 +144,11 @@
         <div class="gallery-grid">
             <div class="gallery-item">
                 <div class="item-overlay"><span class="item-text">NEXT (Alinea Group)</span></div>
+                <img src="images/project1.jpg" class="item-img" alt="">
             </div>
             <div class="gallery-item">
                 <div class="item-overlay"><span class="item-text">?</span></div>
+                <img src="images/project2.jpg" class="item-img" alt="">
             </div>
             <div class="gallery-item">
                 <div class="item-overlay"><span class="item-text">?</span></div>
@@ -164,9 +163,10 @@
         <div class="post-it">
             <div class="pin"></div>
             <div class="lab-text">
-                MORPH L.A.B<br>
-                EXPERIMENTAL ARCHIVE<br>
-                2026. 03. 16
+                MORPH LAB<br>
+                <div class="x-mark">x</div>
+                SPICE WORLD<br>
+                project.s
             </div>
         </div>
     </div>
