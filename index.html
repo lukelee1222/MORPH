@@ -18,7 +18,7 @@
             transition: background-color 0.6s ease;
         }
 
-        /* --- 1. 고정 헤더 --- */
+        /* --- 1. 고정 헤더 (리퀴드 글래스) --- */
         header {
             position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
             display: flex; align-items: center; justify-content: center; z-index: 1000; 
@@ -46,81 +46,55 @@
         .menu-item::after { content: " →"; }
         .close-btn { position: absolute; top: 55px; right: 40px; font-size: 13px; cursor: pointer; color: #999; }
 
-        /* --- 3. 메인 콘텐츠 및 섹션 공통 --- */
-        #mainContent, #archiveContent { margin-top: 150px; transition: opacity 0.5s ease; }
-        .info { font-size: 14px; line-height: 1.6; font-weight: 400; }
+        /* --- 3. 공통 섹션 스타일 --- */
+        #mainContent, #archiveContent, #labContent { margin-top: 150px; transition: opacity 0.5s ease; }
 
-        /* --- 4. Archive Gallery 레이아웃 --- */
+        /* --- 4. Archive Gallery (리퀴드 글래스 호버) --- */
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2열 배치 */
-            gap: 20px;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto 100px auto;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+            max-width: 1400px; margin: 0 auto 100px auto;
         }
         .gallery-item {
-            position: relative;
-            aspect-ratio: 16 / 10;
-            background-color: #e0e0e0; /* 이미지 없을 때 배경색 */
-            overflow: hidden;
-            cursor: pointer;
+            position: relative; aspect-ratio: 16 / 10; background-color: #e8e8e8;
+            overflow: hidden; cursor: pointer;
         }
-        /* 마우스 호버 시 나타나는 흰색 불투명 오버레이 */
+        /* 리퀴드 글래스 오버레이 효과 */
         .item-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(255, 255, 255, 0.9); /* 하얀 불투명색 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 2;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(15px) saturate(150%); -webkit-backdrop-filter: blur(15px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.4s ease; z-index: 2;
         }
         .gallery-item:hover .item-overlay { opacity: 1; }
-        .item-text {
-            font-size: 14px;
-            font-weight: 500;
-            color: #000;
-            letter-spacing: 0.1em;
-        }
-        /* 이미지나 프로젝트 내용을 넣을 공간 */
-        .item-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .item-text { font-size: 13px; font-weight: 500; color: #000; letter-spacing: 0.1em; text-align: center; }
 
-        /* --- 5. Work in Progress (알약) --- */
-        #wipContent {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            display: none; align-items: center; justify-content: center; z-index: 10;
+        /* --- 5. L.A.B (포스트잇 & 검정 핀) --- */
+        #labContent { display: flex; justify-content: center; align-items: flex-start; min-height: 80vh; }
+        .post-it {
+            position: relative; width: 300px; height: 300px; background-color: #ffffff;
+            box-shadow: 5px 15px 30px rgba(0,0,0,0.05); padding: 40px 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; transform: rotate(-1deg); /* 약간 기운 느낌 */
         }
-        .glass-pill {
-            padding: 18px 45px; border-radius: 50px; font-size: 14px; font-weight: 500; letter-spacing: 0.1em; color: #000000;
-            background: rgba(255, 255, 255, 0.4); 
-            backdrop-filter: blur(25px) saturate(180%); -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.5); 
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-            animation: pillFadeUp 0.8s ease-out;
+        /* 검정색 핀 */
+        .pin {
+            position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
+            width: 12px; height: 12px; background-color: #000; border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
-        @keyframes pillFadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .lab-text { font-size: 12px; color: #333; line-height: 1.8; }
 
-        /* --- 6. 푸터 --- */
+        /* --- 6. 기타 요소 (WIP, Footer 등) --- */
+        #wipContent { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: none; align-items: center; justify-content: center; z-index: 10; }
+        .glass-pill { padding: 18px 45px; border-radius: 50px; font-size: 14px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.5); }
         footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 100%; text-align: center; z-index: 10; }
-        footer a { color: #888; text-decoration: none; border-bottom: 1px solid #eee; }
+        footer a { color: #888; text-decoration: none; }
 
-        /* 모바일 대응 */
         @media (max-width: 768px) {
-            header { height: 70px; top: 15px; left: 15px; right: 15px; justify-content: space-between; padding: 0 25px; border-radius: 35px; }
-            .menu-trigger { position: relative; left: 0; padding: 5px; gap: 10px; }
-            .logo { font-size: 18px; letter-spacing: 0.4em; }
+            .gallery-grid { grid-template-columns: 1fr; }
             #sideMenu { width: 100%; }
-            .gallery-grid { grid-template-columns: 1fr; } /* 모바일은 1열 */
         }
     </style>
 </head>
@@ -137,37 +111,38 @@
     <div id="sideMenu">
         <div class="close-btn" id="closeBtn">CLOSE</div>
         <div class="menu-item" id="btnSequence">SEQUENCE 1.0</div>
+        <div class="menu-item" id="btnLab">L.A.B</div>
         <div class="menu-item" id="btnArchive">ARCHIVE</div>
     </div>
 
     <div id="mainContent">
-        <div class="info">
-            TAEHAN LEE<br>
-            NEW YORK, US
-        </div>
+        <div style="font-size: 14px; line-height: 1.6;">TAEHAN LEE<br>NEW YORK, US</div>
     </div>
 
     <div id="archiveContent" style="display: none; opacity: 0;">
         <div class="gallery-grid">
             <div class="gallery-item">
-                <div class="item-overlay">
-                    <span class="item-text">NEXT (Alinea Group)</span>
-                </div>
-                </div>
-            <div class="gallery-item">
-                <div class="item-overlay">
-                    <span class="item-text">NEXT (Alinea Group)</span>
-                </div>
+                <div class="item-overlay"><span class="item-text">NEXT (Alinea Group)</span></div>
             </div>
             <div class="gallery-item">
-                <div class="item-overlay">
-                    <span class="item-text">NEXT (Alinea Group)</span>
-                </div>
+                <div class="item-overlay"><span class="item-text">?</span></div>
             </div>
             <div class="gallery-item">
-                <div class="item-overlay">
-                    <span class="item-text">NEXT (Alinea Group)</span>
-                </div>
+                <div class="item-overlay"><span class="item-text">?</span></div>
+            </div>
+            <div class="gallery-item">
+                <div class="item-overlay"><span class="item-text">?</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="labContent" style="display: none; opacity: 0;">
+        <div class="post-it">
+            <div class="pin"></div>
+            <div class="lab-text">
+                MORPH L.A.B<br>
+                EXPERIMENTAL ARCHIVE<br>
+                2026. 03. 16
             </div>
         </div>
     </div>
@@ -176,9 +151,7 @@
         <div class="glass-pill">WORK IN PROGRESS</div>
     </div>
 
-    <footer>
-        <a href="https://www.instagram.com/morph_l.a.b/" target="_blank">INSTAGRAM @MORPH_L.A.B</a>
-    </footer>
+    <footer><a href="https://www.instagram.com/morph_l.a.b/" target="_blank">INSTAGRAM @MORPH_L.A.B</a></footer>
 
     <script>
         const body = document.getElementById('body');
@@ -187,58 +160,35 @@
         const sideMenu = document.getElementById('sideMenu');
         const logoBtn = document.getElementById('logoBtn');
         
-        const mainContent = document.getElementById('mainContent');
-        const wipContent = document.getElementById('wipContent');
-        const archiveContent = document.getElementById('archiveContent');
-        
-        const btnSequence = document.getElementById('btnSequence');
-        const btnArchive = document.getElementById('btnArchive');
+        const sections = {
+            main: document.getElementById('mainContent'),
+            archive: document.getElementById('archiveContent'),
+            lab: document.getElementById('labContent'),
+            wip: document.getElementById('wipContent')
+        };
 
-        // 모든 섹션을 숨기는 함수
-        function hideAllSections() {
-            mainContent.style.display = "none";
-            mainContent.style.opacity = "0";
-            wipContent.style.display = "none";
-            archiveContent.style.display = "none";
-            archiveContent.style.opacity = "0";
+        function hideAll() {
+            Object.values(sections).forEach(s => { s.style.display = 'none'; s.style.opacity = '0'; });
+            sideMenu.classList.remove('active');
         }
 
-        // 1. 메뉴 열기/닫기
+        function showSection(id, bgColor = "#ffffff") {
+            hideAll();
+            body.style.backgroundColor = bgColor;
+            setTimeout(() => {
+                const s = sections[id];
+                s.style.display = (id === 'wip' ? 'flex' : (id === 'lab' ? 'flex' : 'block'));
+                setTimeout(() => s.style.opacity = '1', 50);
+            }, 300);
+        }
+
         menuBtn.addEventListener('click', () => sideMenu.classList.add('active'));
         closeBtn.addEventListener('click', () => sideMenu.classList.remove('active'));
-
-        // 2. SEQUENCE 클릭 (WIP 표시)
-        btnSequence.addEventListener('click', () => {
-            sideMenu.classList.remove('active');
-            body.style.backgroundColor = "#f2f2f2";
-            hideAllSections();
-            
-            setTimeout(() => {
-                wipContent.style.display = "flex";
-            }, 300);
-        });
-
-        // 3. ARCHIVE 클릭 (갤러리 표시)
-        btnArchive.addEventListener('click', () => {
-            sideMenu.classList.remove('active');
-            body.style.backgroundColor = "#f2f2f2";
-            hideAllSections();
-            
-            setTimeout(() => {
-                archiveContent.style.display = "block";
-                setTimeout(() => archiveContent.style.opacity = "1", 50);
-            }, 300);
-        });
-
-        // 4. 로고 클릭 (메인 복구)
-        logoBtn.addEventListener('click', () => {
-            body.style.backgroundColor = "#ffffff";
-            hideAllSections();
-            
-            mainContent.style.display = "block";
-            setTimeout(() => mainContent.style.opacity = "1", 10);
-        });
+        logoBtn.addEventListener('click', () => showSection('main', '#ffffff'));
+        
+        document.getElementById('btnSequence').addEventListener('click', () => showSection('wip', '#f2f2f2'));
+        document.getElementById('btnLab').addEventListener('click', () => showSection('lab', '#f2f2f2'));
+        document.getElementById('btnArchive').addEventListener('click', () => showSection('archive', '#f2f2f2'));
     </script>
-
 </body>
 </html>
