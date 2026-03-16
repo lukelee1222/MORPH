@@ -54,14 +54,18 @@
         #mainContent, #archiveContent, #labContent, #spiceGallery { margin-top: 150px; transition: opacity 0.5s ease; }
         .info { font-size: 14px; line-height: 1.6; }
 
-        /* --- 3. Archive 갤러리 --- */
+        /* --- 3. Archive 갤러리 (사이즈 원상복구) --- */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
             max-width: 1400px; margin: 0 auto 100px auto;
         }
         .gallery-item {
-            position: relative; aspect-ratio: 16 / 10; background-color: #dfdfdf;
-            overflow: hidden; cursor: pointer; padding: 20px;
+            position: relative; 
+            aspect-ratio: 16 / 10; /* 원래의 큼직한 비율로 복구 */
+            background-color: #dfdfdf;
+            overflow: hidden; 
+            cursor: pointer;
+            /* padding 제거하여 박스 꽉 차게 복구 */
         }
         .item-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -90,37 +94,23 @@
         .x-mark { font-size: 11px; margin: 5px 0; color: #888; }
         .question-mark { font-size: 30px; color: #ccc; font-weight: 300; }
 
-        /* --- 5. 상세 갤러리 (비율 보존 가로 확장 버전) --- */
+        /* --- 5. 상세 갤러리 (L.A.B 전용 스타일 유지) --- */
         #spiceGallery { 
-            display: flex; 
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: flex-start;
-            gap: 30px; 
-            max-width: none; 
-            margin: 150px 0 100px 0;
-            padding: 0 50px;
-            overflow-x: auto; 
+            display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-start;
+            gap: 30px; margin: 150px 0 100px 0; padding: 0 50px; overflow-x: auto; 
         }
         .spice-item { 
             flex: 0 0 auto; 
-            height: 280px; /* 높이만 280px로 고정 */
-            width: auto; /* 너비는 사진 비율에 맞춰 자동 확장 */
+            height: 280px; /* 포스트잇 높이와 동일하게 유지 */
+            width: auto; 
             background: rgba(255, 255, 255, 0.3); 
             backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.5); 
-            padding: 15px; 
-            border-radius: 20px; 
+            padding: 15px; border-radius: 20px; cursor: pointer;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease;
         }
-        .spice-item:hover { transform: scale(1.02); }
-        .spice-item img { 
-            height: 100%; /* 높이를 꽉 채움 */
-            width: auto; /* 너비는 비율대로 */
-            display: block; 
-            border-radius: 10px; 
-        }
+        .spice-item img { height: 100%; width: auto; display: block; border-radius: 10px; }
         .spice-title { position: fixed; top: 130px; left: 50px; font-size: 10px; color: #aaa; z-index: 5; }
 
         /* --- 6. 확대 보기 (Lightbox) --- */
@@ -158,6 +148,7 @@
             #sideMenu { width: 100%; }
             #spiceGallery { padding: 0 30px; }
             .spice-item { height: 240px; } 
+            .gallery-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
