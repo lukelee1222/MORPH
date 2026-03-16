@@ -79,6 +79,19 @@
         .item-text { font-size: 14px; font-weight: 400; color: #000; letter-spacing: 0.15em; text-align: center; }
 
         /* --- 5. L.A.B 섹션 --- */
+        /* 빈 포스트잇을 살짝 기울이고 마우스 커서를 기본으로 설정 */
+.post-it.empty { 
+    transform: rotate(1.5deg) !important; 
+    cursor: default; 
+}
+
+/* 물음표(?)의 크기와 색상 설정 */
+.question-mark { 
+    font-size: 40px; 
+    color: #ccc; 
+    font-weight: 300; 
+    font-family: Arial, sans-serif; /* 깔끔한 폰트 적용 */
+}
         #labContent { justify-content: flex-start; align-items: flex-start; padding: 0 50px; gap: 30px; flex-wrap: wrap; }
         .post-it {
             position: relative; width: 280px; height: 280px; background-color: #ffffff;
