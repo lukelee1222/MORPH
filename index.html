@@ -19,7 +19,7 @@
             transition: background-color 0.6s ease;
         }
 
-        /* --- 1. 고정 헤더 --- */
+        /* --- 1. 고정 헤더 (리퀴드 글래스) --- */
         header {
             position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
             display: flex; align-items: center; justify-content: center;
@@ -37,7 +37,7 @@
         .menu-text { font-size: 14px; font-weight: 500; }
         .logo { font-weight: 500; font-size: 22px; letter-spacing: 0.6em; color: #000000; text-decoration: none; cursor: pointer; }
 
-        /* --- 2. 사이드 메뉴 --- */
+        /* --- 2. 사이드 메뉴 (통합 관리) --- */
         #sideMenu {
             position: fixed; top: 0; left: 0; width: 320px; height: 100vh;
             background-color: #e8e8e8; 
@@ -54,7 +54,7 @@
         #mainContent, #archiveContent, #labContent, #spiceGallery { margin-top: 150px; transition: opacity 0.5s ease; }
         .info { font-size: 14px; line-height: 1.6; }
 
-        /* --- 3. Archive 갤러리 (리퀴드 글래스 오버레이 적용) --- */
+        /* --- 3. Archive 갤러리 (리퀴드 글래스 오버레이 효과) --- */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
             max-width: 1400px; margin: 0 auto 100px auto;
@@ -65,14 +65,14 @@
             background-color: #dfdfdf;
             overflow: hidden; 
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 4px;
         }
+        /* 마우스 올렸을 때 나타나는 리퀴드 글래스 패널 */
         .item-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* 리퀴드 글래스 디자인 적용 */
-            background: rgba(255, 255, 255, 0.3); 
-            backdrop-filter: blur(15px) saturate(150%); 
-            -webkit-backdrop-filter: blur(15px) saturate(150%);
+            background: rgba(255, 255, 255, 0.25); 
+            backdrop-filter: blur(15px) saturate(160%); 
+            -webkit-backdrop-filter: blur(15px) saturate(160%);
             border: 1px solid rgba(255, 255, 255, 0.4);
             display: flex; align-items: center; justify-content: center;
             opacity: 0; transition: opacity 0.5s ease; z-index: 2;
@@ -82,11 +82,11 @@
             font-size: 14px; 
             font-weight: 400; 
             color: #000; 
-            letter-spacing: 0.15em; 
+            letter-spacing: 0.2em; 
             text-align: center; 
         }
 
-        /* --- 4. L.A.B (포스트잇) --- */
+        /* --- 4. L.A.B 섹션 --- */
         #labContent { display: flex; justify-content: flex-start; align-items: flex-start; padding: 0 50px; gap: 30px; flex-wrap: wrap; }
         .post-it {
             position: relative; width: 280px; height: 280px; background-color: #ffffff;
@@ -102,7 +102,7 @@
         .x-mark { font-size: 11px; margin: 5px 0; color: #888; }
         .question-mark { font-size: 30px; color: #ccc; font-weight: 300; }
 
-        /* --- 5. 상세 갤러리 (L.A.B 전용) --- */
+        /* --- 5. L.A.B 상세 갤러리 --- */
         #spiceGallery { 
             display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-start;
             gap: 30px; margin: 150px 0 100px 0; padding: 0 50px; overflow-x: auto; 
@@ -117,7 +117,6 @@
             transition: transform 0.3s ease;
         }
         .spice-item img { height: 100%; width: auto; display: block; border-radius: 10px; }
-        .spice-title { position: fixed; top: 130px; left: 50px; font-size: 10px; color: #aaa; z-index: 5; }
 
         /* --- 6. 확대 보기 (Lightbox) --- */
         #imageLightbox {
@@ -209,7 +208,6 @@
     </div>
 
     <div id="spiceGallery" style="display: none; opacity: 0;">
-        <div class="spice-title">MORPH LAB x SPICE WORLD / IMAGES</div>
         <div class="spice-item clickable-img"><img src="IMG_2587.jpg" alt=""></div>
         <div class="spice-item clickable-img"><img src="IMG_2631 2.jpg" alt=""></div>
     </div>
@@ -221,7 +219,7 @@
         </div>
     </div>
 
-    <div id="wipContent">
+    <div id="wipContent" style="display: none; opacity: 0;">
         <div class="glass-pill">WORK IN PROGRESS</div>
     </div>
 
@@ -247,7 +245,10 @@
         const lightboxClose = document.getElementById('lightboxClose');
 
         function hideAll() {
-            Object.values(sections).forEach(s => { s.style.display = 'none'; s.style.opacity = '0'; });
+            Object.values(sections).forEach(s => { 
+                s.style.display = 'none'; 
+                s.style.opacity = '0'; 
+            });
             sideMenu.classList.remove('active');
             lightbox.style.display = 'none';
         }
@@ -258,11 +259,14 @@
             setTimeout(() => {
                 const s = sections[id];
                 if(id === 'archive' || id === 'spice') s.style.display = 'flex'; 
+                else if (id === 'wip') s.style.display = 'flex';
                 else s.style.display = 'flex';
+                
                 setTimeout(() => s.style.opacity = '1', 50);
             }, 300);
         }
 
+        // 메뉴 이벤트
         menuBtn.addEventListener('click', () => sideMenu.classList.add('active'));
         closeBtn.addEventListener('click', () => sideMenu.classList.remove('active'));
         logoBtn.addEventListener('click', () => showSection('main'));
@@ -272,10 +276,10 @@
         document.getElementById('btnArchive').addEventListener('click', () => showSection('archive'));
         document.getElementById('btnSpiceWorld').addEventListener('click', () => showSection('spice'));
 
+        // 확대 기능
         document.querySelectorAll('.clickable-img').forEach(item => {
             item.addEventListener('click', function() {
-                const imgSrc = this.querySelector('img').src;
-                expandedImg.src = imgSrc;
+                expandedImg.src = this.querySelector('img').src;
                 lightbox.style.display = 'flex';
                 setTimeout(() => lightbox.style.opacity = '1', 10);
             });
