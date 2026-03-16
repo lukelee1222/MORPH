@@ -19,7 +19,7 @@
             transition: background-color 0.6s ease;
         }
 
-        /* --- 1. 고정 헤더 (리퀴드 글래스) --- */
+        /* --- 1. 고정 헤더 --- */
         header {
             position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
             display: flex; align-items: center; justify-content: center;
@@ -79,19 +79,6 @@
         .item-text { font-size: 14px; font-weight: 400; color: #000; letter-spacing: 0.15em; text-align: center; }
 
         /* --- 5. L.A.B 섹션 --- */
-        /* 빈 포스트잇을 살짝 기울이고 마우스 커서를 기본으로 설정 */
-.post-it.empty { 
-    transform: rotate(1.5deg) !important; 
-    cursor: default; 
-}
-
-/* 물음표(?)의 크기와 색상 설정 */
-.question-mark { 
-    font-size: 40px; 
-    color: #ccc; 
-    font-weight: 300; 
-    font-family: Arial, sans-serif; /* 깔끔한 폰트 적용 */
-}
         #labContent { justify-content: flex-start; align-items: flex-start; padding: 0 50px; gap: 30px; flex-wrap: wrap; }
         .post-it {
             position: relative; width: 280px; height: 280px; background-color: #ffffff;
@@ -100,10 +87,12 @@
             text-align: center; transform: rotate(-1deg); cursor: pointer; transition: transform 0.3s ease;
         }
         .post-it:hover { transform: rotate(0deg) translateY(-5px); }
+        .post-it.empty { transform: rotate(1.5deg); cursor: default; }
         .pin { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background-color: #000; border-radius: 50%; }
         .lab-text { font-size: 13px; color: #000; line-height: 2; text-transform: none; }
+        .question-mark { font-size: 40px; color: #ccc; font-weight: 300; }
 
-        /* --- 6. L.A.B 상세 갤러리 --- */
+        /* --- 6. Spice World 상세 상세 및 라이트박스 --- */
         #spiceGallery { 
             display: none; flex-direction: row; justify-content: flex-start; align-items: flex-start;
             gap: 30px; padding: 0 50px; overflow-x: auto; 
@@ -115,24 +104,34 @@
         }
         .spice-item img { height: 100%; width: auto; display: block; border-radius: 10px; }
 
-        /* --- 7. WIP 가로/세로 전체 정중앙 수정 --- */
+        #imageLightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(242, 242, 242, 0.8); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 10000; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+        .lightbox-glass {
+            position: relative; width: auto; max-width: 90%; max-height: 85%;
+            background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.5); padding: 30px; border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;
+        }
+        .lightbox-glass img { max-width: 100%; max-height: 75vh; border-radius: 20px; }
+        .lightbox-close {
+            position: absolute; top: 20px; right: 25px; font-size: 30px; font-weight: 300; color: #000;
+            cursor: pointer; z-index: 10001; line-height: 1;
+        }
+
+        /* --- 7. WIP 가로/세로 전체 정중앙 --- */
         #wipContent { 
-            position: fixed; /* 고정 위치 */
-            top: 0; left: 0; 
-            width: 100vw; height: 100vh; 
-            margin-top: 0; /* 마진 초기화 */
-            z-index: 500; /* 헤더보다는 아래, 콘텐츠보다는 위 */
-            display: none; 
-            align-items: center; /* 세로 중앙 */
-            justify-content: center; /* 가로 중앙 */
-            pointer-events: none; /* 배경 클릭 방해 방지 */
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            margin-top: 0; z-index: 500; display: none; align-items: center; justify-content: center;
+            pointer-events: none;
         }
         .glass-pill { 
             padding: 18px 45px; border-radius: 50px; font-size: 14px; 
             background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); 
-            border: 1px solid rgba(255,255,255,0.5); 
-            display: inline-block; 
-            pointer-events: auto; /* 알약 자체는 마우스 이벤트 허용 */
+            border: 1px solid rgba(255,255,255,0.5); display: inline-block; pointer-events: auto;
         }
         
         footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 100%; text-align: center; z-index: 10; }
@@ -175,21 +174,27 @@
         </div>
     </div>
 
-  <div id="labContent" class="content-section">
-    <div class="post-it" onclick="showSection('spiceGallery')">
-        <div class="pin"></div>
-        <div class="lab-text">MORPH LAB<br>X<br>SPICE WORLD<br>project.s</div>
+    <div id="labContent" class="content-section">
+        <div class="post-it" onclick="showSection('spiceGallery')">
+            <div class="pin"></div>
+            <div class="lab-text">MORPH LAB<br>X<br>SPICE WORLD<br>project.s</div>
+        </div>
+        <div class="post-it empty">
+            <div class="pin"></div>
+            <div class="question-mark">?</div>
+        </div>
     </div>
-
-    <div class="post-it empty">
-        <div class="pin"></div>
-        <div class="question-mark">?</div>
-    </div>
-</div>
 
     <div id="spiceGallery" class="content-section">
-        <div class="spice-item"><img src="IMG_2587.jpg" alt="Spice 1"></div>
-        <div class="spice-item"><img src="IMG_2631 2.jpg" alt="Spice 2"></div>
+        <div class="spice-item clickable-img"><img src="IMG_2587.jpg" alt="Spice 1"></div>
+        <div class="spice-item clickable-img"><img src="IMG_2631 2.jpg" alt="Spice 2"></div>
+    </div>
+
+    <div id="imageLightbox">
+        <div class="lightbox-glass">
+            <div class="lightbox-close" id="lightboxClose">✕</div>
+            <img id="expandedImg" src="" alt="Expanded View">
+        </div>
     </div>
 
     <div id="wipContent" class="content-section">
@@ -200,6 +205,8 @@
 
     <script>
         const sideMenu = document.getElementById('sideMenu');
+        const lightbox = document.getElementById('imageLightbox');
+        const expandedImg = document.getElementById('expandedImg');
 
         function showSection(id) {
             document.querySelectorAll('.content-section').forEach(s => {
@@ -210,7 +217,6 @@
             const target = document.getElementById(id);
             if (!target) return;
 
-            // 정중앙 정렬이 필요한 섹션(WIP 포함) 처리
             if (id === 'archiveContent' || id === 'labContent' || id === 'spiceGallery' || id === 'wipContent') {
                 target.style.display = 'flex';
             } else {
@@ -221,6 +227,27 @@
             sideMenu.classList.remove('active');
         }
 
+        // 라이트박스 확대 기능
+        document.querySelectorAll('.clickable-img').forEach(item => {
+            item.addEventListener('click', function() {
+                const imgSrc = this.querySelector('img').src;
+                expandedImg.src = imgSrc;
+                lightbox.style.display = 'flex';
+                setTimeout(() => lightbox.style.opacity = '1', 10);
+            });
+        });
+
+        // 라이트박스 닫기 기능
+        document.getElementById('lightboxClose').addEventListener('click', () => {
+            lightbox.style.opacity = '0';
+            setTimeout(() => { lightbox.style.display = 'none'; }, 400);
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) document.getElementById('lightboxClose').click();
+        });
+
+        // 메뉴 제어
         document.getElementById('menuBtn').onclick = () => sideMenu.classList.add('active');
         document.getElementById('closeBtn').onclick = () => sideMenu.classList.remove('active');
     </script>
