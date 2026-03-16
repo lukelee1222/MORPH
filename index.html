@@ -52,32 +52,51 @@
 
         /* --- 3. 섹션 공통 스타일 --- */
         .content-section { 
-            margin-top: 180px; /* 헤더와의 간격을 충분히 확보 */
+            margin-top: 180px; 
             display: none; 
             opacity: 0; 
             transition: opacity 0.5s ease; 
         }
 
-        /* --- 4. Archive 갤러리 --- */
+        /* --- 4. Archive 갤러리 (리퀴드 애니메이션 반영) --- */
         #archiveContent {
             justify-content: flex-start; gap: 20px; padding: 0 20px;
             max-width: 1400px; margin-left: auto; margin-right: auto;
         }
         .gallery-item {
-            position: relative; flex: 1; aspect-ratio: 16 / 10;
+            position: relative; flex: 1; min-width: 320px; aspect-ratio: 16 / 10;
             background-color: #dfdfdf; border-radius: 4px;
             overflow: hidden; cursor: pointer;
         }
+        /* 기본 사진 상태 */
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: blur(0px);
+            transition: filter 0.7s cubic-bezier(0.2, 1, 0.3, 1), transform 0.7s ease;
+        }
+        /* 마우스 건들 때 효과 */
+        .gallery-item:hover img {
+            filter: blur(15px); /* 리퀴드 블러 */
+            transform: scale(1.08); /* 경계 확장 */
+        }
+        /* 리퀴드 글래스 오버레이 */
         .item-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.25); 
-            backdrop-filter: blur(15px) saturate(160%); -webkit-backdrop-filter: blur(15px) saturate(160%);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.15); 
+            backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
             display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.5s ease; z-index: 2;
+            opacity: 0; transition: opacity 0.6s ease, backdrop-filter 0.6s ease; z-index: 2;
         }
-        .gallery-item:hover .item-overlay { opacity: 1; }
-        .item-text { font-size: 14px; font-weight: 400; color: #000; letter-spacing: 0.15em; text-align: center; }
+        .gallery-item:hover .item-overlay { 
+            opacity: 1; 
+            backdrop-filter: blur(10px) saturate(140%); 
+            -webkit-backdrop-filter: blur(10px) saturate(140%);
+        }
+        .item-text { 
+            font-size: 14px; font-weight: 500; color: #000; letter-spacing: 0.2em; text-align: center;
+            transform: translateY(10px); transition: transform 0.6s ease;
+        }
+        .gallery-item:hover .item-text { transform: translateY(0); }
 
         /* --- 5. L.A.B 섹션 --- */
         #labContent { justify-content: center; align-items: flex-start; padding: 0 20px; gap: 30px; flex-wrap: wrap; }
@@ -139,24 +158,16 @@
         footer { position: fixed; bottom: 30px; left: 0; width: 100%; font-size: 11px; text-align: center; z-index: 10; }
         footer a { color: #888; text-decoration: none; }
 
-        /* --- 📱 모바일 최적화 (핵심 수정 부분) --- */
         @media (max-width: 768px) {
             body { padding: 20px; }
-            
-            header { 
-                height: 70px; top: 15px; left: 15px; right: 15px; 
-                padding: 0 25px; justify-content: space-between; /* 양 끝 정렬로 겹침 방지 */
-            }
-            .menu-trigger { position: static; } /* 절대 위치 해제 */
-            .logo { font-size: 16px; letter-spacing: 0.4em; } /* 로고 크기 축소 */
-            .menu-text { display: none; } /* MENU 글자 숨기고 아이콘만 표시하여 공간 확보 */
-            
+            header { height: 70px; top: 15px; left: 15px; right: 15px; padding: 0 25px; justify-content: space-between; }
+            .menu-trigger { position: static; }
+            .logo { font-size: 16px; letter-spacing: 0.4em; }
+            .menu-text { display: none; }
             #sideMenu { width: 100%; padding-top: 120px; }
-            .content-section { margin-top: 140px; } /* 모바일 헤더 높이에 맞춘 여백 */
-            
+            .content-section { margin-top: 140px; }
             #archiveContent { flex-direction: column; }
             .gallery-item { width: 100%; }
-            
             .post-it { width: 100%; max-width: 300px; height: 300px; }
         }
     </style>
@@ -184,10 +195,15 @@
 
     <div id="archiveContent" class="content-section">
         <div class="gallery-item">
-            <div class="item-overlay"><span class="item-text">NEXT (ALINEA GROUP)</span></div>
+            <img src="IMG_1673.jpg" alt="NEXT ALINEA">
+            <div class="item-overlay">
+                <span class="item-text">NEXT (ALINEA GROUP)</span>
+            </div>
         </div>
         <div class="gallery-item">
-            <div class="item-overlay"><span class="item-text">?</span></div>
+            <div class="item-overlay" style="opacity: 1; background: rgba(0,0,0,0.03);">
+                <span class="item-text">?</span>
+            </div>
         </div>
     </div>
 
