@@ -123,9 +123,9 @@
         #spiceGallery, #nextAlineaContent { 
             display: none; flex-direction: row; justify-content: flex-start; align-items: flex-start;
             gap: 30px; padding: 0 50px; overflow-x: auto; 
-            scrollbar-width: none; /* 파이어폭스 스크롤 숨김 */
+            scrollbar-width: none; 
         }
-        #spiceGallery::-webkit-scrollbar, #nextAlineaContent::-webkit-scrollbar { display: none; } /* 크롬 스크롤 숨김 */
+        #spiceGallery::-webkit-scrollbar, #nextAlineaContent::-webkit-scrollbar { display: none; } 
 
         .spice-item, .next-experience-item { 
             flex: 0 0 auto; height: 350px; width: auto; 
@@ -224,10 +224,15 @@
     </div>
 
     <div id="nextAlineaContent" class="content-section">
+        <div class="next-experience-item clickable-img"><img src="Star.jpg" alt="Star"></div>
+        <div class="next-experience-item clickable-img"><img src="Kitchen.jpg" alt="Kitchen"></div>
         <div class="next-experience-item clickable-img"><img src="NEXT%20BLUE.jpg" alt="Next Blue"></div>
         <div class="next-experience-item clickable-img"><img src="NEXT%20Small%20Green.jpg" alt="Next Small Green"></div>
         <div class="next-experience-item clickable-img"><img src="NEXT%20Big%20Green.jpg" alt="Next Big Green"></div>
         <div class="next-experience-item clickable-img"><img src="NEXT%20Dessert.jpg" alt="Next Dessert"></div>
+        <div class="next-experience-item clickable-img"><img src="Canelloni%20Production.jpg" alt="Canelloni Production"></div>
+        <div class="next-experience-item clickable-img"><img src="Canelloni.jpg" alt="Canelloni"></div>
+        <div class="next-experience-item clickable-img"><img src="Dining%20Room.jpg" alt="Dining Room"></div>
     </div>
 
     <div id="labContent" class="content-section">
@@ -273,7 +278,6 @@
             const target = document.getElementById(id);
             if (!target) return;
 
-            // 가로 스크롤 레이아웃(flex)을 사용해야 하는 섹션들 목록
             const flexSections = ['archiveContent', 'labContent', 'spiceGallery', 'wipContent', 'nextAlineaContent'];
             
             if (flexSections.includes(id)) {
@@ -286,7 +290,6 @@
             sideMenu.classList.remove('active');
         }
 
-        // 이미지 클릭 시 라이트박스 오픈 로직
         document.addEventListener('click', function(e) {
             const item = e.target.closest('.clickable-img');
             if (item) {
