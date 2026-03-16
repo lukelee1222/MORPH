@@ -19,7 +19,7 @@
             transition: background-color 0.6s ease;
         }
 
-        /* --- 1. 고정 헤더 (리퀴드 글래스) --- */
+        /* --- 1. 고정 헤더 --- */
         header {
             position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
             display: flex; align-items: center; justify-content: center;
@@ -57,7 +57,7 @@
             transition: opacity 0.5s ease; 
         }
 
-        /* --- 4. Archive 갤러리 (새로운 Flex 레이아웃) --- */
+        /* --- 4. Archive 갤러리 --- */
         #archiveContent {
             justify-content: flex-start; gap: 20px; padding: 0 20px;
             max-width: 1400px; margin-left: auto; margin-right: auto;
@@ -90,7 +90,7 @@
         .pin { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background-color: #000; border-radius: 50%; }
         .lab-text { font-size: 13px; color: #000; line-height: 2; text-transform: none; }
 
-        /* --- 6. L.A.B 상세 갤러리 (Spice World) --- */
+        /* --- 6. Spice World 상세 --- */
         #spiceGallery { 
             display: none; flex-direction: row; justify-content: flex-start; align-items: flex-start;
             gap: 30px; padding: 0 50px; overflow-x: auto; 
@@ -102,9 +102,21 @@
         }
         .spice-item img { height: 100%; width: auto; display: block; border-radius: 10px; }
 
-        /* --- 7. WIP & 기타 --- */
-        #wipContent { text-align: center; justify-content: center; }
-        .glass-pill { padding: 18px 45px; border-radius: 50px; font-size: 14px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.5); display: inline-block; }
+        /* --- 7. WIP 중앙 정렬 수정 --- */
+        #wipContent { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            margin-top: 0; /* 중앙 정렬을 위해 마진 제거 */
+            display: none; 
+            align-items: center; justify-content: center;
+            z-index: 10;
+            pointer-events: none; /* 배경 클릭 방해 금지 */
+        }
+        .glass-pill { 
+            padding: 18px 45px; border-radius: 50px; font-size: 14px; 
+            background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); 
+            border: 1px solid rgba(255,255,255,0.5); display: inline-block; 
+            pointer-events: auto; /* 버튼 자체는 클릭 가능하게 */
+        }
         
         footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 100%; text-align: center; z-index: 10; }
         footer a { color: #888; text-decoration: none; }
@@ -168,31 +180,25 @@
         const sideMenu = document.getElementById('sideMenu');
 
         function showSection(id) {
-            // 모든 섹션 숨기기
             document.querySelectorAll('.content-section').forEach(s => {
                 s.style.display = 'none';
                 s.style.opacity = '0';
             });
 
-            // 타겟 섹션 활성화
             const target = document.getElementById(id);
             if (!target) return;
 
-            // 레이아웃 타입 결정
-            if (id === 'archiveContent' || id === 'labContent' || id === 'spiceGallery') {
+            // wipContent를 포함하여 flex가 필요한 섹션들 처리
+            if (id === 'archiveContent' || id === 'labContent' || id === 'spiceGallery' || id === 'wipContent') {
                 target.style.display = 'flex';
             } else {
                 target.style.display = 'block';
             }
 
-            // 페이드 인 효과
             setTimeout(() => { target.style.opacity = '1'; }, 50);
-            
-            // 메뉴 닫기
             sideMenu.classList.remove('active');
         }
 
-        // 메뉴 이벤트
         document.getElementById('menuBtn').onclick = () => sideMenu.classList.add('active');
         document.getElementById('closeBtn').onclick = () => sideMenu.classList.remove('active');
     </script>
