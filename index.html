@@ -21,18 +21,38 @@
         /* --- 1. 고정 헤더 (리퀴드 글래스) --- */
         header {
             position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
-            display: flex; align-items: center; justify-content: center; z-index: 1000; 
+            display: flex; align-items: center; justify-content: space-between; /* 양 끝 정렬로 변경 */
+            padding: 0 40px;
+            z-index: 1000; 
             border-radius: 50px; 
             background: rgba(255, 255, 255, 0.12); 
             backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
         }
-        .menu-trigger { position: absolute; left: 50px; display: flex; align-items: center; cursor: pointer; gap: 15px; padding: 10px; }
+        
+        /* 메뉴 트리거 위치 수정 */
+        .menu-trigger { 
+            display: flex; 
+            align-items: center; 
+            cursor: pointer; 
+            gap: 15px; 
+            z-index: 1001;
+        }
         .burger-icon { display: flex; flex-direction: column; gap: 5px; }
-        .burger-icon span { display: block; width: 25px; height: 2px; background-color: #000000; }
-        .menu-text { font-size: 14px; font-weight: 500; }
-        .logo { font-weight: 500; font-size: 22px; letter-spacing: 0.6em; color: #000000; text-decoration: none; cursor: pointer; }
+        .burger-icon span { display: block; width: 22px; height: 2px; background-color: #000000; }
+        .menu-text { font-size: 13px; font-weight: 500; }
+        
+        /* 로고 위치 수정 */
+        .logo { 
+            font-weight: 500; 
+            font-size: 20px; 
+            letter-spacing: 0.5em; 
+            color: #000000; 
+            text-decoration: none; 
+            cursor: pointer;
+            margin-right: -0.5em; /* 글자 간격 때문에 생기는 오른쪽 여백 상쇄 */
+        }
 
         /* --- 2. 왼쪽 사이드 메뉴 --- */
         #sideMenu {
@@ -48,6 +68,7 @@
 
         /* --- 3. 공통 섹션 스타일 --- */
         #mainContent, #archiveContent, #labContent { margin-top: 150px; transition: opacity 0.5s ease; }
+        .info { font-size: 14px; line-height: 1.8; font-weight: 400; }
 
         /* --- 4. Archive Gallery (리퀴드 글래스 호버) --- */
         .gallery-grid {
@@ -58,7 +79,6 @@
             position: relative; aspect-ratio: 16 / 10; background-color: #e8e8e8;
             overflow: hidden; cursor: pointer;
         }
-        /* 리퀴드 글래스 오버레이 효과 */
         .item-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255, 255, 255, 0.2); 
@@ -68,33 +88,46 @@
             opacity: 0; transition: opacity 0.4s ease; z-index: 2;
         }
         .gallery-item:hover .item-overlay { opacity: 1; }
-        .item-text { font-size: 13px; font-weight: 500; color: #000; letter-spacing: 0.1em; text-align: center; }
+        .item-text { font-size: 12px; font-weight: 500; color: #000; letter-spacing: 0.1em; text-align: center; padding: 0 10px; }
 
         /* --- 5. L.A.B (포스트잇 & 검정 핀) --- */
         #labContent { display: flex; justify-content: center; align-items: flex-start; min-height: 80vh; }
         .post-it {
-            position: relative; width: 300px; height: 300px; background-color: #ffffff;
+            position: relative; width: 280px; height: 280px; background-color: #ffffff;
             box-shadow: 5px 15px 30px rgba(0,0,0,0.05); padding: 40px 20px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; transform: rotate(-1deg); /* 약간 기운 느낌 */
+            text-align: center; transform: rotate(-1.5deg);
         }
-        /* 검정색 핀 */
         .pin {
             position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
             width: 12px; height: 12px; background-color: #000; border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
-        .lab-text { font-size: 12px; color: #333; line-height: 1.8; }
+        .lab-text { font-size: 11px; color: #333; line-height: 1.8; }
 
-        /* --- 6. 기타 요소 (WIP, Footer 등) --- */
+        /* --- 6. 기타 --- */
         #wipContent { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: none; align-items: center; justify-content: center; z-index: 10; }
-        .glass-pill { padding: 18px 45px; border-radius: 50px; font-size: 14px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.5); }
-        footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 100%; text-align: center; z-index: 10; }
+        .glass-pill { padding: 18px 45px; border-radius: 50px; font-size: 13px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.5); }
+        footer { position: fixed; bottom: 40px; left: 0; width: 100%; font-size: 11px; text-align: center; z-index: 10; }
         footer a { color: #888; text-decoration: none; }
 
+        /* --- 모바일 최적화 (핵심 수정 부분) --- */
         @media (max-width: 768px) {
-            .gallery-grid { grid-template-columns: 1fr; }
-            #sideMenu { width: 100%; }
+            body { padding: 25px; }
+            
+            header { 
+                height: 70px; top: 15px; left: 15px; right: 15px; 
+                padding: 0 20px; border-radius: 35px;
+                justify-content: space-between; /* 요소 간격 확보 */
+            }
+            .menu-trigger { gap: 8px; }
+            .menu-text { display: none; } /* 모바일에서 MENU 텍스트 숨김 (아이콘만 표시) */
+            .logo { font-size: 16px; letter-spacing: 0.3em; }
+            
+            #sideMenu { width: 100%; padding: 120px 40px 40px 40px; }
+            #mainContent, #archiveContent, #labContent { margin-top: 120px; }
+            .gallery-grid { grid-template-columns: 1fr; } /* 갤러리 1열 */
+            
+            .info { font-size: 13px; }
         }
     </style>
 </head>
@@ -116,7 +149,7 @@
     </div>
 
     <div id="mainContent">
-        <div style="font-size: 14px; line-height: 1.6;">TAEHAN LEE<br>NEW YORK, US</div>
+        <div class="info">TAEHAN LEE<br>NEW YORK, US</div>
     </div>
 
     <div id="archiveContent" style="display: none; opacity: 0;">
@@ -177,7 +210,8 @@
             body.style.backgroundColor = bgColor;
             setTimeout(() => {
                 const s = sections[id];
-                s.style.display = (id === 'wip' ? 'flex' : (id === 'lab' ? 'flex' : 'block'));
+                if(id === 'archive') s.style.display = 'block';
+                else s.style.display = 'flex';
                 setTimeout(() => s.style.opacity = '1', 50);
             }, 300);
         }
