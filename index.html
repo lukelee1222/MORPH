@@ -52,13 +52,14 @@
         #mainContent, #archiveContent, #labContent, #spiceGallery { margin-top: 150px; transition: opacity 0.5s ease; }
         .info { font-size: 14px; line-height: 1.6; }
 
+        /* --- Archive 갤러리 --- */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
             max-width: 1400px; margin: 0 auto 100px auto;
         }
         .gallery-item {
             position: relative; aspect-ratio: 16 / 10; background-color: #dfdfdf;
-            overflow: hidden; cursor: pointer;
+            overflow: hidden; cursor: pointer; padding: 20px;
         }
         .item-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -70,8 +71,9 @@
         }
         .gallery-item:hover .item-overlay { opacity: 1; }
         .item-text { font-size: 13px; font-weight: 500; color: #000; letter-spacing: 0.1em; text-align: center; }
-        .item-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .item-img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
+        /* --- L.A.B --- */
         #labContent { display: flex; justify-content: flex-start; align-items: flex-start; padding: 0 50px; gap: 30px; flex-wrap: wrap; }
         .post-it {
             position: relative; width: 280px; height: 280px; background-color: #ffffff;
@@ -87,10 +89,19 @@
         .x-mark { font-size: 11px; margin: 5px 0; color: #888; }
         .question-mark { font-size: 30px; color: #ccc; font-weight: 300; }
 
-        #spiceGallery { max-width: 1200px; margin: 150px auto 100px auto; padding: 0 20px; }
-        .spice-item { width: 100%; margin-bottom: 50px; }
-        .spice-item img { width: 100%; height: auto; display: block; }
-        .spice-title { font-size: 12px; margin-bottom: 15px; color: #888; }
+        /* --- 상세 갤러리 (포스트잇 2개 합친 사이즈 + 왼쪽 정렬) --- */
+        #spiceGallery { 
+            max-width: 1400px; 
+            margin: 150px 0 100px 0; /* 중앙 정렬 해제 */
+            padding: 0 50px; /* L.A.B 섹션과 동일한 여백 */
+            text-align: left; 
+        }
+        .spice-item { 
+            width: 590px; /* 포스트잇(280px) * 2 + 간격(30px) 사이즈 */
+            margin-bottom: 50px; 
+        }
+        .spice-item img { width: 100%; height: auto; display: block; background-color: #ffffff; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+        .spice-title { font-size: 12px; margin-bottom: 30px; color: #888; }
 
         #wipContent { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: none; align-items: center; justify-content: center; z-index: 10; }
         .glass-pill { padding: 18px 45px; border-radius: 50px; font-size: 14px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.5); }
@@ -104,7 +115,8 @@
             .menu-text { display: none; }
             .logo { font-size: 16px; letter-spacing: 0.3em; }
             #sideMenu { width: 100%; }
-            #labContent { justify-content: center; padding: 0 20px; }
+            #labContent, #spiceGallery { justify-content: center; padding: 0 20px; text-align: center; }
+            .spice-item { width: 100%; margin: 0 auto 30px auto; }
             #mainContent, #archiveContent, #labContent, #spiceGallery { margin-top: 120px; }
             .gallery-grid { grid-template-columns: 1fr; }
         }
