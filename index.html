@@ -7,7 +7,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* 1. 기본 배경색 설정 (Light Grey) */
         body {
             background-color: #f2f2f2; 
             color: #000000;
@@ -20,7 +19,6 @@
             transition: background-color 0.6s ease;
         }
 
-        /* --- 2. 고정 헤더 --- */
         header {
             position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
             display: flex; align-items: center; justify-content: center;
@@ -31,13 +29,13 @@
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
         }
+        
         .menu-trigger { position: absolute; left: 50px; display: flex; align-items: center; cursor: pointer; gap: 15px; }
         .burger-icon { display: flex; flex-direction: column; gap: 5px; }
         .burger-icon span { display: block; width: 25px; height: 2px; background-color: #000000; }
         .menu-text { font-size: 14px; font-weight: 500; }
         .logo { font-weight: 500; font-size: 22px; letter-spacing: 0.6em; color: #000000; text-decoration: none; cursor: pointer; }
 
-        /* --- 3. 사이드 메뉴 (더 진한 그레이) --- */
         #sideMenu {
             position: fixed; top: 0; left: 0; width: 320px; height: 100vh;
             background-color: #e8e8e8; 
@@ -51,11 +49,9 @@
         .menu-item::after { content: " →"; }
         .close-btn { position: absolute; top: 55px; right: 40px; font-size: 13px; cursor: pointer; color: #999; }
 
-        /* --- 4. 공통 섹션 스타일 --- */
         #mainContent, #archiveContent, #labContent, #spiceGallery { margin-top: 150px; transition: opacity 0.5s ease; }
         .info { font-size: 14px; line-height: 1.6; }
 
-        /* --- 5. Archive Gallery (2개) --- */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
             max-width: 1400px; margin: 0 auto 100px auto;
@@ -76,7 +72,6 @@
         .item-text { font-size: 13px; font-weight: 500; color: #000; letter-spacing: 0.1em; text-align: center; }
         .item-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* --- 6. L.A.B (포스트잇 왼쪽 상단 배치) --- */
         #labContent { display: flex; justify-content: flex-start; align-items: flex-start; padding: 0 50px; gap: 30px; flex-wrap: wrap; }
         .post-it {
             position: relative; width: 280px; height: 280px; background-color: #ffffff;
@@ -92,15 +87,14 @@
         .x-mark { font-size: 11px; margin: 5px 0; color: #888; }
         .question-mark { font-size: 30px; color: #ccc; font-weight: 300; }
 
-        /* --- 7. 상세 갤러리 --- */
         #spiceGallery { max-width: 1200px; margin: 150px auto 100px auto; padding: 0 20px; }
         .spice-item { width: 100%; margin-bottom: 50px; }
         .spice-item img { width: 100%; height: auto; display: block; }
         .spice-title { font-size: 12px; margin-bottom: 15px; color: #888; }
 
-        /* --- 8. 기타 --- */
         #wipContent { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: none; align-items: center; justify-content: center; z-index: 10; }
         .glass-pill { padding: 18px 45px; border-radius: 50px; font-size: 14px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.5); }
+        
         footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 100%; text-align: center; z-index: 10; }
         footer a { color: #888; text-decoration: none; }
 
@@ -141,11 +135,11 @@
         <div class="gallery-grid">
             <div class="gallery-item">
                 <div class="item-overlay"><span class="item-text">NEXT (Alinea Group)</span></div>
-                <img src="images/project1.jpg" class="item-img">
+                <img src="IMG_2587.jpg" class="item-img">
             </div>
             <div class="gallery-item">
                 <div class="item-overlay"><span class="item-text">?</span></div>
-                <img src="images/project2.jpg" class="item-img">
+                <img src="IMG_2631 2.jpg" class="item-img">
             </div>
         </div>
     </div>
@@ -168,8 +162,8 @@
 
     <div id="spiceGallery" style="display: none; opacity: 0;">
         <div class="spice-title">MORPH LAB x SPICE WORLD / IMAGES</div>
-        <div class="spice-item"><img src="images/spice1.jpg" alt=""></div>
-        <div class="spice-item"><img src="images/spice2.jpg" alt=""></div>
+        <div class="spice-item"><img src="IMG_2587.jpg" alt=""></div>
+        <div class="spice-item"><img src="IMG_2631 2.jpg" alt=""></div>
     </div>
 
     <div id="wipContent">
