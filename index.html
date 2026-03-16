@@ -5,14 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MORPH / TAEHAN LEE</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background-color: #ffffff;
+            background-color: #ffffff; /* 기본 배경 흰색 */
             color: #000000;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-transform: uppercase;
@@ -20,189 +15,99 @@
             padding: 40px;
             letter-spacing: 0.05em;
             overflow-x: hidden;
-            min-height: 200vh; /* Scroll to see the glass effect */
+            transition: background-color 0.6s ease; /* 배경색 부드럽게 변경 */
         }
 
-        /* --- 1. Liquid Glass Header (Unified for PC & Mobile) --- */
+        /* --- 1. 고정 헤더 (리퀴드 글래스) --- */
         header {
-            position: fixed;
-            top: 25px; 
-            left: 25px;
-            right: 25px;
-            height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100; 
+            position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
+            display: flex; align-items: center; justify-content: center; z-index: 1000; 
             border-radius: 50px; 
-            
-            /* APPLE LIQUID GLASS EFFECT */
             background: rgba(255, 255, 255, 0.12); 
-            
-            /* High-performance blur for both PC and Mobile (Safari/Chrome) */
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            
-            /* Subtle glass borders */
+            backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.4);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
         }
+        .menu-trigger { position: absolute; left: 50px; display: flex; align-items: center; cursor: pointer; gap: 15px; padding: 10px; }
+        .burger-icon { display: flex; flex-direction: column; gap: 5px; }
+        .burger-icon span { display: block; width: 25px; height: 2px; background-color: #000000; }
+        .menu-text { font-size: 14px; font-weight: 500; }
+        .logo { font-weight: 500; font-size: 22px; letter-spacing: 0.6em; color: #000000; text-decoration: none; cursor: pointer; }
 
-        .menu-trigger {
-            position: absolute;
-            left: 50px; 
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            gap: 15px;
-            padding: 10px;
-            transition: opacity 0.3s;
-        }
-
-        .menu-trigger:hover {
-            opacity: 0.5;
-        }
-
-        .burger-icon {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        
-        .burger-icon span {
-            display: block;
-            width: 25px;
-            height: 2px;
-            background-color: #000000; 
-        }
-
-        .menu-text {
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .logo {
-            font-weight: 500;
-            font-size: 22px;
-            letter-spacing: 0.6em;
-            color: #000000;
-        }
-
-        /* --- 2. Sliding Side Menu --- */
+        /* --- 2. 왼쪽 사이드 메뉴 (Light Grey) --- */
         #sideMenu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 320px; 
-            height: 100vh;
-            background-color: #f2f2f2; 
-            z-index: 9999; 
-            padding: 150px 50px 50px 50px;
-            transform: translateX(-100%); 
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
-            box-shadow: 15px 0 40px rgba(0,0,0,0.03);
+            position: fixed; top: 0; left: 0; width: 320px; height: 100vh;
+            background-color: #f2f2f2; z-index: 9999; padding: 150px 50px 50px 50px;
+            transform: translateX(-100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; flex-direction: column; box-shadow: 15px 0 40px rgba(0,0,0,0.03);
         }
-
-        #sideMenu.active {
-            transform: translateX(0);
-        }
-
-        .menu-item {
-            display: block;
-            font-size: 16px;
-            text-decoration: none;
-            color: #000;
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-        
+        #sideMenu.active { transform: translateX(0); }
+        .menu-item { display: block; font-size: 16px; text-decoration: none; color: #000; margin-bottom: 30px; font-weight: 400; cursor: pointer; }
         .menu-item::after { content: " →"; }
+        .close-btn { position: absolute; top: 55px; right: 40px; font-size: 13px; cursor: pointer; color: #999; }
 
-        .close-btn {
-            position: absolute;
-            top: 55px;
-            right: 40px;
-            font-size: 13px;
-            cursor: pointer;
-            color: #999;
+        /* --- 3. 메인 콘텐츠 (기존 이름) --- */
+        #mainContent { margin-top: 150px; transition: opacity 0.5s ease; }
+        .info { font-size: 14px; line-height: 1.6; font-weight: 400; }
+
+        /* --- 4. Work in Progress (리퀴드 글래스 알약) --- */
+        #wipContent {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            display: none; /* 처음엔 숨김 */
+            align-items: center; justify-content: center;
+            z-index: 10;
+        }
+        .glass-pill {
+            padding: 18px 45px; border-radius: 50px; font-size: 14px; font-weight: 500; letter-spacing: 0.1em; color: #000000;
+            background: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(25px) saturate(180%); -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5); 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            animation: pillFadeUp 0.8s ease-out;
+        }
+        @keyframes pillFadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- 3. Content --- */
-        .info {
-            font-size: 14px;
-            line-height: 1.6;
-            margin-top: 150px;
-            font-weight: 400;
-        }
+        /* --- 5. 푸터 --- */
+        footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 100%; text-align: center; z-index: 10; }
+        footer a { color: #888; text-decoration: none; border-bottom: 1px solid #eee; }
 
-        footer {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 13px;
-            width: 100%;
-            text-align: center;
-        }
-
-        footer a {
-            color: #888;
-            text-decoration: none;
-            border-bottom: 1px solid #eee;
-        }
-
-        /* --- 4. MOBILE FIX --- */
+        /* 모바일 대응 */
         @media (max-width: 768px) {
-            header {
-                height: 70px; /* Slimmer for mobile but keeps effect */
-                top: 15px;
-                left: 15px;
-                right: 15px;
-                justify-content: space-between; 
-                padding: 0 25px;
-                border-radius: 35px; /* Adjust radius for mobile size */
-            }
-
-            .menu-trigger {
-                position: relative; 
-                left: 0; 
-                padding: 5px;
-            }
-
-            .logo {
-                font-size: 16px;
-                letter-spacing: 0.3em;
-            }
+            header { height: 70px; top: 15px; left: 15px; right: 15px; justify-content: space-between; padding: 0 25px; border-radius: 35px; }
+            .menu-trigger { position: relative; left: 0; padding: 5px; gap: 10px; }
+            .logo { font-size: 18px; letter-spacing: 0.4em; }
+            #sideMenu { width: 100%; } /* 모바일은 메뉴 꽉 차게 */
         }
     </style>
 </head>
-<body>
+<body id="body">
 
     <header>
         <div class="menu-trigger" id="menuBtn">
-            <div class="burger-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <div class="burger-icon"><span></span><span></span><span></span></div>
             <div class="menu-text">MENU</div>
         </div>
-        <div class="logo">MORPH</div>
+        <div class="logo" id="logoBtn">MORPH</div>
     </header>
 
     <div id="sideMenu">
         <div class="close-btn" id="closeBtn">CLOSE</div>
-        <a href="#" class="menu-item">SEQUENCE 1.0</a>
-        <a href="#" class="menu-item">ARCHIVE</a>
+        <div class="menu-item" id="btnSequence">SEQUENCE 1.0</div>
+        <div class="menu-item" id="btnArchive">ARCHIVE</div>
     </div>
 
-    <div class="info">
-        TAEHAN LEE<br>
-        NEW YORK, US
+    <div id="mainContent">
+        <div class="info">
+            TAEHAN LEE<br>
+            NEW YORK, US
+        </div>
+    </div>
+
+    <div id="wipContent">
+        <div class="glass-pill">WORK IN PROGRESS</div>
     </div>
 
     <footer>
@@ -210,18 +115,45 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuBtn = document.getElementById('menuBtn');
-            const closeBtn = document.getElementById('closeBtn');
-            const sideMenu = document.getElementById('sideMenu');
+        const body = document.getElementById('body');
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const sideMenu = document.getElementById('sideMenu');
+        const logoBtn = document.getElementById('logoBtn');
+        
+        const mainContent = document.getElementById('mainContent');
+        const wipContent = document.getElementById('wipContent');
+        
+        const btnSequence = document.getElementById('btnSequence');
+        const btnArchive = document.getElementById('btnArchive');
 
-            menuBtn.addEventListener('click', () => {
-                sideMenu.classList.add('active');
-            });
+        // 1. 메뉴 열기
+        menuBtn.addEventListener('click', () => sideMenu.classList.add('active'));
 
-            closeBtn.addEventListener('click', () => {
-                sideMenu.classList.remove('active');
-            });
+        // 2. 메뉴 닫기
+        closeBtn.addEventListener('click', () => sideMenu.classList.remove('active'));
+
+        // 3. 버튼 클릭 시 (SEQUENCE / ARCHIVE 공통)
+        function showWip() {
+            sideMenu.classList.remove('active'); // 메뉴 닫기
+            body.style.backgroundColor = "#f2f2f2"; // 배경을 메뉴의 회색으로 변경
+            mainContent.style.opacity = "0"; // 기존 이름 숨기기
+            
+            setTimeout(() => {
+                mainContent.style.display = "none";
+                wipContent.style.display = "flex"; // 알약 등장
+            }, 500);
+        }
+
+        btnSequence.addEventListener('click', showWip);
+        btnArchive.addEventListener('click', showWip);
+
+        // 4. 로고 클릭 시 다시 메인으로 복구
+        logoBtn.addEventListener('click', () => {
+            body.style.backgroundColor = "#ffffff";
+            wipContent.style.display = "none";
+            mainContent.style.display = "block";
+            setTimeout(() => mainContent.style.opacity = "1", 10);
         });
     </script>
 
