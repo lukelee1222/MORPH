@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MORPH / TAEHAN LEE</title>
     <style>
-        /* 기본 스타일 초기화 */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             background-color: #f2f2f2; 
             color: #000000;
@@ -19,7 +19,7 @@
             transition: background-color 0.6s ease;
         }
 
-        /* 1. 고정 헤더 (리퀴드 글래스) */
+        /* --- 1. 고정 헤더 (리퀴드 글래스) --- */
         header {
             position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
             display: flex; align-items: center; justify-content: center;
@@ -34,7 +34,7 @@
         .burger-icon span { display: block; width: 25px; height: 2px; background-color: #000000; }
         .logo { font-weight: 500; font-size: 22px; letter-spacing: 0.6em; cursor: pointer; }
 
-        /* 2. 사이드 메뉴 */
+        /* --- 2. 사이드 메뉴 --- */
         #sideMenu {
             position: fixed; top: 0; left: 0; width: 320px; height: 100vh;
             background-color: #e8e8e8; z-index: 9999; padding: 150px 50px 50px 50px;
@@ -47,62 +47,92 @@
         .menu-item::after { content: " →"; }
         .close-btn { position: absolute; top: 55px; right: 40px; font-size: 13px; cursor: pointer; color: #999; }
 
-        /* 3. 섹션 공통 스타일 */
+        /* --- 3. 공통 섹션 설정 --- */
         .content-section { 
             margin-top: 150px; 
-            display: none; /* 초기 숨김 */
+            display: none; 
             opacity: 0; 
             transition: opacity 0.5s ease;
+            width: 100%;
         }
 
-        /* 4. ARCHIVE 전용 갤러리 레이아웃 */
-        #archiveContent {
-            display: none; 
-            justify-content: flex-start;
-            gap: 20px;
-            padding: 0 20px;
-            max-width: 1400px;
-            margin: 150px auto 0 auto;
-        }
+        /* --- 4. ARCHIVE (리퀴드 글래스 오버레이) --- */
+        #archiveContent { justify-content: flex-start; gap: 20px; padding: 0 20px; max-width: 1400px; margin-left: auto; margin-right: auto; }
         .gallery-item {
-            position: relative;
-            flex: 1; /* 두 개의 박스가 같은 너비를 가짐 */
-            aspect-ratio: 16 / 10;
-            background-color: #dfdfdf;
-            border-radius: 4px;
-            overflow: hidden;
-            cursor: pointer;
+            position: relative; flex: 1; aspect-ratio: 16 / 10; background-color: #dfdfdf; border-radius: 4px; overflow: hidden; cursor: pointer;
         }
-        /* 마우스 오버 시 나타나는 리퀴드 글래스 효과 */
         .item-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(15px) saturate(160%); -webkit-backdrop-filter: blur(15px) saturate(160%);
             border: 1px solid rgba(255, 255, 255, 0.4);
             display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.4s ease;
-            z-index: 2;
+            opacity: 0; transition: opacity 0.4s ease; z-index: 2;
         }
         .gallery-item:hover .item-overlay { opacity: 1; }
-        .item-text { font-size: 14px; color: #000; letter-spacing: 0.15em; pointer-events: none; }
+        .item-text { font-size: 14px; color: #000; letter-spacing: 0.15em; text-align: center; }
 
-        /* 5. L.A.B 섹션 */
-        #labContent { justify-content: flex-start; gap: 30px; flex-wrap: wrap; padding: 0 50px; }
+        /* --- 5. L.A.B (포스트잇 디자인) --- */
+        #labContent { display: flex; justify-content: flex-start; align-items: flex-start; padding: 0 50px; gap: 30px; flex-wrap: wrap; }
         .post-it {
             position: relative; width: 280px; height: 280px; background-color: #ffffff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 40px 20px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; transform: rotate(-1deg); cursor: pointer;
+            transition: transform 0.3s ease;
         }
+        .post-it:hover { transform: rotate(0deg) translateY(-5px); }
+        .post-it.empty { transform: rotate(1.5deg); cursor: default; }
         .pin { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background-color: #000; border-radius: 50%; }
+        .lab-text { font-size: 13px; color: #000; line-height: 2; text-transform: none; }
+        .question-mark { font-size: 30px; color: #ccc; font-weight: 300; }
 
-        /* 하단 정보 */
-        footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; text-align: center; }
+        /* --- 6. L.A.B 상세 갤러리 --- */
+        #spiceGallery { 
+            display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-start;
+            gap: 30px; margin-top: 150px; padding: 0 50px; overflow-x: auto; 
+        }
+        .spice-item { 
+            flex: 0 0 auto; height: 280px; width: auto; 
+            background: rgba(255, 255, 255, 0.3); 
+            backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5); 
+            padding: 15px; border-radius: 20px; cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+        }
+        .spice-item img { height: 100%; width: auto; display: block; border-radius: 10px; }
+
+        /* --- 7. SEQUENCE 1.0 (WIP 알약) --- */
+        #wipContent { justify-content: flex-start; padding-left: 50px; }
+        .glass-pill { 
+            padding: 18px 45px; border-radius: 50px; font-size: 14px; 
+            background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); 
+            border: 1px solid rgba(255,255,255,0.5); display: inline-block;
+        }
+
+        /* --- 8. 확대 보기 (Lightbox) --- */
+        #imageLightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(242, 242, 242, 0.7); backdrop-filter: blur(15px);
+            z-index: 10000; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+        .lightbox-glass {
+            position: relative; width: auto; max-width: 90%; height: auto; max-height: 85%;
+            background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.5); padding: 30px; border-radius: 40px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .lightbox-glass img { width: auto; height: auto; max-width: 100%; max-height: 100%; border-radius: 20px; }
+        .lightbox-close { position: absolute; top: 30px; right: 30px; font-size: 24px; cursor: pointer; color: #000; }
+
+        footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; text-align: center; z-index: 10; }
         footer a { color: #888; text-decoration: none; }
 
         @media (max-width: 768px) {
             #archiveContent { flex-direction: column; }
             header { height: 70px; top: 15px; }
+            #labContent, #spiceGallery { padding: 0 20px; }
         }
     </style>
 </head>
@@ -118,7 +148,7 @@
 
     <div id="sideMenu">
         <div class="close-btn" id="closeBtn">CLOSE</div>
-        <div class="menu-item" onclick="showSection('wip')">SEQUENCE 1.0</div>
+        <div class="menu-item" onclick="showSection('wipContent')">SEQUENCE 1.0</div>
         <div class="menu-item" onclick="showSection('labContent')">L.A.B</div>
         <div class="menu-item" onclick="showSection('archiveContent')">ARCHIVE</div>
     </div>
@@ -129,56 +159,85 @@
 
     <div id="archiveContent" class="content-section">
         <div class="gallery-item">
-            <div class="item-overlay">
-                <span class="item-text">NEXT (ALINEA GROUP)</span>
-            </div>
+            <div class="item-overlay"><span class="item-text">NEXT (ALINEA GROUP)</span></div>
         </div>
         <div class="gallery-item">
-            <div class="item-overlay">
-                <span class="item-text">?</span>
-            </div>
+            <div class="item-overlay"><span class="item-text">?</span></div>
         </div>
     </div>
 
     <div id="labContent" class="content-section">
-        <div class="post-it">
+        <div class="post-it" onclick="showSection('spiceGallery')">
             <div class="pin"></div>
-            <div style="font-size: 13px; line-height: 2;">MORPH LAB<br>x<br>SPICE WORLD<br>project.s</div>
+            <div class="lab-text">MORPH LAB<br>X<br>SPICE WORLD<br>PROJECT.S</div>
+        </div>
+        <div class="post-it empty">
+            <div class="pin"></div>
+            <div class="question-mark">?</div>
         </div>
     </div>
 
-    <div id="wip" class="content-section">
-        <div style="padding: 18px 45px; border-radius: 50px; background: rgba(255,255,255,0.4); backdrop-filter: blur(20px); border: 1px solid #fff; display: inline-block;">WORK IN PROGRESS</div>
+    <div id="spiceGallery" class="content-section">
+        <div class="spice-item clickable-img"><img src="IMG_2587.jpg"></div>
+        <div class="spice-item clickable-img"><img src="IMG_2631 2.jpg"></div>
+    </div>
+
+    <div id="wipContent" class="content-section">
+        <div class="glass-pill">WORK IN PROGRESS</div>
+    </div>
+
+    <div id="imageLightbox">
+        <div class="lightbox-glass">
+            <div class="lightbox-close" id="lightboxClose">✕</div>
+            <img id="expandedImg" src="">
+        </div>
     </div>
 
     <footer><a href="https://www.instagram.com/morph_l.a.b/" target="_blank">INSTAGRAM @MORPH_L.A.B</a></footer>
 
     <script>
         const sideMenu = document.getElementById('sideMenu');
-        
+        const lightbox = document.getElementById('imageLightbox');
+        const expandedImg = document.getElementById('expandedImg');
+
         function showSection(id) {
-            // 모든 섹션 숨기기
             document.querySelectorAll('.content-section').forEach(s => {
                 s.style.display = 'none';
                 s.style.opacity = '0';
             });
             
-            // 타겟 섹션 활성화
             const target = document.getElementById(id);
-            if(id === 'archiveContent' || id === 'labContent') {
+            if (id === 'archiveContent' || id === 'labContent' || id === 'spiceGallery' || id === 'wipContent') {
                 target.style.display = 'flex';
             } else {
                 target.style.display = 'block';
             }
             
-            // 부드러운 페이드인
             setTimeout(() => { target.style.opacity = '1'; }, 50);
             sideMenu.classList.remove('active');
+            lightbox.style.display = 'none';
         }
 
-        // 메뉴 제어
         document.getElementById('menuBtn').onclick = () => sideMenu.classList.add('active');
         document.getElementById('closeBtn').onclick = () => sideMenu.classList.remove('active');
+
+        // 이미지 확대 기능
+        document.querySelectorAll('.clickable-img').forEach(item => {
+            item.onclick = function() {
+                expandedImg.src = this.querySelector('img').src;
+                lightbox.style.display = 'flex';
+                setTimeout(() => lightbox.style.opacity = '1', 10);
+            };
+        });
+
+        document.getElementById('lightboxClose').onclick = () => {
+            lightbox.style.opacity = '0';
+            setTimeout(() => lightbox.style.display = 'none', 400);
+        };
+
+        lightbox.onclick = (e) => {
+            if (e.target === lightbox) document.getElementById('lightboxClose').click();
+        };
     </script>
 </body>
 </html>
