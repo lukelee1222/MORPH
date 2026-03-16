@@ -21,7 +21,7 @@
         /* --- 1. 고정 헤더 (PC 기본 설정 유지) --- */
         header {
             position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
-            display: flex; align-items: center; justify-content: center; /* PC: 로고 중앙 정렬 */
+            display: flex; align-items: center; justify-content: center;
             z-index: 1000; 
             border-radius: 50px; 
             background: rgba(255, 255, 255, 0.12); 
@@ -30,7 +30,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
         }
         
-        /* PC 메뉴 위치 (왼쪽 고정) */
         .menu-trigger { 
             position: absolute; left: 50px; 
             display: flex; align-items: center; cursor: pointer; gap: 15px; 
@@ -39,18 +38,20 @@
         .burger-icon span { display: block; width: 25px; height: 2px; background-color: #000000; }
         .menu-text { font-size: 14px; font-weight: 500; }
         
-        /* PC 로고 위치 (중앙) */
         .logo { 
             font-weight: 500; font-size: 22px; letter-spacing: 0.6em; 
             color: #000000; text-decoration: none; cursor: pointer; 
         }
 
-        /* --- 2. 왼쪽 사이드 메뉴 --- */
+        /* --- 2. 왼쪽 사이드 메뉴 (색상 통일 업데이트) --- */
         #sideMenu {
             position: fixed; top: 0; left: 0; width: 320px; height: 100vh;
-            background-color: #f2f2f2; z-index: 9999; padding: 150px 50px 50px 50px;
+            /* 메인 페이지에서 보였던 깨끗한 느낌의 회색으로 고정 */
+            background-color: #f7f7f7; 
+            z-index: 9999; padding: 150px 50px 50px 50px;
             transform: translateX(-100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; flex-direction: column; box-shadow: 15px 0 40px rgba(0,0,0,0.03);
+            display: flex; flex-direction: column; 
+            box-shadow: 20px 0 50px rgba(0,0,0,0.05); /* 경계선을 더 깔끔하게 처리 */
         }
         #sideMenu.active { transform: translateX(0); }
         .menu-item { display: block; font-size: 16px; text-decoration: none; color: #000; margin-bottom: 30px; font-weight: 400; cursor: pointer; }
@@ -85,7 +86,7 @@
         #labContent { display: flex; justify-content: center; align-items: flex-start; min-height: 80vh; }
         .post-it {
             position: relative; width: 300px; height: 300px; background-color: #ffffff;
-            box-shadow: 5px 15px 30px rgba(0,0,0,0.05); padding: 40px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); padding: 40px 20px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; transform: rotate(-1deg);
         }
@@ -101,26 +102,21 @@
         footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 100%; text-align: center; z-index: 10; }
         footer a { color: #888; text-decoration: none; }
 
-        /* --- 모바일 최적화 (이 부분에서 겹침 해결) --- */
+        /* --- 모바일 최적화 --- */
         @media (max-width: 768px) {
             header { 
                 height: 70px; top: 15px; left: 15px; right: 15px; 
                 padding: 0 20px; border-radius: 35px;
-                justify-content: space-between; /* 모바일만 양 끝으로 정렬 */
+                justify-content: space-between; 
             }
-            .menu-trigger { 
-                position: relative; left: 0; /* 모바일에서는 absolute 해제 */
-                gap: 10px; 
-            }
-            .menu-text { display: none; } /* 모바일에서 글자 숨겨서 공간 확보 */
+            .menu-trigger { position: relative; left: 0; gap: 10px; }
+            .menu-text { display: none; }
+            .logo { font-size: 16px; letter-spacing: 0.3em; }
             
-            .logo { 
-                font-size: 16px; 
-                letter-spacing: 0.3em;
-                margin-right: 0; 
+            #sideMenu { 
+                width: 100%; /* 모바일 전체 화면 메뉴 */
+                background-color: #f7f7f7; /* 색상 동일 적용 */
             }
-            
-            #sideMenu { width: 100%; }
             .gallery-grid { grid-template-columns: 1fr; }
             #mainContent, #archiveContent, #labContent { margin-top: 120px; }
         }
