@@ -28,12 +28,13 @@
             backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            padding: 0 40px;
         }
         
-        .menu-trigger { position: absolute; left: 50px; display: flex; align-items: center; cursor: pointer; gap: 15px; }
+        .menu-trigger { position: absolute; left: 40px; display: flex; align-items: center; cursor: pointer; gap: 12px; }
         .burger-icon { display: flex; flex-direction: column; gap: 5px; }
-        .burger-icon span { display: block; width: 25px; height: 2px; background-color: #000000; }
-        .menu-text { font-size: 14px; font-weight: 500; }
+        .burger-icon span { display: block; width: 22px; height: 2px; background-color: #000000; }
+        .menu-text { font-size: 13px; font-weight: 500; }
         .logo { font-weight: 500; font-size: 22px; letter-spacing: 0.6em; color: #000000; text-decoration: none; cursor: pointer; }
 
         /* --- 2. 사이드 메뉴 --- */
@@ -51,7 +52,7 @@
 
         /* --- 3. 섹션 공통 스타일 --- */
         .content-section { 
-            margin-top: 150px; 
+            margin-top: 180px; /* 헤더와의 간격을 충분히 확보 */
             display: none; 
             opacity: 0; 
             transition: opacity 0.5s ease; 
@@ -79,7 +80,7 @@
         .item-text { font-size: 14px; font-weight: 400; color: #000; letter-spacing: 0.15em; text-align: center; }
 
         /* --- 5. L.A.B 섹션 --- */
-        #labContent { justify-content: flex-start; align-items: flex-start; padding: 0 50px; gap: 30px; flex-wrap: wrap; }
+        #labContent { justify-content: center; align-items: flex-start; padding: 0 20px; gap: 30px; flex-wrap: wrap; }
         .post-it {
             position: relative; width: 280px; height: 280px; background-color: #ffffff;
             box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 40px 20px;
@@ -87,13 +88,13 @@
             text-align: center; transform: rotate(-1deg); cursor: pointer; transition: transform 0.3s ease;
         }
         .post-it:hover { transform: rotate(0deg) translateY(-5px) !important; }
-.post-it.empty { transform: rotate(2deg) !important; cursor: default; }
-.post-it.empty:hover { transform: rotate(0deg) translateY(-5px) !important; }
+        .post-it.empty { transform: rotate(2deg) !important; cursor: default; }
+        .post-it.empty:hover { transform: rotate(0deg) translateY(-5px) !important; }
         .pin { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background-color: #000; border-radius: 50%; }
         .lab-text { font-size: 13px; color: #000; line-height: 2; text-transform: none; }
         .question-mark { font-size: 40px; color: #ccc; font-weight: 300; }
 
-        /* --- 6. Spice World 상세 상세 및 라이트박스 --- */
+        /* --- 6. Spice World & 라이트박스 --- */
         #spiceGallery { 
             display: none; flex-direction: row; justify-content: flex-start; align-items: flex-start;
             gap: 30px; padding: 0 50px; overflow-x: auto; 
@@ -114,19 +115,19 @@
         .lightbox-glass {
             position: relative; width: auto; max-width: 90%; max-height: 85%;
             background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.5); padding: 30px; border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5); padding: 20px; border-radius: 30px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;
         }
-        .lightbox-glass img { max-width: 100%; max-height: 75vh; border-radius: 20px; }
+        .lightbox-glass img { max-width: 100%; max-height: 75vh; border-radius: 15px; }
         .lightbox-close {
-            position: absolute; top: 20px; right: 25px; font-size: 30px; font-weight: 300; color: #000;
+            position: absolute; top: 15px; right: 20px; font-size: 28px; font-weight: 300; color: #000;
             cursor: pointer; z-index: 10001; line-height: 1;
         }
 
-        /* --- 7. WIP 가로/세로 전체 정중앙 --- */
+        /* --- 7. WIP 정중앙 --- */
         #wipContent { 
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            margin-top: 0; z-index: 500; display: none; align-items: center; justify-content: center;
+            z-index: 500; display: none; align-items: center; justify-content: center;
             pointer-events: none;
         }
         .glass-pill { 
@@ -135,13 +136,28 @@
             border: 1px solid rgba(255,255,255,0.5); display: inline-block; pointer-events: auto;
         }
         
-        footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 100%; text-align: center; z-index: 10; }
+        footer { position: fixed; bottom: 30px; left: 0; width: 100%; font-size: 11px; text-align: center; z-index: 10; }
         footer a { color: #888; text-decoration: none; }
 
+        /* --- 📱 모바일 최적화 (핵심 수정 부분) --- */
         @media (max-width: 768px) {
-            header { height: 70px; top: 15px; left: 15px; right: 15px; }
+            body { padding: 20px; }
+            
+            header { 
+                height: 70px; top: 15px; left: 15px; right: 15px; 
+                padding: 0 25px; justify-content: space-between; /* 양 끝 정렬로 겹침 방지 */
+            }
+            .menu-trigger { position: static; } /* 절대 위치 해제 */
+            .logo { font-size: 16px; letter-spacing: 0.4em; } /* 로고 크기 축소 */
+            .menu-text { display: none; } /* MENU 글자 숨기고 아이콘만 표시하여 공간 확보 */
+            
+            #sideMenu { width: 100%; padding-top: 120px; }
+            .content-section { margin-top: 140px; } /* 모바일 헤더 높이에 맞춘 여백 */
+            
             #archiveContent { flex-direction: column; }
             .gallery-item { width: 100%; }
+            
+            .post-it { width: 100%; max-width: 300px; height: 300px; }
         }
     </style>
 </head>
@@ -228,7 +244,6 @@
             sideMenu.classList.remove('active');
         }
 
-        // 라이트박스 확대 기능
         document.querySelectorAll('.clickable-img').forEach(item => {
             item.addEventListener('click', function() {
                 const imgSrc = this.querySelector('img').src;
@@ -238,7 +253,6 @@
             });
         });
 
-        // 라이트박스 닫기 기능
         document.getElementById('lightboxClose').addEventListener('click', () => {
             lightbox.style.opacity = '0';
             setTimeout(() => { lightbox.style.display = 'none'; }, 400);
@@ -248,7 +262,6 @@
             if (e.target === lightbox) document.getElementById('lightboxClose').click();
         });
 
-        // 메뉴 제어
         document.getElementById('menuBtn').onclick = () => sideMenu.classList.add('active');
         document.getElementById('closeBtn').onclick = () => sideMenu.classList.remove('active');
     </script>
