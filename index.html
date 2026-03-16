@@ -90,7 +90,7 @@
         .x-mark { font-size: 11px; margin: 5px 0; color: #888; }
         .question-mark { font-size: 30px; color: #ccc; font-weight: 300; }
 
-        /* --- 5. 상세 갤러리 (정사각형 프레임 고정) --- */
+        /* --- 5. 상세 갤러리 (비율 보존 가로 확장 버전) --- */
         #spiceGallery { 
             display: flex; 
             flex-direction: row;
@@ -104,23 +104,48 @@
         }
         .spice-item { 
             flex: 0 0 auto; 
-            width: 280px; 
-            height: 280px; /* 세로 길이를 가로와 동일하게 고정 (정사각형) */
+            height: 280px; /* 높이만 280px로 고정 */
+            width: auto; /* 너비는 사진 비율에 맞춰 자동 확장 */
             background: rgba(255, 255, 255, 0.3); 
             backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.5); 
             padding: 15px; 
             border-radius: 20px; 
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
         }
+        .spice-item:hover { transform: scale(1.02); }
         .spice-item img { 
-            width: 100%; 
-            height: 100%; /* 부모(280px) 높이에 꽉 차게 설정 */
-            object-fit: cover; /* 사진 비율을 유지하면서 영역을 꽉 채움 (잘림 발생 가능) */
+            height: 100%; /* 높이를 꽉 채움 */
+            width: auto; /* 너비는 비율대로 */
             display: block; 
             border-radius: 10px; 
         }
         .spice-title { position: fixed; top: 130px; left: 50px; font-size: 10px; color: #aaa; z-index: 5; }
+
+        /* --- 6. 확대 보기 (Lightbox) --- */
+        #imageLightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(242, 242, 242, 0.7);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 10000; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+        .lightbox-glass {
+            position: relative; width: auto; max-width: 90%; height: auto; max-height: 85%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(25px) saturate(180%); -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 30px; border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .lightbox-glass img { width: auto; height: auto; max-width: 100%; max-height: 100%; border-radius: 20px; }
+        .lightbox-close {
+            position: absolute; top: 30px; right: 30px;
+            font-size: 24px; font-weight: 300; color: #000;
+            cursor: pointer; z-index: 10001; line-height: 1;
+        }
 
         #wipContent { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: none; align-items: center; justify-content: center; z-index: 10; }
         .glass-pill { padding: 18px 45px; border-radius: 50px; font-size: 14px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.5); }
@@ -132,7 +157,7 @@
             header { height: 70px; top: 15px; left: 15px; right: 15px; padding: 0 20px; border-radius: 35px; justify-content: space-between; }
             #sideMenu { width: 100%; }
             #spiceGallery { padding: 0 30px; }
-            .spice-item { width: 240px; height: 240px; } 
+            .spice-item { height: 240px; } 
         }
     </style>
 </head>
@@ -186,8 +211,15 @@
 
     <div id="spiceGallery" style="display: none; opacity: 0;">
         <div class="spice-title">MORPH LAB x SPICE WORLD / IMAGES</div>
-        <div class="spice-item"><img src="IMG_2587.jpg" alt=""></div>
-        <div class="spice-item"><img src="IMG_2631 2.jpg" alt=""></div>
+        <div class="spice-item clickable-img"><img src="IMG_2587.jpg" alt=""></div>
+        <div class="spice-item clickable-img"><img src="IMG_2631 2.jpg" alt=""></div>
+    </div>
+
+    <div id="imageLightbox">
+        <div class="lightbox-glass">
+            <div class="lightbox-close" id="lightboxClose">✕</div>
+            <img id="expandedImg" src="" alt="">
+        </div>
     </div>
 
     <div id="wipContent">
@@ -211,9 +243,14 @@
             spice: document.getElementById('spiceGallery')
         };
 
+        const lightbox = document.getElementById('imageLightbox');
+        const expandedImg = document.getElementById('expandedImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+
         function hideAll() {
             Object.values(sections).forEach(s => { s.style.display = 'none'; s.style.opacity = '0'; });
             sideMenu.classList.remove('active');
+            lightbox.style.display = 'none';
         }
 
         function showSection(id) {
@@ -235,6 +272,24 @@
         document.getElementById('btnLab').addEventListener('click', () => showSection('lab'));
         document.getElementById('btnArchive').addEventListener('click', () => showSection('archive'));
         document.getElementById('btnSpiceWorld').addEventListener('click', () => showSection('spice'));
+
+        document.querySelectorAll('.clickable-img').forEach(item => {
+            item.addEventListener('click', function() {
+                const imgSrc = this.querySelector('img').src;
+                expandedImg.src = imgSrc;
+                lightbox.style.display = 'flex';
+                setTimeout(() => lightbox.style.opacity = '1', 10);
+            });
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.style.opacity = '0';
+            setTimeout(() => lightbox.style.display = 'none', 400);
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) lightboxClose.click();
+        });
     </script>
 </body>
 </html>
