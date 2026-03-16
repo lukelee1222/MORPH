@@ -6,8 +6,10 @@
     <title>MORPH / TAEHAN LEE</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* 1. 기본 배경색 설정 (Light Grey) */
         body {
-            background-color: #ffffff;
+            background-color: #f2f2f2; 
             color: #000000;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             text-transform: uppercase;
@@ -18,13 +20,14 @@
             transition: background-color 0.6s ease;
         }
 
-        /* --- 1. 고정 헤더 --- */
+        /* --- 2. 고정 헤더 (리퀴드 글래스) --- */
         header {
             position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
             display: flex; align-items: center; justify-content: center;
             z-index: 1000; 
             border-radius: 50px; 
-            background: rgba(255, 255, 255, 0.12); 
+            /* 배경이 라이트 그레이이므로 투명도 조절 */
+            background: rgba(255, 255, 255, 0.2); 
             backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
@@ -35,29 +38,31 @@
         .menu-text { font-size: 14px; font-weight: 500; }
         .logo { font-weight: 500; font-size: 22px; letter-spacing: 0.6em; color: #000000; text-decoration: none; cursor: pointer; }
 
-        /* --- 2. 사이드 메뉴 --- */
+        /* --- 3. 사이드 메뉴 (조금 더 진한 그레이로 통일) --- */
         #sideMenu {
             position: fixed; top: 0; left: 0; width: 320px; height: 100vh;
-            background-color: #f7f7f7; z-index: 9999; padding: 150px 50px 50px 50px;
+            background-color: #e8e8e8; /* 메인보다 조금 더 어두운 회색 */
+            z-index: 9999; padding: 150px 50px 50px 50px;
             transform: translateX(-100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; flex-direction: column; box-shadow: 20px 0 50px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; 
+            box-shadow: 20px 0 50px rgba(0,0,0,0.03);
         }
         #sideMenu.active { transform: translateX(0); }
         .menu-item { display: block; font-size: 16px; text-decoration: none; color: #000; margin-bottom: 30px; font-weight: 400; cursor: pointer; }
         .menu-item::after { content: " →"; }
         .close-btn { position: absolute; top: 55px; right: 40px; font-size: 13px; cursor: pointer; color: #999; }
 
-        /* --- 3. 공통 섹션 스타일 --- */
-        #mainContent, #archiveContent, #labContent { margin-top: 150px; transition: opacity 0.5s ease; }
+        /* --- 4. 공통 섹션 스타일 --- */
+        #mainContent, #archiveContent, #labContent, #spiceGallery { margin-top: 150px; transition: opacity 0.5s ease; }
         .info { font-size: 14px; line-height: 1.6; }
 
-        /* --- 4. Archive Gallery (2개로 수정) --- */
+        /* --- 5. Archive Gallery --- */
         .gallery-grid {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
             max-width: 1400px; margin: 0 auto 100px auto;
         }
         .gallery-item {
-            position: relative; aspect-ratio: 16 / 10; background-color: #e8e8e8;
+            position: relative; aspect-ratio: 16 / 10; background-color: #dfdfdf;
             overflow: hidden; cursor: pointer;
         }
         .item-overlay {
@@ -72,45 +77,45 @@
         .item-text { font-size: 13px; font-weight: 500; color: #000; letter-spacing: 0.1em; text-align: center; }
         .item-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* --- 5. L.A.B (포스트잇 왼쪽 상단 배치) --- */
-        #labContent { 
-            display: flex; 
-            justify-content: flex-start; /* 왼쪽 정렬 */
-            align-items: flex-start; 
-            padding: 0 50px; /* 사이드 여백 */
-            gap: 30px; /* 포스트잇 사이 간격 */
-            flex-wrap: wrap; /* 모바일 대응 */
-        }
+        /* --- 6. L.A.B (포스트잇) --- */
+        #labContent { display: flex; justify-content: flex-start; align-items: flex-start; padding: 0 50px; gap: 30px; flex-wrap: wrap; }
         .post-it {
-            position: relative; width: 280px; height: 280px; background-color: #ffffff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); padding: 40px 20px;
+            position: relative; width: 280px; height: 280px; background-color: #ffffff; /* 흰색 유지 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 40px 20px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; transform: rotate(-1deg);
+            text-align: center; transform: rotate(-1deg); cursor: pointer;
+            transition: transform 0.3s ease;
         }
-        .post-it.empty { transform: rotate(1.5deg); } /* 두 번째 포스트잇은 살짝 다른 각도로 */
-        
-        .pin {
-            position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-            width: 12px; height: 12px; background-color: #000; border-radius: 50%;
-        }
+        .post-it:hover { transform: rotate(0deg) translateY(-5px); }
+        .post-it.empty { transform: rotate(1.5deg); cursor: default; }
+        .pin { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background-color: #000; border-radius: 50%; }
         .lab-text { font-size: 13px; color: #000; line-height: 2; text-transform: none; }
         .x-mark { font-size: 11px; margin: 5px 0; color: #888; }
         .question-mark { font-size: 30px; color: #ccc; font-weight: 300; }
 
-        /* --- 6. 기타 --- */
+        /* --- 7. 상세 갤러리 --- */
+        #spiceGallery { max-width: 1200px; margin: 150px auto 100px auto; padding: 0 20px; }
+        .spice-item { width: 100%; margin-bottom: 50px; }
+        .spice-item img { width: 100%; height: auto; display: block; }
+        .spice-title { font-size: 12px; margin-bottom: 15px; color: #888; }
+
+        /* --- 8. Work in Progress (Pill) --- */
         #wipContent { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: none; align-items: center; justify-content: center; z-index: 10; }
         .glass-pill { padding: 18px 45px; border-radius: 50px; font-size: 14px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.5); }
+        
+        /* 9. 푸터 */
         footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 100%; text-align: center; z-index: 10; }
         footer a { color: #888; text-decoration: none; }
 
-        /* 모바일 최적화 */
+        /* 모바일 대응 */
         @media (max-width: 768px) {
             header { height: 70px; top: 15px; left: 15px; right: 15px; padding: 0 20px; border-radius: 35px; justify-content: space-between; }
             .menu-trigger { position: relative; left: 0; gap: 10px; }
             .menu-text { display: none; }
             .logo { font-size: 16px; letter-spacing: 0.3em; }
-            #labContent { justify-content: center; padding: 0 20px; } /* 모바일은 중앙 정렬이 더 예뻐요 */
-            #mainContent, #archiveContent, #labContent { margin-top: 120px; }
+            #sideMenu { width: 100%; }
+            #labContent { justify-content: center; padding: 0 20px; }
+            #mainContent, #archiveContent, #labContent, #spiceGallery { margin-top: 120px; }
             .gallery-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -150,7 +155,7 @@
     </div>
 
     <div id="labContent" style="display: none; opacity: 0;">
-        <div class="post-it">
+        <div class="post-it" id="btnSpiceWorld">
             <div class="pin"></div>
             <div class="lab-text">
                 MORPH LAB<br>
@@ -163,6 +168,12 @@
             <div class="pin"></div>
             <div class="question-mark">?</div>
         </div>
+    </div>
+
+    <div id="spiceGallery" style="display: none; opacity: 0;">
+        <div class="spice-title">MORPH LAB x SPICE WORLD / IMAGES</div>
+        <div class="spice-item"><img src="images/spice1.jpg" alt=""></div>
+        <div class="spice-item"><img src="images/spice2.jpg" alt=""></div>
     </div>
 
     <div id="wipContent">
@@ -182,7 +193,8 @@
             main: document.getElementById('mainContent'),
             archive: document.getElementById('archiveContent'),
             lab: document.getElementById('labContent'),
-            wip: document.getElementById('wipContent')
+            wip: document.getElementById('wipContent'),
+            spice: document.getElementById('spiceGallery')
         };
 
         function hideAll() {
@@ -190,12 +202,13 @@
             sideMenu.classList.remove('active');
         }
 
-        function showSection(id, bgColor = "#ffffff") {
+        // 배경색을 항상 라이트 그레이(#f2f2f2)로 유지하도록 수정
+        function showSection(id) {
             hideAll();
-            body.style.backgroundColor = bgColor;
+            body.style.backgroundColor = "#f2f2f2"; 
             setTimeout(() => {
                 const s = sections[id];
-                if(id === 'archive') s.style.display = 'block';
+                if(id === 'archive' || id === 'spice') s.style.display = 'block';
                 else s.style.display = 'flex';
                 setTimeout(() => s.style.opacity = '1', 50);
             }, 300);
@@ -203,11 +216,14 @@
 
         menuBtn.addEventListener('click', () => sideMenu.classList.add('active'));
         closeBtn.addEventListener('click', () => sideMenu.classList.remove('active'));
-        logoBtn.addEventListener('click', () => showSection('main', '#ffffff'));
         
-        document.getElementById('btnSequence').addEventListener('click', () => showSection('wip', '#f2f2f2'));
-        document.getElementById('btnLab').addEventListener('click', () => showSection('lab', '#f2f2f2'));
-        document.getElementById('btnArchive').addEventListener('click', () => showSection('archive', '#f2f2f2'));
+        // 로고 클릭 시 메인으로 이동 (배경색 유지)
+        logoBtn.addEventListener('click', () => showSection('main'));
+        
+        document.getElementById('btnSequence').addEventListener('click', () => showSection('wip'));
+        document.getElementById('btnLab').addEventListener('click', () => showSection('lab'));
+        document.getElementById('btnArchive').addEventListener('click', () => showSection('archive'));
+        document.getElementById('btnSpiceWorld').addEventListener('click', () => showSection('spice'));
     </script>
 </body>
 </html>
