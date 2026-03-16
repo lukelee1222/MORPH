@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MORPH / TAEHAN LEE</title>
     <style>
-        /* 기본 설정 */
+        /* 기본 스타일 초기화 */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background-color: #f2f2f2; 
@@ -16,6 +16,7 @@
             padding: 40px;
             letter-spacing: 0.05em;
             overflow-x: hidden;
+            transition: background-color 0.6s ease;
         }
 
         /* 1. 고정 헤더 (리퀴드 글래스) */
@@ -39,38 +40,40 @@
             background-color: #e8e8e8; z-index: 9999; padding: 150px 50px 50px 50px;
             transform: translateX(-100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex; flex-direction: column; 
+            box-shadow: 20px 0 50px rgba(0,0,0,0.03);
         }
         #sideMenu.active { transform: translateX(0); }
         .menu-item { display: block; font-size: 16px; color: #000; margin-bottom: 30px; cursor: pointer; text-decoration: none; }
+        .menu-item::after { content: " →"; }
         .close-btn { position: absolute; top: 55px; right: 40px; font-size: 13px; cursor: pointer; color: #999; }
 
         /* 3. 섹션 공통 스타일 */
         .content-section { 
             margin-top: 150px; 
-            display: none; /* 기본은 숨김 */
+            display: none; /* 초기 숨김 */
             opacity: 0; 
             transition: opacity 0.5s ease;
-            width: 100%;
         }
 
-        /* 4. ARCHIVE 전용 레이아웃 */
+        /* 4. ARCHIVE 전용 갤러리 레이아웃 */
         #archiveContent {
-            display: none; /* 자바스크립트로 제어 */
-            flex-direction: row; 
+            display: none; 
             justify-content: flex-start;
             gap: 20px;
-            padding: 0 10px;
+            padding: 0 20px;
+            max-width: 1400px;
+            margin: 150px auto 0 auto;
         }
         .gallery-item {
             position: relative;
-            flex: 0 0 calc(50% - 10px); /* 2분할 레이아웃 */
+            flex: 1; /* 두 개의 박스가 같은 너비를 가짐 */
             aspect-ratio: 16 / 10;
-            background-color: #dfdfdf; /* 기본 박스 색상 */
+            background-color: #dfdfdf;
             border-radius: 4px;
             overflow: hidden;
             cursor: pointer;
         }
-        /* 리퀴드 글래스 오버레이 (마우스 올렸을 때) */
+        /* 마우스 오버 시 나타나는 리퀴드 글래스 효과 */
         .item-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255, 255, 255, 0.25);
@@ -78,12 +81,13 @@
             border: 1px solid rgba(255, 255, 255, 0.4);
             display: flex; align-items: center; justify-content: center;
             opacity: 0; transition: opacity 0.4s ease;
+            z-index: 2;
         }
         .gallery-item:hover .item-overlay { opacity: 1; }
         .item-text { font-size: 14px; color: #000; letter-spacing: 0.15em; pointer-events: none; }
 
-        /* 5. L.A.B 전용 */
-        #labContent { gap: 30px; flex-wrap: wrap; }
+        /* 5. L.A.B 섹션 */
+        #labContent { justify-content: flex-start; gap: 30px; flex-wrap: wrap; padding: 0 50px; }
         .post-it {
             position: relative; width: 280px; height: 280px; background-color: #ffffff;
             box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 40px;
@@ -92,13 +96,13 @@
         }
         .pin { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background-color: #000; border-radius: 50%; }
 
-        /* 6. 하단 인스타그램 */
+        /* 하단 정보 */
         footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; text-align: center; }
         footer a { color: #888; text-decoration: none; }
 
         @media (max-width: 768px) {
             #archiveContent { flex-direction: column; }
-            .gallery-item { flex: 0 0 auto; width: 100%; }
+            header { height: 70px; top: 15px; }
         }
     </style>
 </head>
@@ -125,10 +129,14 @@
 
     <div id="archiveContent" class="content-section">
         <div class="gallery-item">
-            <div class="item-overlay"><span class="item-text">NEXT (Alinea Group)</span></div>
+            <div class="item-overlay">
+                <span class="item-text">NEXT (ALINEA GROUP)</span>
+            </div>
         </div>
         <div class="gallery-item">
-            <div class="item-overlay"><span class="item-text">?</span></div>
+            <div class="item-overlay">
+                <span class="item-text">?</span>
+            </div>
         </div>
     </div>
 
@@ -155,7 +163,7 @@
                 s.style.opacity = '0';
             });
             
-            // 선택한 섹션 보이기
+            // 타겟 섹션 활성화
             const target = document.getElementById(id);
             if(id === 'archiveContent' || id === 'labContent') {
                 target.style.display = 'flex';
@@ -163,10 +171,12 @@
                 target.style.display = 'block';
             }
             
+            // 부드러운 페이드인
             setTimeout(() => { target.style.opacity = '1'; }, 50);
             sideMenu.classList.remove('active');
         }
 
+        // 메뉴 제어
         document.getElementById('menuBtn').onclick = () => sideMenu.classList.add('active');
         document.getElementById('closeBtn').onclick = () => sideMenu.classList.remove('active');
     </script>
