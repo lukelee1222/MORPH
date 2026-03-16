@@ -119,17 +119,22 @@
         .lab-text { font-size: 13px; color: #000; line-height: 2; text-transform: none; }
         .question-mark { font-size: 40px; color: #ccc; font-weight: 300; }
 
-        /* --- 6. Spice World & 라이트박스 --- */
-        #spiceGallery { 
+        /* --- 6. Spice World & NEXT ALINEA 공통 리퀴드 스타일 --- */
+        #spiceGallery, #nextAlineaContent { 
             display: none; flex-direction: row; justify-content: flex-start; align-items: flex-start;
             gap: 30px; padding: 0 50px; overflow-x: auto; 
+            scrollbar-width: none; /* 파이어폭스 스크롤 숨김 */
         }
-        .spice-item { 
-            flex: 0 0 auto; height: 280px; width: auto; 
+        #spiceGallery::-webkit-scrollbar, #nextAlineaContent::-webkit-scrollbar { display: none; } /* 크롬 스크롤 숨김 */
+
+        .spice-item, .next-experience-item { 
+            flex: 0 0 auto; height: 350px; width: auto; 
             background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.5); padding: 15px; border-radius: 20px; cursor: pointer;
+            transition: transform 0.3s ease;
         }
-        .spice-item img { height: 100%; width: auto; display: block; border-radius: 10px; }
+        .spice-item:hover, .next-experience-item:hover { transform: translateY(-5px); }
+        .spice-item img, .next-experience-item img { height: 100%; width: auto; display: block; border-radius: 10px; }
 
         #imageLightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -162,19 +167,6 @@
             border: 1px solid rgba(255,255,255,0.5); display: inline-block; 
             pointer-events: auto;
         }
-
-        /* --- 8. NEXT ALINEA 상세 페이지 전용 갤러리 --- */
-        #nextAlineaContent {
-            display: none; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 40px;
-            max-width: 1200px; margin: 180px auto 0;
-        }
-        .next-gallery-item {
-            width: 300px; height: 400px; background: #fff; border-radius: 20px;
-            overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            cursor: pointer; transition: transform 0.4s ease;
-        }
-        .next-gallery-item:hover { transform: translateY(-10px); }
-        .next-gallery-item img { width: 100%; height: 100%; object-fit: cover; }
         
         footer { position: fixed; bottom: 30px; left: 0; width: 100%; font-size: 11px; text-align: center; z-index: 10; }
         footer a { color: #888; text-decoration: none; }
@@ -192,6 +184,7 @@
             .gallery-item { width: 100%; }
             #labContent { justify-content: center; } 
             .post-it { width: 100%; max-width: 300px; height: 300px; }
+            .spice-item, .next-experience-item { height: 280px; }
         }
     </style>
 </head>
@@ -231,9 +224,10 @@
     </div>
 
     <div id="nextAlineaContent" class="content-section">
-        <div class="next-gallery-item clickable-img"><img src="IMG_1673.jpg" alt="Next Experience 1"></div>
-        <div class="next-gallery-item clickable-img"><img src="PHOTO_2.jpg" alt="Next Experience 2"></div>
-        <div class="next-gallery-item clickable-img"><img src="PHOTO_3.jpg" alt="Next Experience 3"></div>
+        <div class="next-experience-item clickable-img"><img src="NEXT%20BLUE.jpg" alt="Next Blue"></div>
+        <div class="next-experience-item clickable-img"><img src="NEXT%20Small%20Green.jpg" alt="Next Small Green"></div>
+        <div class="next-experience-item clickable-img"><img src="NEXT%20Big%20Green.jpg" alt="Next Big Green"></div>
+        <div class="next-experience-item clickable-img"><img src="NEXT%20Dessert.jpg" alt="Next Dessert"></div>
     </div>
 
     <div id="labContent" class="content-section">
@@ -279,7 +273,7 @@
             const target = document.getElementById(id);
             if (!target) return;
 
-            // flex 레이아웃을 사용해야 하는 섹션들 목록
+            // 가로 스크롤 레이아웃(flex)을 사용해야 하는 섹션들 목록
             const flexSections = ['archiveContent', 'labContent', 'spiceGallery', 'wipContent', 'nextAlineaContent'];
             
             if (flexSections.includes(id)) {
@@ -292,7 +286,7 @@
             sideMenu.classList.remove('active');
         }
 
-        // 이미지 클릭 시 라이트박스 오픈 로직을 클래스로 통합 관리
+        // 이미지 클릭 시 라이트박스 오픈 로직
         document.addEventListener('click', function(e) {
             const item = e.target.closest('.clickable-img');
             if (item) {
