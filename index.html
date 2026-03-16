@@ -1,219 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MORPH / TAEHAN LEE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MORPH - L.A.B</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background-color: #ffffff;
-            color: #000000;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            text-transform: uppercase;
-            -webkit-font-smoothing: antialiased;
-            padding: 40px;
-            letter-spacing: 0.05em;
-            overflow-x: hidden;
-            transition: background-color 0.6s ease;
+        /* 기본 스타일 초기화 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
         }
 
-        /* --- 1. 고정 헤더 --- */
+        /* 헤더 부분 (기존 디자인 유지) */
         header {
-            position: fixed; top: 25px; left: 25px; right: 25px; height: 90px;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 1000; 
-            border-radius: 50px; 
-            background: rgba(255, 255, 255, 0.12); 
-            backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
-        }
-        
-        .menu-trigger { 
-            position: absolute; left: 50px; 
-            display: flex; align-items: center; cursor: pointer; gap: 15px; 
-        }
-        .burger-icon { display: flex; flex-direction: column; gap: 5px; }
-        .burger-icon span { display: block; width: 25px; height: 2px; background-color: #000000; }
-        .menu-text { font-size: 14px; font-weight: 500; }
-        
-        .logo { 
-            font-weight: 500; font-size: 22px; letter-spacing: 0.6em; 
-            color: #000000; text-decoration: none; cursor: pointer; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: white;
+            border-bottom: 1px solid #eee;
         }
 
-        /* --- 2. 왼쪽 사이드 메뉴 --- */
-        #sideMenu {
-            position: fixed; top: 0; left: 0; width: 320px; height: 100vh;
-            background-color: #f7f7f7; 
-            z-index: 9999; padding: 150px 50px 50px 50px;
-            transform: translateX(-100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; flex-direction: column; 
-            box-shadow: 20px 0 50px rgba(0,0,0,0.05);
+        .logo {
+            font-size: 24px;
+            letter-spacing: 8px;
+            font-weight: bold;
         }
-        #sideMenu.active { transform: translateX(0); }
-        .menu-item { display: block; font-size: 16px; text-decoration: none; color: #000; margin-bottom: 30px; font-weight: 400; cursor: pointer; }
-        .menu-item::after { content: " →"; }
-        .close-btn { position: absolute; top: 55px; right: 40px; font-size: 13px; cursor: pointer; color: #999; }
 
-        /* --- 3. 공통 섹션 스타일 --- */
-        #mainContent, #archiveContent, #labContent { margin-top: 150px; transition: opacity 0.5s ease; }
-        .info { font-size: 14px; line-height: 1.6; }
+        /* 메인 컨텐츠 영역 */
+        .main-content {
+            padding: 40px;
+        }
 
-        /* --- 4. Archive Gallery --- */
-        .gallery-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
-            max-width: 1400px; margin: 0 auto 100px auto;
+        /* 1. 상단 사각형 2개 레이아웃 */
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2열 배치 */
+            gap: 20px;
+            margin-bottom: 50px;
         }
-        .gallery-item {
-            position: relative; aspect-ratio: 16 / 10; background-color: #e8e8e8;
-            overflow: hidden; cursor: pointer;
-        }
-        .item-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.2); 
-            backdrop-filter: blur(15px) saturate(150%); -webkit-backdrop-filter: blur(15px) saturate(150%);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.4s ease; z-index: 2;
-        }
-        .gallery-item:hover .item-overlay { opacity: 1; }
-        .item-text { font-size: 13px; font-weight: 500; color: #000; letter-spacing: 0.1em; text-align: center; }
-        .item-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* --- 5. L.A.B (포스트잇 문구 업데이트) --- */
-        #labContent { display: flex; justify-content: center; align-items: flex-start; min-height: 80vh; }
+        .image-box {
+            background-color: #e0e0e0;
+            aspect-ratio: 16 / 9; /* 사각형 비율 유지 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 2. L.A.B 포스트잇 영역 (왼쪽 상단 배치) */
+        .lab-section {
+            display: flex;
+            justify-content: flex-start; /* 왼쪽 정렬 */
+            align-items: flex-start;    /* 상단 정렬 */
+            gap: 20px;                 /* 포스트잇 사이 간격 */
+            margin-top: 30px;
+        }
+
+        /* 포스트잇 기본 디자인 */
         .post-it {
-            position: relative; width: 300px; height: 300px; background-color: #ffffff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); padding: 40px 20px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; transform: rotate(-1deg);
+            width: 200px;
+            height: 200px;
+            background-color: #ffffff; /* 흰색 빈 포스트잇 느낌 */
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            position: relative;
         }
-        .pin {
-            position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-            width: 12px; height: 12px; background-color: #000; border-radius: 50%;
-        }
-        /* 텍스트 스타일: 소문자(project.s) 허용을 위해 text-transform: none 적용 */
-        .lab-text { 
-            font-size: 13px; color: #000; line-height: 2; font-weight: 400; 
-            text-transform: none; /* 소문자 표기를 위해 추가 */
-        }
-        .x-mark { font-size: 11px; margin: 5px 0; color: #888; }
 
-        /* --- 6. 기타 --- */
-        #wipContent { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; display: none; align-items: center; justify-content: center; z-index: 10; }
-        .glass-pill { padding: 18px 45px; border-radius: 50px; font-size: 14px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.5); }
-        footer { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 13px; width: 100%; text-align: center; z-index: 10; }
-        footer a { color: #888; text-decoration: none; }
+        /* 3. 물음표 포스트잇 스타일 */
+        .post-it.question-mark {
+            font-size: 40px;
+            color: #ccc;
+            font-weight: 300;
+        }
 
-        /* --- 모바일 최적화 --- */
-        @media (max-width: 768px) {
-            header { height: 70px; top: 15px; left: 15px; right: 15px; padding: 0 20px; border-radius: 35px; justify-content: space-between; }
-            .menu-trigger { position: relative; left: 0; gap: 10px; }
-            .menu-text { display: none; }
-            .logo { font-size: 16px; letter-spacing: 0.3em; }
-            #sideMenu { width: 100%; background-color: #f7f7f7; }
-            .gallery-grid { grid-template-columns: 1fr; }
-            #mainContent, #archiveContent, #labContent { margin-top: 120px; }
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 12px;
+            color: #999;
         }
     </style>
 </head>
-<body id="body">
+<body>
 
     <header>
-        <div class="menu-trigger" id="menuBtn">
-            <div class="burger-icon"><span></span><span></span><span></span></div>
-            <div class="menu-text">MENU</div>
-        </div>
-        <div class="logo" id="logoBtn">MORPH</div>
+        <div class="menu-btn">☰ MENU</div>
+        <div class="logo">M O R P H</div>
+        <div class="empty"></div>
     </header>
 
-    <div id="sideMenu">
-        <div class="close-btn" id="closeBtn">CLOSE</div>
-        <div class="menu-item" id="btnSequence">SEQUENCE 1.0</div>
-        <div class="menu-item" id="btnLab">L.A.B</div>
-        <div class="menu-item" id="btnArchive">ARCHIVE</div>
-    </div>
-
-    <div id="mainContent">
-        <div class="info">TAEHAN LEE<br>NEW YORK, US</div>
-    </div>
-
-    <div id="archiveContent" style="display: none; opacity: 0;">
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <div class="item-overlay"><span class="item-text">NEXT (Alinea Group)</span></div>
-                <img src="images/project1.jpg" class="item-img" alt="">
+    <main class="main-content">
+        <div class="image-grid">
+            <div class="image-box">
+                <img src="your-image-1.jpg" alt="준비중">
             </div>
-            <div class="gallery-item">
-                <div class="item-overlay"><span class="item-text">?</span></div>
-                <img src="images/project2.jpg" class="item-img" alt="">
-            </div>
-            <div class="gallery-item">
-                <div class="item-overlay"><span class="item-text">?</span></div>
-            </div>
-            <div class="gallery-item">
-                <div class="item-overlay"><span class="item-text">?</span></div>
+            <div class="image-box">
+                <img src="your-image-2.jpg" alt="준비중">
             </div>
         </div>
-    </div>
 
-    <div id="labContent" style="display: none; opacity: 0;">
-        <div class="post-it">
-            <div class="pin"></div>
-            <div class="lab-text">
-                MORPH LAB<br>
-                <div class="x-mark">x</div>
-                SPICE WORLD<br>
-                project.s
+        <div class="lab-section">
+            <div class="post-it">
+                <p>기존 작업물 또는 내용</p>
+            </div>
+
+            <div class="post-it question-mark">
+                ?
             </div>
         </div>
-    </div>
+    </main>
 
-    <div id="wipContent">
-        <div class="glass-pill">WORK IN PROGRESS</div>
-    </div>
+    <footer>
+        INSTAGRAM @MORPH_L.A.B
+    </footer>
 
-    <footer><a href="https://www.instagram.com/morph_l.a.b/" target="_blank">INSTAGRAM @MORPH_L.A.B</a></footer>
-
-    <script>
-        const body = document.getElementById('body');
-        const menuBtn = document.getElementById('menuBtn');
-        const closeBtn = document.getElementById('closeBtn');
-        const sideMenu = document.getElementById('sideMenu');
-        const logoBtn = document.getElementById('logoBtn');
-        
-        const sections = {
-            main: document.getElementById('mainContent'),
-            archive: document.getElementById('archiveContent'),
-            lab: document.getElementById('labContent'),
-            wip: document.getElementById('wipContent')
-        };
-
-        function hideAll() {
-            Object.values(sections).forEach(s => { s.style.display = 'none'; s.style.opacity = '0'; });
-            sideMenu.classList.remove('active');
-        }
-
-        function showSection(id, bgColor = "#ffffff") {
-            hideAll();
-            body.style.backgroundColor = bgColor;
-            setTimeout(() => {
-                const s = sections[id];
-                if(id === 'archive') s.style.display = 'block';
-                else s.style.display = 'flex';
-                setTimeout(() => s.style.opacity = '1', 50);
-            }, 300);
-        }
-
-        menuBtn.addEventListener('click', () => sideMenu.classList.add('active'));
-        closeBtn.addEventListener('click', () => sideMenu.classList.remove('active'));
-        logoBtn.addEventListener('click', () => showSection('main', '#ffffff'));
-        
-        document.getElementById('btnSequence').addEventListener('click', () => showSection('wip', '#f2f2f2'));
-        document.getElementById('btnLab').addEventListener('click', () => showSection('lab', '#f2f2f2'));
-        document.getElementById('btnArchive').addEventListener('click', () => showSection('archive', '#f2f2f2'));
-    </script>
 </body>
 </html>
