@@ -86,8 +86,9 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; transform: rotate(-1deg); cursor: pointer; transition: transform 0.3s ease;
         }
-        .post-it:hover { transform: rotate(0deg) translateY(-5px); }
-        .post-it.empty { transform: rotate(1.5deg); cursor: default; }
+        .post-it:hover { transform: rotate(0deg) translateY(-5px) !important; }
+.post-it.empty { transform: rotate(2deg) !important; cursor: default; }
+.post-it.empty:hover { transform: rotate(0deg) translateY(-5px) !important; }
         .pin { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background-color: #000; border-radius: 50%; }
         .lab-text { font-size: 13px; color: #000; line-height: 2; text-transform: none; }
         .question-mark { font-size: 40px; color: #ccc; font-weight: 300; }
